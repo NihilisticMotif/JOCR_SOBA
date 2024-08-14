@@ -1,3 +1,412 @@
+def Threshold(img,threshold_px,output_px,Mode='default'):
+    # px = pixel
+    # https://www.geeksforgeeks.org/python-thresholding-techniques-using-opencv-set-1-simple-thresholding/
+    # https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html
+    # https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576a147222a96556ebc1d948b372bcd7ac59
+    img=GrayImage(img)
+    if type(Mode)==int:
+        Mode=str(Mode)
+    if type(Mode)==str:
+        
+        if 'default' in Mode.lower() or Mode == '1' or ('binary' in Mode.lower() and 'inv' not in Mode.lower()):
+            # if px > threshold_px then px = output_px else px = 0
+            return cv2.threshold(img,threshold_px,output_px,cv2.THRESH_BINARY)
+        
+        if Mode == '2' or ('binary' in Mode.lower() and 'inv' in Mode.lower()):
+            # if px < threshold_px then px = output_px else px = 0
+            return cv2.threshold(img,threshold_px,output_px,cv2.THRESH_BINARY_INV)
+        
+        if Mode == '3' or ('trunc' in Mode):
+            # if px > threshold_px then px = threshold_px else px = px
+            return cv2.threshold(img,threshold_px,output_px,cv2.THRESH_TRUNC)
+        
+        if Mode == '4' or (('zero' in Mode.lower() or '0' in Mode.lower()) and 'inv' not in Mode.lower()):
+            # if px > threshold_px then px = px else px = 0
+            return cv2.threshold(img,threshold_px,output_px,cv2.THRESH_TOZERO)
+        
+        if Mode == '5' or (('zero' in Mode.lower() or '0' in Mode.lower()) and 'inv' in Mode.lower()):
+            # if px > threshold_px then px = 0 else px = px
+            return cv2.threshold(img,threshold_px,output_px,cv2.THRESH_TOZERO_INV)
+        
+        else:
+            return cv2.threshold(img,threshold_px,output_px,cv2.THRESH_BINARY)
+    else:
+        return cv2.threshold(img,threshold_px,output_px,cv2.THRESH_BINARY)
+ 
+video
+ 
+mean
+ 
+def AdaptiveTruncatedPx01(img,area,C=2,max_px=255,IsInverse=False):
+    return cv2.adaptiveThreshold(img,max_px,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_TRUNC,area,C)
+
+def AdaptiveTruncatedPx02(img,area,C=2,max_px=255,IsInverse=False):
+    return cv2.adaptiveThreshold(img,max_px,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_TRUNC,area,C)
+ 
+def AdaptiveBinaryPx01(img,area,C=2,max_px=255,IsInverse=False):
+    if IsInverse==False:
+        return cv2.adaptiveThreshold(img,max_px,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,area,C)
+    else:
+        return cv2.adaptiveThreshold(img,max_px,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY_INV,area,C)
+
+def AdaptiveBinaryPx02(img,area,C=2,max_px=255,IsInverse=False):
+    if IsInverse==False:
+        return cv2.adaptiveThreshold(img,max_px,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,area,C)
+    else:
+        return cv2.adaptiveThreshold(img,max_px,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY_INV,area,C)
+ 
+if IsInverse==False:
+        
+ 
+    else:
+        return cv2.adaptiveThreshold(img,max_px,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY_INV,area,C)
+ 
+    else:
+        return cv2.adaptiveThreshold(img,max_px,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY_INV,area,C)
+ 
+if IsInverse==False:
+        
+ 
+v2.THRESH_BINARY
+ 
+Mode=cv2.ADAPTIVE_THRESH_MEAN,
+ 
+,100
+ 
+inaryP
+ 
+    print(img)
+ 
+pilimg = Image.open(img_path)
+print(type(img2))
+print(show.DescribeImage(img_path,'size'))
+img3 = edit.RotateImage(img2,120)
+ 
+
+show.SaveImage(img3,"Rotate")
+ 
+# if px > threshold_px then px = px else px = 0
+ 
+Threshold
+ 
+_Binary
+ 
+threshold_
+ 
+ == 'default'
+ 
+ not
+ 
+Mode==3
+ 
+==2
+ 
+ in ['default','binary',ss+'binary',ss+' binary',ss+'_binary']
+ 
+    if Mode==0:
+        return cv2.threshold(img,dark,light,cv2.THRESH_BINARY)
+ 
+def GrayImage(img):
+    return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+def InvertedImage(img):
+    return cv2.bitwise_not(img)
+ 
+Image
+ 
+Image
+ 
+Image
+ 
+    #kernel = np.array([[-0.1,-0.1,-0.1], [-0.1,1.8,-0.1], [-0.1,-0.1,-0.1]])
+    #k3=0    # 24
+ 
+import cv2
+import numpy as np
+from PIL import Image 
+ 
+,'02'
+ 
++index
+ 
+,index=''
+ 
+    print('What is type of img ?')
+    print(type(img))
+    # https://stackoverflow.com/questions/384759/how-do-i-convert-a-pil-image-into-a-numpy-array
+    if type(img)!=np.ndarray:
+        img=np.array(
+            img.getdata()
+            ).reshape(
+                img.size[0], 
+                img.size[1], 
+                3)
+    print(type(img))
+ 
+Image2
+ 
+
+show.ShowImage(img3)
+ 
+img3 = edit.RotateImage(img2,120)
+ 
+https://stackoverflow.com/questions/902761/saving-a-numpy-array-as-an-image
+ 
+Image2
+ 
+Numpy2
+ 
+ass
+ 
+def Numpy2Image(img):
+    i
+    return img
+ 
+if type(folder)==str:
+        img_path = folder+'/'+img_title+index+fileformat
+    else:
+        
+ 
+Image
+ 
+ as ocv
+ 
+Image
+ 
+Image
+ 
+
+######################################################################################################################
+# Create Image
+######################################################################################################################
+
+def SaveImage(img,img_title,index='',folder='Image',fileformat='.jpg'):
+    # https://stackoverflow.com/questions/902761/saving-a-numpy-array-as-an-image
+    if type(folder)==str:
+        img_path = folder+'/'+img_title+index+fileformat
+    else:
+        img_path = img+index+fileformat
+    if type(img)==np.ndarray:
+        img=Image.fromarray(img)
+    img.save(img_path)
+
+ 
+
+'''
+Name
+* img = Image
+* Use Lower case for variable.
+'''
+
+######################################################################################################################
+# Display Image
+######################################################################################################################
+
+def Show_Image(img):
+    cv2.imshow("image", img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+def Describe_Image(img_path,detail=None):
+    if type(detail)==str:
+        if detail.lower() == 'size':
+            return Image.open(img_path).size
+        elif detail.lower() == 'mode':
+            return Image.open(img_path).mode
+        elif detail.lower() == 'type':
+            return type(Image.open(img_path))
+        else:
+            return Image.open(img_path)
+    else:
+        return Image.open(img_path)
+
+def ImportTest():
+    print("This is 80000Hours Podcast.")
+
+######################################################################################################################
+# Edit Image
+######################################################################################################################
+
+ 
+else:
+        
+ 
+Image.save(
+ 
+Folder,
+ 
+def RotateImage(image,angle)
+ 
+print(ocv.Describe_Image(img_path))
+print(ocv.Describe_Image(img_path).size)
+print(ocv.Describe_Image(img_path,'SIZE'))
+print(ocv.Describe_Image(img_path,'Size'))
+print(ocv.Describe_Image(img_path,'size'))
+print(ocv.Describe_Image(img_path).mode)
+print(ocv.Describe_Image(img_path,'Mode'))
+print(ocv.Describe_Image(img_path,'MODE'))
+print(ocv.Describe_Image(img_path,'mode'))
+print(type(ocv.Describe_Image(img_path)))
+print(ocv.Describe_Image(img_path,'TYPE'))
+print(ocv.Describe_Image(img_path,'Type'))
+print(ocv.Describe_Image(img_path,'type'))
+ 
+.mode
+ 
+def Show_Image(img):
+    cv2.imshow("image", img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+def Describe_Image(ImagePath):
+    return Image.open(ImagePath)
+
+def ImportTest():
+    print("This is 80000Hours Podcast.")
+ 
+    '''
+    k0=-0.02    # 19
+    k1=-0.05    # 13
+    k2=-2     # 8
+    k3=18        # 1
+    
+    kernel = np.array([
+        [k0,k0,k0,k0,k0,k0,k0], 
+        [k0,k1,k1,k1,k1,k1,k0], 
+        [k0,k1,k2,k2,k2,k1,k0], 
+        [k0,k1,k2,k3,k2,k1,k0], 
+        [k0,k1,k2,k2,k2,k1,k0], 
+        [k0,k1,k1,k1,k1,k1,k0],
+        [k0,k0,k0,k0,k0,k0,k0]
+        ])'''
+    #kernel = np.array([[0.5,0,-0.5], [0.5,0,-0.5], [0.5,0,-0.5]])
+    #kernel = (1/(10**2))*np.ones((10,10))
+ 
+print(type(ocv.Describe_Image(img_path)))
+for i in ocv.Describe_Image(img_path):
+    print(i)
+ 
+print(img)
+ 
+    return 
+ 
+
+img = cv2.imread('image.jpg')
+
+# get grayscale image
+def get_grayscale(image):
+    return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# noise removal
+def remove_noise(image,n=5):
+    return cv2.medianBlur(image,n)
+ 
+#thresholding
+def thresholding(image):
+    return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+
+#dilation
+def dilate(image):
+    kernel = np.ones((5,5),np.uint8)
+    return cv2.dilate(image, kernel, iterations = 1)
+    
+#erosion
+def erode(image):
+    kernel = np.ones((5,5),np.uint8)
+    return cv2.erode(image, kernel, iterations = 1)
+
+#opening - erosion followed by dilation
+def opening(image,kernel=None):
+    if kernel==None:
+        kernel = np.ones((5,5),np.uint8)
+    return cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)
+
+#canny edge detection
+def canny(image):
+    return cv2.Canny(image, 100, 200)
+
+#skew correction
+def deskew(image):
+    coords = np.column_stack(np.where(image > 0))
+    angle = cv2.minAreaRect(coords)[-1]
+    if angle < -45:
+        angle = -(90 + angle)
+    else:
+        angle = -angle
+    (h, w) = image.shape[:2]
+    center = (w // 2, h // 2)
+    M = cv2.getRotationMatrix2D(center, angle, 1.0)
+    rotated = cv2.warpAffine(image, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+    return rotated
+
+#template matching
+def match_template(image, template):
+    return cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED) 
+
+def sharpen(image):
+    #kernel = np.array([[-0.1,-0.1,-0.1], [-0.1,1.8,-0.1], [-0.1,-0.1,-0.1]])
+    #k3=0    # 24
+    k2=-0.1
+    k1=-5
+    k0=-(k2*16+k1*8)+1
+    kernel = np.array([
+        [k2,k2,k2,k2,k2,], 
+        [k2,k1,k1,k1,k2,], 
+        [k2,k1,k0,k1,k2,], 
+        [k2,k1,k1,k1,k2,], 
+        [k2,k2,k2,k2,k2,]
+        ])
+    
+    '''
+    k0=-0.02    # 19
+    k1=-0.05    # 13
+    k2=-2     # 8
+    k3=18        # 1
+    
+    kernel = np.array([
+        [k0,k0,k0,k0,k0,k0,k0], 
+        [k0,k1,k1,k1,k1,k1,k0], 
+        [k0,k1,k2,k2,k2,k1,k0], 
+        [k0,k1,k2,k3,k2,k1,k0], 
+        [k0,k1,k2,k2,k2,k1,k0], 
+        [k0,k1,k1,k1,k1,k1,k0],
+        [k0,k0,k0,k0,k0,k0,k0]
+        ])'''
+    #kernel = np.array([[0.5,0,-0.5], [0.5,0,-0.5], [0.5,0,-0.5]])
+    #kernel = (1/(10**2))*np.ones((10,10))
+    # https://youtu.be/KuXjwB4LzSA?si=mt-leKGKjpMnJGfg
+    # https://www.geeksforgeeks.org/python-opencv-filter2d-function/
+    return cv2.filter2D(image, -1, kernel)
+
+def WhiteBackGround(img):
+    RangeMax=100
+    A1=1
+    Step=1
+    Start=0
+    for i in range(RangeMax):
+      mark=np.logical_and(img>Start+(i*Step)/A1,img<Start+((i+1)*Step)/A1)
+      img[mark]=Start+(i*Step)/A1
+    img[img>=Start+((RangeMax)*Step)/A1]=255
+    return img
+ 
+'/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/data01.jpg'
+ 
+'''
+
+ocv.fib()
+ 
+'''
+ 
+Library.
+ 
+OpenCV.py
+ 
+/path/to/application/app/folder
+ 
+/path/to/application/app/folder
+ 
+import exPyDH01_Page.Library.OpenCV as ocv
+ 
 pp.canny(
  
 '''

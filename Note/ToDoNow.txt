@@ -1,4 +1,7 @@
 
-1. Try to use and compare different OCR product.
-2. Find the Pain point.
-3. 
+1. Operate Addaptive Threashold Technique 
+2. Read and implement this 
+* https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html
+3. Implement other technique from this YouTube playlist 
+* https://www.youtube.com/watch?v=ADV-AjAXHdc&list=PL2VXyKi-KpYuTAZz__9KVl1jQz74bDG7i&index=4
+* https://github.com/wjbmattingly/ocr_python_textbook/blob/main/01_02_libraries.py
