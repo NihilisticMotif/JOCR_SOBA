@@ -1,0 +1,15 @@
+
+WorkFlow 
+1. Preprocessing Image 
+2. Character Location
+* Getting boxes around text
+* pytesseract.image_to_boxes    # boxes around characters
+* pytesseract.image_to_data     # boxes around words
+3. Text template matching
+4. Page Segmentation Method
+5. Detect orientation and script
+
+
+
+
+

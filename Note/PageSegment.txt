@@ -1,0 +1,37 @@
+Page segmentation modes
+There are several ways a page of text can be analysed. The tesseract api provides several page segmentation modes if you want to run OCR on only a small region or in different orientations, etc.
+
+Here's a list of the supported page segmentation modes by tesseract -
+
+0    Orientation and script detection (OSD) only.
+1    Automatic page segmentation with OSD.
+2    Automatic page segmentation, but no OSD, or OCR.
+3    Fully automatic page segmentation, but no OSD. (Default)
+4    Assume a single column of text of variable sizes.
+5    Assume a single uniform block of vertically aligned text.
+6    Assume a single uniform block of text.
+7    Treat the image as a single text line.
+8    Treat the image as a single word.
+9    Treat the image as a single word in a circle.
+10    Treat the image as a single character.
+11    Sparse text. Find as much text as possible in no particular order.
+12    Sparse text with OSD.
+13    Raw line. Treat the image as a single text line, bypassing hacks that are Tesseract-specific.
+
+To change your page segmentation mode, change the --psm argument in your custom config string to any of the above mentioned mode codes.
+
+'''
+osd = pytesseract.image_to_osd(img)
+angle = re.search('(?<=Rotate: )\d+', osd).group(0)
+script = re.search('(?<=Script: )\d+', osd).group(0)
+print("angle: ", angle)
+print("script: ", script)
+'''
+
+'''
+custom_config = r'--oem 3 --psm 6 outputbase digits'
+print(pytesseract.image_to_string(img, config=custom_config))
+'''
+
+Reference
+* https://pyimagesearch.com/2021/11/15/tesseract-page-segmentation-modes-psms-explained-how-to-improve-your-ocr-accuracy/

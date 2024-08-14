@@ -1,0 +1,25 @@
+
+How to create Python Virtual Environment ?
+* python3 -m venv .venv
+
+How to activate Python Virtual Environment ?
+* source .venv/bin/activate 
+
+How to install package from requirements.txt ?
+* pip install -r requirements.txt
+
+How to create requirements.txt file ?
+* pip freeze > requirements.txt
+
+How to create requirements.txt file that only include used package ?
+* pipreqs --force
+
+Reference
+1. How To Create & Activate A Virtual Environment In Visual Studio Code (Python 3.12)
+* https://youtu.be/hC5rfoIY8nU?si=uvCDjfqX31QCOUs3
+2. How to use requirements.txt file ?
+* https://youtu.be/BXPzbH0LYz4?si=MPzdJpAeTWfopQlI
+3. Unfinished project
+* https://github.com/NihilisticMotif/JOCR/blob/main/jocreactypescript/flask/PyTesseract.py
+
+

@@ -1,0 +1,8 @@
+
+Learning Resource
+1. OCR in Python (YouTube playlist)
+* https://www.youtube.com/watch?v=tQGgGY8mTP0&list=PL2VXyKi-KpYuTAZz__9KVl1jQz74bDG7i
+2. OCR Tutorial Website
+* https://nanonets.com/blog/ocr-with-tesseract/
+
+
