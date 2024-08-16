@@ -8,6 +8,8 @@ def Sharpen(img,ls=[-0.1,-5],center_px=None):
     # https://youtu.be/KuXjwB4LzSA?si=mt-leKGKjpMnJGfg
     # https://www.geeksforgeeks.org/python-opencv-filter2d-function/
     # Edge Detection
+    # Time : O(n^2)
+    # Space: O(n^2)
     kernel_area=len(ls)*2+1
     kernel = np.ones((kernel_area,kernel_area))
     for i in range(len(ls)):

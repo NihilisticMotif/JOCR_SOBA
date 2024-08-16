@@ -1,3 +1,23 @@
+ https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html
+ 
+    M = cv2.getRotationMatrix2D(center, angle, 1.0)
+ 
+    return img
+ 
+    newImage = cvImage.copy()
+ 
+    thresh = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+ 
+    # blur = Convolution.GaussBlur(gray)
+ 
+    # blur = Convolution.GaussBlur(gray)
+ 
+    blur = cv2.GaussianBlur(gray, (9, 9), 0)
+ 
+    # Apply dilate to merge text into meaningful lines/paragraphs.
+    # Use larger kernel on X axis to merge characters into single line, cancelling out any spaces.
+    # But use smaller kernel on Y axis to separate between different blocks of text
+ 
 def Rotate(img,angle):
     img = Numpy2Image(img)
     return img.rotate(angle)
