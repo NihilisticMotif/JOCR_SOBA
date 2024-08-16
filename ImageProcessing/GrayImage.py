@@ -1,0 +1,32 @@
+from PIL import Image, ImageStat
+from Utility import Numpy2Image, Image2Numpy
+import numpy as np 
+import cv2
+
+def IsGray(img):
+    # https://youtu.be/jB4hcxdw0Lg?si=zjhbfefsFRRpOrl-
+    # https://youtu.be/j-01cO73qRU?si=-ldaSdr217k9dj_1
+    if len(img.shape) == 2:
+        return True
+    elif len(img.shape) == 3:
+        return False
+    else:
+        # https://youtu.be/mI9FIugGIZQ?si=hoC_FHJpn5zA83Kv
+        print('Absolute Genderless (Gonadal dysgenesis) : 1 in 150,000')
+        print('img has Invalid Shape')
+        print('Report by ImageProcessing / EditImage.py / def IsGray')
+        return False
+
+def GrayImage(img):
+    img_check=img 
+    if IsGray(img_check):
+        return img
+    else:
+        return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+def InvertedImage(img):
+    return cv2.bitwise_not(img)
+
+
+
+

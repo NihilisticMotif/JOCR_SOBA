@@ -1,5 +1,5 @@
 
-1. Operate Addaptive Threashold Technique 
+1. Fix Rotation.py 
 2. Read and implement this 
 * https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html
 3. Implement other technique from this YouTube playlist 

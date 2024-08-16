@@ -1,3 +1,271 @@
+def Rotate(img,angle):
+    img = Numpy2Image(img)
+    return img.rotate(angle)
+ 
+Image
+ 
+
+def Rotate(img,angle):
+    img = Numpy2Image(img)
+    return img.rotate(angle)
+
+ 
+def Deskew(cvImage):
+    angle = GetSkewAngle(cvImage)
+    return RotateImage(cvImage, -1.0 * angle)
+ 
+import PIL
+ 
+def NormalDistribution(x,std=1,mean=0):
+    std2=std**2
+    coefficient = 1/( (2*np.pi*std2)**(1/2) )
+    power = -1*( (x-mean)**2 )/( 2*std2 )
+    return coefficient*np.exp(power)
+
+def ChessGaussBlur(img,std=0.1,mean=0.3,kernel_area=3,center_px='None'):
+    ls=[]
+    for i in range(kernel_area):
+        ls.append(NormalDistribution(i,std,mean))
+    if center_px.lower() == 'default':
+           center_px=center_px
+    elif not isinstance(center_px, (int, float)):
+        center_px = NormalDistribution(len(ls),std,mean)
+    return Sharpen(img,ls,center_px=center_px)
+
+ 
+'''
+img = Input Image 
+* (PIL.Image.Image or np.ndarray)
+
+px = Pixel
+'''
+
+ 
+    print('ls',ls)
+    print('center_px',center_px)
+ 
+,center_px='None'
+ 
+        print('Hello Ema')
+ 
+    else:
+       print('Hello Ami')
+ 
+    if center_px==None:
+       center_px=center_px
+ 
+    # https://youtu.be/KuXjwB4LzSA?si=mt-leKGKjpMnJGfg
+    # https://www.geeksforgeeks.org/python-opencv-filter2d-function/
+ 
+'''
+def Sharpen(img,k0=None,k1=-5,k2=-0.1):
+    # Detecting edge
+    if k0==None:
+        k0=1-(k2*16+k1*8)
+    kernel = np.array([
+        [k2,k2,k2,k2,k2,], 
+        [k2,k1,k1,k1,k2,], 
+        [k2,k1,k0,k1,k2,], 
+        [k2,k1,k1,k1,k2,], 
+        [k2,k2,k2,k2,k2,]
+        ])
+    print(k0)
+    # https://youtu.be/KuXjwB4LzSA?si=mt-leKGKjpMnJGfg
+    # https://www.geeksforgeeks.org/python-opencv-filter2d-function/
+    return cv2.filter2D(img, -1, kernel)
+'''
+ 
+    '''
+ 
+'''
+ 
+'''
+ 
+,effect=10
+ 
+Adaptive
+ 
+* kernel_area = pixel area, must be odd number greater than 1 
+    to include both center and border.
+ 
+where it is used for activated
+ 
+ value
+ 
+kernel_area=OddKernelArea(kernel_area)
+ 
+kernel_area=OddKernelArea(kernel_area)
+ 
+img=
+ 
+show.ShowImage(img)
+ 
+    kernel = np.array([
+        [k2,k2,k2,k2,k2,], 
+        [k2,k1,k1,k1,k2,], 
+        [k2,k1,k0,k1,k2,], 
+        [k2,k1,k1,k1,k2,], 
+        [k2,k2,k2,k2,k2,]
+        ])
+ 
+    if k0==None:
+        k0=k2
+ 
+k0=None
+ 
+k2=-0.1
+ 
+,210
+ 
+img=Border.CreateBorders(img,color=[255,0,0],IsGray=False)
+ 
+    k1=-5
+ 
+    k2=-0.1
+ 
+def Sharpen(img):
+    k2=-0.1
+    k1=-5
+    k0=-(k2*16+k1*8)+1
+    kernel = np.array([
+        [k2,k2,k2,k2,k2,], 
+        [k2,k1,k1,k1,k2,], 
+        [k2,k1,k0,k1,k2,], 
+        [k2,k1,k1,k1,k2,], 
+        [k2,k2,k2,k2,k2,]
+        ])
+    # https://youtu.be/KuXjwB4LzSA?si=mt-leKGKjpMnJGfg
+    # https://www.geeksforgeeks.org/python-opencv-filter2d-function/
+    return cv2.filter2D(img, -1, kernel)
+ 
+-> float
+ 
+as bd
+ 
+    img = cv2.copyMakeBorder(img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color)
+    return img
+ 
+color = [255, 255, 255]
+top, bottom, left, right = [150]*4
+
+image_with_border = cv2.copyMakeBorder(no_borders, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color)
+cv2.imwrite("temp/image_with_border.jpg", image_with_border)
+display("temp/image_with_border.jpg")
+ 
+color = [255, 255, 255]
+ 
+,210
+ 
+ImageProcessing.
+ 
+ImageProcessing.
+ 
+ImageProcessing.
+ 
+import EditImage as edit
+ 
+kernel = np.ones((2,2),np.uint8)
+ 
+import numpy as np
+ 
+    import numpy as np
+ 
+print('Absolute Genderless')
+ 
+# https://stackoverflow.com/questions/60783350/python-fastest-way-to-check-if-image-is-greyscale-or-color
+    
+ 
+    img=Numpy2Image(img)
+    stat = ImageStat.Stat(img)#.convert("BGR")
+ 
+    # 
+ 
+https://youtu.be/XY9PmBNb3PE?si=Nk8imVOupy4dlSnM
+ 
+        #if grayscale
+ 
+#else its colour
+ 
+#if grayscale
+ 
+ #check the avg with any element value
+ 
+    im = Image.open(path).convert("BGR")
+ 
+kernel = np.ones((1, 1), np.uint8)
+ 
+    kernel = np.ones((1, 1), np.uint8)
+ 
+import numpy as np
+ 
+def Rotate(img,angle):
+    img = Numpy2Image(img)
+    return img.rotate(angle)
+ 
+    #img=Image2Numpy(img)
+ 
+    # Consider an image with only two distinct image values (bimodal image), 
+    # where the histogram would only consist of two peaks. 
+    # A good threshold would be in the middle of those two values. 
+    # Similarly, Otsu's method determines an optimal global threshold value from the image histogram.
+    
+    # Limitation of Otsu Method
+    # 1. If object area is much smaller compared to background area
+    # 2. Image is very noisy
+    # 3. Image contains area with different discrete intensities
+    # https://youtu.be/jUUkMaNuHP8?si=QnxBvTdVhQW3VTqR
+ 
+if IsInverse==False:
+        
+ 
+    else:
+        return cv2.threshold(img,0,max_px,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)[1]
+ 
+    # Consider an image with only two distinct image values (bimodal image), 
+    # where the histogram would only consist of two peaks. 
+    # A good threshold would be in the middle of those two values. 
+    # Similarly, Otsu's method determines an optimal global threshold value from the image histogram.
+    
+    # Limitation of Otsu Method
+    # 1. If object area is much smaller compared to background area
+    # 2. Image is very noisy
+    # 3. Image contains area with different discrete intensities
+    # https://youtu.be/jUUkMaNuHP8?si=QnxBvTdVhQW3VTqR
+ 
+def AdaptiveOtsuBinaryPx(img,area=10,C=2,max_px=255,IsInverse=False):
+    img=GrayImage(img)
+    if IsInverse==False:
+        return cv2.adaptiveThreshold(img,max_px,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY+cv2.THRESH_OTSU,area,C)
+    else:
+        return cv2.adaptiveThreshold(img,max_px,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU,area,C)
+
+ 
+tsuBinaryPx
+ 
+        cv2.adaptiveThreshold(img,max_px,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,area,C)
+        cv2.adaptiveThreshold(img,max_px,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY+cv2.THRESH_OTSU,area,C)
+ 
+    # Consider an image with only two distinct image values (bimodal image), 
+    # where the histogram would only consist of two peaks. 
+    # A good threshold would be in the middle of those two values. 
+    # Similarly, Otsu's method determines an optimal global threshold value from the image histogram.
+    
+    # Limitation of Otsu Method
+    # 1. If object area is much smaller compared to background area
+    # 2. Image is very noisy
+    # 3. Image contains area with different discrete intensities
+    # https://youtu.be/jUUkMaNuHP8?si=QnxBvTdVhQW3VTqR
+ 
+min_px=0
+ 
+def OtsuBinaryPx(img):
+    img=GrayImage(img)
+
+ 
+,IsInverse=False
+ 
+,IsInverse=False
+ 
 def Threshold(img,threshold_px,output_px,Mode='default'):
     # px = pixel
     # https://www.geeksforgeeks.org/python-thresholding-techniques-using-opencv-set-1-simple-thresholding/

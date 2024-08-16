@@ -1,6 +1,5 @@
 import numpy as np
 from PIL import Image 
-import PIL
 
 def Numpy2Image(img):
     # https://stackoverflow.com/questions/10965417/how-to-convert-a-numpy-array-to-pil-image-applying-matplotlib-colormap
@@ -10,6 +9,16 @@ def Numpy2Image(img):
 
 def Image2Numpy(img):
     return np.array(img)
+
+def OddKernelArea(num):
+    num=int(num)
+    if num<3:
+        return 3 
+    else:
+        if num%2==1:
+            return num 
+        else:
+            return num+1
 
 '''
 Reference
