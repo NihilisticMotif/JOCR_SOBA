@@ -1,3 +1,427 @@
+ircle
+ 
+
+def FFTSharpen02(img,updated_rows,updated_cols,new_frequency=0,mode=0):
+    pass
+
+def FFTBlur01(img,updated_rows,updated_cols,new_frequency=0,mode=0):
+    pass
+
+def FFTBlur02(img,updated_rows,updated_cols,new_frequency=0,mode=0):
+    pass
+ 
+ShowImage.py / def 
+ 
+Return
+ 
+    maximum = mag.max()
+ 
+FFTRSharpe
+ 
+from FFT import FFTRSharpen
+ 
+,mode=0
+ 
+def FFTRSharpen(img,updated_rows,updated_cols,new_frequency=0,mode=0):
+    pass
+ 
+def FFTSharpen01(img,updated_rows,updated_cols,new_frequency=0,mode=0):
+    pass
+ 
+'FFTSharpen01(dft,updated_rows,updated_cols,new_frequency=0)')
+ 
+def FFTCircleSharpen():
+    pass
+ 
+    dft[center_rows-updated_rows:center_rows+updated_rows, 
+        center_cols-updated_cols:center_cols+updated_cols] = new_frequency
+ 
+mode=0
+ 
+Circle
+ 
+Circle
+ 
+Rect
+ 
+Rect
+ 
++function_name
+ 
+IsGray(img)
+ 
+    print('updated_rows and/or updated_cols is invalid.')
+ 
+.shape
+ 
+        #print('dft',dft.shape) 
+        #print('img',img.shape) 
+ 
+        #
+ 
+Sho
+ 
+_back
+ 
+Sharpen
+ 
+Sharp
+ 
+def ShowImage(img):
+    cv2.imshow("image", img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+ 
+def Sharpen(img):
+    k2=-0.1
+    k1=-5
+    k0=-(k2*16+k1*8)+1
+    kernel = np.array([
+        [k2,k2,k2,k2,k2,], 
+        [k2,k1,k1,k1,k2,], 
+        [k2,k1,k0,k1,k2,], 
+        [k2,k1,k1,k1,k2,], 
+        [k2,k2,k2,k2,k2,]
+        ])
+    # https://youtu.be/KuXjwB4LzSA?si=mt-leKGKjpMnJGfg
+    # https://www.geeksforgeeks.org/python-opencv-filter2d-function/
+    return cv2.filter2D(img, -1, kernel)
+ 
+    ##magnitude_spectrum = 20*np.log(np.abs(fshift))
+ 
+# dft is the array that contains complex numbers.
+ 
+
+ 
+ in both the directions. This is simply done by the function, 
+ 
+Now once you got the result, 
+ 
+for analyzing fft
+ 
+2D Graph 
+ 
+* 
+* for the sinusoidal signal, if the amplitude varies so fast in short time, you can say it is a high frequency signal. If it varies slowly, it is a low frequency signal. You can extend the same idea to images. Where does the amplitude varies drastically in images ? At the edge points, or noises. So we can say, edges and noises are high frequency contents in an image. If there is no much changes in amplitude, it is a low frequency component. ( Some links are added to Additional Resources_ which explains frequency transform intuitively with examples).
+
+ 
+varies so 
+ 
+    fshift = np.fft.fftshift(f)
+    magnitude_spectrum = 20*np.log(np.abs(fshift))
+ 
+from Border import Zoom
+ 
+    # The angle value always lies between [-90,0).
+    # https://theailearner.com/tag/cv2-minarearect/
+ 
+    if angle > 45:
+        angle = -90 + angle
+ 
+    '''
+    if angle >= 90:
+        angle = angle - 90
+    if angle < -90:
+        angle = angle + 90
+    '''
+ 
+img=GrayImage(img)
+img=RemoveBorders(img)
+img=Rotate(img,threshold_px=200)
+ 
+from Zoom import Zoom
+ 
+WithoutBorder200_o
+ 
+    #if angle==None:
+ 
+,mode=0
+ 
+dilate_img=None
+ 
+https://github.com/wjbmattingly/ocr_python_textbook
+ 
+img=RemoveBorders(img)
+ 
+# Rotate the image around its center
+ 
+# Rotate the image around its center
+ 
+    SaveImage(dilate_img,'dilate_img',Folder)
+ 
+    SaveImage(dilate_img,'dilate_img',Folder)
+ 
+'''
+1. Per usual — convert the image to gray scale and Apply slight blurring to decrease noise in the image.
+
+2. Find areas with text, i.e. text blocks of the image. 
+* we will invert and maximize the colors of our image, that will be achieved via thresholding.
+* So now text becomes white (exactly 255,255,255 white), and background is black (same deal 0,0,0 black).
+
+3. Find text blocks 
+* we need to merge all printed characters of the block by dilation (expansion of white pixels). 
+* With a larger kernel on X axis to get rid of all spaces between words, and a smaller kernel on Y axis to blend in lines of one block between each other,
+* but keep larger spaces between text blocks intact. (in the original state or similar to that state)
+
+4. Now a simple contour detection with min area rectangle enclosing our contour will form all the text blocks that we need.
+* enclode (verb) = surround or close off on all sides.
+
+5. There can be various approaches to determine skew angle, but we’ll stick to the simple one — take the largest text block and use its angle.
+
+'''
+
+ 
+mode=
+ 
+    '''
+ 
+if mode==0:
+            
+ 
+        if mode==1:
+            angle = GetSkewAngle_01(img)
+ 
+def GetSkewAngle_01(img):
+    # https://github.com/wjbmattingly/ocr_python_textbook/blob/main/02_02_working%20with%20opencv.ipynb
+    # https://becominghuman.ai/how-to-automatically-deskew-straighten-a-text-image-using-opencv-a0c30aed83df
+
+    #####################################################################################################################
+    
+    # 1.st Step
+    # Convert image to gray image and blur the image to rease noise in the image.
+
+    # 2.nd Step
+    # Then find the area with text 
+    # With a larger kernel on X axis to get rid of all spaces between words, 
+    # and a smaller kernel on Y axis to blend in lines of one block between each other,
+    # but keep larger spaces between text blocks intact. (in the original state or similar to that state)
+    # text becomes white (255,255,255), and background is black (0,0,0)
+
+    new_img = img.copy()
+    dilate_img = GrayImage(new_img)
+    dilate_img = GaussBlur(dilate_img,9)
+    dilate_img = BinaryPx(dilate_img,200)   
+    dilate_img = OtsuBinaryPx(dilate_img,isinverse=True)   
+    # https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html
+    # kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (30, 5))
+    kernel = np.ones((2,30))
+    dilate_img = cv2.dilate(dilate_img, kernel, iterations=2)
+
+    #####################################################################################################################
+
+    # 3.rd Find text blocks (contour detect white area)
+
+    # 4.th There can be various approaches to determine skew angle, 
+    # but we’ll stick to the simple one — take the largest text block and use its angle.
+
+    contours, hierarchy = cv2.findContours(dilate_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    contours = sorted(contours, key = cv2.contourArea, reverse = True)
+    largestContour = contours[0]
+
+    #####################################################################################################################
+
+    minAreaRect = cv2.minAreaRect(largestContour)
+    angle = minAreaRect[-1]
+    if angle >= 90:
+        angle = angle - 90
+    
+    #####################################################################################################################
+    
+    # This is for showing the contours detection.
+    # https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html
+    original_angle = minAreaRect[-1]
+    print('angle______________ =',angle)
+    print('original_angle_____ =',original_angle)
+    print('len(contours)______ = ',len(contours))
+    print('len(largestContour) = ',len(largestContour))
+    ShowImage(dilate_img,'dilate')
+    #SaveImage(dilate_img,'dilate_img_r','RotateImage')
+    
+    cnew_img = ColorImage(new_img)
+    cnew_img0 = cv2.drawContours(cnew_img, largestContour, -1, (0,0,255), 3)
+    ShowImage(cnew_img0,'image largestContour')
+    cnew_img = cv2.drawContours(cnew_img, contours, -1, (0,0,255), 3)
+    ShowImage(cnew_img, 'image Contours')
+    #SaveImage(dilate_img,'dilate_img','RotateImage')
+
+    cdilate_img = ColorImage(dilate_img)
+    cdilate_img0 = cv2.drawContours(cdilate_img, largestContour, -1, (0,0,255), 3)
+    ShowImage(cdilate_img0,'dilate largestContour')
+    cdilate_img = cv2.drawContours(cdilate_img, contours, -1, (0,0,255), 3)
+    ShowImage(cdilate_img,'dilate Contours')
+    
+    #####################################################################################################################
+    
+    return angle
+ 
+Otsu
+ 
+    
+    '''    
+    #####################################################################################################################
+    
+    # This is for showing the contours detection.
+    # https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html
+    original_angle = minAreaRect[-1]
+    print('angle______________ =',angle)
+    print('original_angle_____ =',original_angle)
+    print('len(contours)______ = ',len(contours))
+    print('len(largestContour) = ',len(largestContour))
+    ShowImage(dilate_img,'dilate')
+    SaveImage(dilate_img,'dilate_img_r','RotateImage')
+    
+    cnew_img = ColorImage(new_img)
+    cnew_img0 = cv2.drawContours(cnew_img, largestContour, -1, (0,0,255), 3)
+    ShowImage(cnew_img0,'image largestContour')
+    cnew_img = cv2.drawContours(cnew_img, contours, -1, (0,0,255), 3)
+    ShowImage(cnew_img, 'image Contours')
+    #SaveImage(dilate_img,'dilate_img','RotateImage')
+
+    cdilate_img = ColorImage(dilate_img)
+    cdilate_img0 = cv2.drawContours(cdilate_img, largestContour, -1, (0,0,255), 3)
+    ShowImage(cdilate_img0,'dilate largestContour')
+    cdilate_img = cv2.drawContours(cdilate_img, contours, -1, (0,0,255), 3)
+    ShowImage(cdilate_img,'dilate Contours')
+    
+    #####################################################################################################################
+    '''
+ 
+    SaveImage(dilate_img,'dilate_img_r_2','RotateImage')
+ 
+    SaveImage(dilate_img,'dilate_img_r_1','RotateImage')
+ 
+    SaveImage(dilate_img,'dilate_img_r_0','RotateImage')
+ 
+    SaveImage(dilate_img,'dilate_img_r_0','RotateImage')
+ 
+        if mode==0:
+            angle = GetSkewAngle(img)
+ 
++str(Index)
+ 
+'/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/image_Original.jpg'
+ 
+img_path02 = '/Users/imac/Desktop/JOCR_SOBA/exJojoSoba/IMG_7563.jpeg'
+img_path03 = '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/page_01_rotated.jpeg'
+ 
+Index=''
+#img=RemoveNoise.RemoveNoise(img)
+#img=Threshold.BinaryPx(img,210)
+
+#img=Convolution.Sharpen(img)
+#img=Convolution.Sharpen(img)
+#img=FontSize.ThickFont(img)
+Threshold.BinaryPx(img,200)#,IsInverse=True)
+#img=Border.CreateBorders(img,color=[255,0,0],IsGray=False)
+ 
+original_angle = minAreaRect[-1]
+ 
+print('angle',angle)
+ 
+    #####################################################################################################################
+    
+    # This is for showing the contours detection.
+    # https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html
+
+    print('len(contours)       = ',len(contours))
+    print('len(largestContour) = ',len(largestContour))
+    ShowImage(dilate_img,'dilate')
+    
+    cnew_img = ColorImage(new_img)
+    cnew_img0 = cv2.drawContours(cnew_img, largestContour, -1, (0,0,255), 3)
+    ShowImage(cnew_img0,'image largestContour')
+    cnew_img = cv2.drawContours(cnew_img, contours, -1, (0,0,255), 3)
+    ShowImage(cnew_img, 'image Contours')
+
+    cdilate_img = ColorImage(dilate_img)
+    cdilate_img0 = cv2.drawContours(cdilate_img, largestContour, -1, (0,0,255), 3)
+    ShowImage(cdilate_img0,'dilate largestContour')
+    cdilate_img = cv2.drawContours(cdilate_img, contours, -1, (0,0,255), 3)
+    ShowImage(cdilate_img,'dilate Contours')
+    
+    #####################################################################################################################
+
+ 
+ largestContour
+ 
+    # With a larger kernel on X axis to get rid of all spaces between words, and a smaller kernel on Y axis to blend in lines of one block between each other,
+    # but keep larger spaces between text blocks intact. (in the original state or similar to that state)
+ 
+    # Find all contours
+    '''
+    Read this
+    * https://docs.opencv.org/4.x/d4/d73/tutorial_py_contours_begin.html
+
+    Then fix this code
+    '''
+ 
+
+    #####################################################################################################################
+    # https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html
+    dilate_img = ColorImage(dilate_img)
+    new_img = ColorImage(new_img)
+    fdilate_img = cv2.drawContours(dilate_img,  contours[0],-1,  (0,0,255),3)
+    fnew_img    = cv2.drawContours(new_img,     contours[0],-1,     (0,0,255),3)
+    ShowImage(fdilate_img)
+    ShowImage(fnew_img   )    
+    #####################################################################################################################
+
+    '''
+    ShowImage(dilate_img)
+    for c in contours:
+        rect = cv2.boundingRect(c)
+        x,y,w,h = rect
+        cv2.rectangle(new_img,(x,y),(x+w,y+h),(0,0,0),2)
+        # cv2.rectangle(dilate_img,(x,y),(x+w,y+h),(150,0,0),2)
+        # ShowImage(new_img)'''
+    '''
+    print('What is contours ?')
+    print(len(contours))
+    print(len(contours[0]))
+    print(len(contours[0][0]))
+    print(len(contours[0][0][0]))
+    What is contours ?
+    28
+    241
+    1
+    2
+    '''
+    ##print('Show elements of contours.')
+    ##for i in contours:
+    ##    print(i)
+    # Find largest contour and surround in min area box
+ 
+    #cv2.imwrite("temp/boxes.jpg", new_img)
+ 
+    ##for i in range(3):
+    ##    largestContour = contours[i]
+    ##    rect = cv2.boundingRect(largestContour)
+    ##    x,y,w,h = rect
+    ##    cv2.rectangle(new_img,(x,y),(x+w,y+h),(0,0,0),2)
+    ##    cv2.rectangle(dilate_img,(x,y),(x+w,y+h),(150,0,0),2)
+    ##    ShowImage(new_img)
+    ##    ShowImage(dilate_img)
+ 
+to obtain skewed image
+ 
+    # Determine the angle. Convert it to the value that was originally used 
+ 
+    #return -1.0 * angle
+ 
+90 + 
+ 
+90 + 
+ 
+    #ShowImage(contours[0])
+ 
+    img_check=img.copy()
+ 
+    img_check=img.copy()
+ 
+#####################################################################################################################
+ 
+    #####################################################################################################################
+ 
  https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html
  
     M = cv2.getRotationMatrix2D(center, angle, 1.0)

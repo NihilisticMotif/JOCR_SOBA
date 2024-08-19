@@ -7,30 +7,33 @@ import ShowImage as show
 import Threshold
 import RemoveNoise
 import FontSize
-import Border 
 import Convolution
 from Rotation import Rotate
 from GrayImage import GrayImage
+import FFT as fft
 from PIL import Image
+from Zoom import RemoveBorders,Zoom
 import cv2
 
-img_path01 = '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/image_Original.jpg'
-img_path02 = '/Users/imac/Desktop/JOCR_SOBA/exJojoSoba/IMG_7563.jpeg'
-img_path03 = '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/page_01_rotated.jpeg'
-img = show.ReadImage(img_path03)
-img=GrayImage(img)
-img=Rotate(img)
-Index=''
-#img=RemoveNoise.RemoveNoise(img)
-#img=Threshold.BinaryPx(img,210)
-
-#img=Convolution.Sharpen(img)
-#img=Convolution.Sharpen(img)
-#img=FontSize.ThickFont(img)
-Threshold.BinaryPx(img,200)#,IsInverse=True)
-#img=Border.CreateBorders(img,color=[255,0,0],IsGray=False)
+img_path = [
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/OriginalImage/img_o.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/OriginalImage/img_r.jpeg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/OriginalJojoSoba.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/BinaryPx_210.jpg'
+]
+img = show.ReadImage(img_path[3])
+#img=Zoom(img,zoom=1.23)
+'''
 show.ShowImage(img)
-show.SaveImage(img,"Sharpen_New"+str(Index))
+img=GrayImage(img)
+img=RemoveBorders(img)
+img=Rotate(img,threshold_px=200)'''
+show.ShowImage(img)
+#img = fft.FFTRSharpen(img,1,1)
+img = fft.FFTRBlur(img,2,2,is_show=True)
+#show.ShowImage(img)
+
+#show.SaveImage(img,"fft01_FFTRSharpen__img_10_10",folder='FFT')
 
 '''
 python3 Preprocess.py 

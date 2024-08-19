@@ -7,9 +7,9 @@ from Utility import Numpy2Image, Image2Numpy
 def ReadImage(img_path):
     return cv2.imread(img_path)
 
-def ShowImage(img):
+def ShowImage(img,title='image'):
     img=Image2Numpy(img)
-    cv2.imshow("image", img)
+    cv2.imshow(title, img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 

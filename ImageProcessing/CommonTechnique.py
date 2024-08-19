@@ -53,21 +53,6 @@ def deskew(image):
 def match_template(image, template):
     return cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED) 
 
-def Sharpen(img):
-    k2=-0.1
-    k1=-5
-    k0=-(k2*16+k1*8)+1
-    kernel = np.array([
-        [k2,k2,k2,k2,k2,], 
-        [k2,k1,k1,k1,k2,], 
-        [k2,k1,k0,k1,k2,], 
-        [k2,k1,k1,k1,k2,], 
-        [k2,k2,k2,k2,k2,]
-        ])
-    # https://youtu.be/KuXjwB4LzSA?si=mt-leKGKjpMnJGfg
-    # https://www.geeksforgeeks.org/python-opencv-filter2d-function/
-    return cv2.filter2D(img, -1, kernel)
-
 def WhiteBackGround(img):
     RangeMax=100
     A1=1
@@ -78,11 +63,6 @@ def WhiteBackGround(img):
       img[mark]=Start+(i*Step)/A1
     img[img>=Start+((RangeMax)*Step)/A1]=255
     return img
-
-def ShowImage(img):
-    cv2.imshow("image", img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
 
 def ImportTest():
     print("This is 80000Hours Podcast.")

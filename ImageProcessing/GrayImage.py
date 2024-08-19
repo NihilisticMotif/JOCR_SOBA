@@ -14,12 +14,11 @@ def IsGray(img):
         # https://youtu.be/mI9FIugGIZQ?si=hoC_FHJpn5zA83Kv
         print('Absolute Genderless (Gonadal dysgenesis) : 1 in 150,000')
         print('img has Invalid Shape')
-        print('Report by ImageProcessing / EditImage.py / def IsGray')
-        return False
+        print('Reported by ImageProcessing / EditImage.py / def IsGray(img)')
+        return None
 
 def GrayImage(img):
-    img_check=img 
-    if IsGray(img_check):
+    if IsGray(img):
         return img
     else:
         return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -27,6 +26,10 @@ def GrayImage(img):
 def InvertedImage(img):
     return cv2.bitwise_not(img)
 
-
+def ColorImage(img):
+    if IsGray(img):
+        return cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+    else:
+        return img
 
 

@@ -10,6 +10,15 @@ def RemoveBorders(img):
     crop = img[y:y+h, x:x+w]
     return (crop)
 
+def Zoom(img, zoom=1, angle=0, coord=None):
+    # https://stackoverflow.com/questions/69050464/zoom-into-image-with-opencv
+    # zoom < 1 implies Zoom out
+    # zoom > 1 implies Zoom in
+    cy, cx = [ i/2 for i in img.shape[:-1] ] if coord is None else coord[::-1]
+    rotation_matrix = cv2.getRotationMatrix2D((cx,cy), angle, zoom)
+    result = cv2.warpAffine(img, rotation_matrix, img.shape[1::-1], flags=cv2.INTER_LINEAR)    
+    return result
+
 def CreateBorders(img,size=50,color = [255, 255, 255],IsGray=True):
     top, bottom, left, right = [size]*4
     img = cv2.copyMakeBorder(img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color)

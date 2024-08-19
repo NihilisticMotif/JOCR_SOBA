@@ -1,10 +1,13 @@
 
-1. Fix Rotation.py 
-* https://docs.opencv.org/4.x/d4/d73/tutorial_py_contours_begin.html
-2. Read This
-* https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html
-3. Implement other technique from this YouTube playlist 
-* https://www.youtube.com/watch?v=ADV-AjAXHdc&list=PL2VXyKi-KpYuTAZz__9KVl1jQz74bDG7i&index=4
-* https://github.com/wjbmattingly/ocr_python_textbook/blob/main/01_02_libraries.py
-* Note that we nearly finished implementing image processing code. Check if we miss somethings, 
-  then we will start with implementing FFT (for image processing), and then basic Pytesseract command.
+1. Fix this error: OSError: cannot write mode F as JPEG ()
+* SaveImage is not working after using FFT.py editing image 
+2. FFTRBlur is not working as expected. 
+3. ReturnIFFT return image with nothing at all.
+* Tip: Just undo ReturnFFT and see if ReturnIFFT working correctly.
+* img -- ReturnFFT --> dft -- ReturnIFFT --> img
+4. Check if FFTRSharpen working correctly, by FFTRSharpen(img,updated_rows,updated_cols,is_show=True)
+5. Implementing other function in FFT.py 
+* FFTCircleSharpen()
+* FFTCSharpen()
+* FFTCircleBlur()
+* FFTCBlur()
