@@ -14,26 +14,28 @@ import FFT as fft
 from PIL import Image
 from Zoom import RemoveBorders,Zoom
 import cv2
+from Contour import DrawDefaultContours
 
 img_path = [
     '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/OriginalImage/img_o.jpg',
     '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/OriginalImage/img_r.jpeg',
     '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/OriginalJojoSoba.jpg',
-    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/BinaryPx_210.jpg'
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/BinaryPx_210.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/jojomeme.jpg'
 ]
-img = show.ReadImage(img_path[3])
-#img=Zoom(img,zoom=1.23)
-'''
-show.ShowImage(img)
-img=GrayImage(img)
-img=RemoveBorders(img)
-img=Rotate(img,threshold_px=200)'''
-show.ShowImage(img)
-#img = fft.FFTRSharpen(img,1,1)
-img = fft.FFTRBlur(img,2,2,is_show=True)
-#show.ShowImage(img)
+img = show.ReadImage(img_path[0])
+##img = fft.ReturnFFT(img)
+##img = fft.FFTRectangleSharpen(img,10,10)
+##fft.SaveFFT(img,'JojoFourier',is_editfft=True)
 
-#show.SaveImage(img,"fft01_FFTRSharpen__img_10_10",folder='FFT')
+img = Zoom(img,1.23)
+img = GrayImage(img)
+
+img = Rotate(img,is_show=True)
+show.SaveImage(img,'TestColor02','TestColor')
+print('DrawDefaultContours Activated')
+img = DrawDefaultContours(img,is_original_img=False)
+show.SaveImage(img,'DrawDefaultContours02','TestColor')
 
 '''
 python3 Preprocess.py 

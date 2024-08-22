@@ -3,12 +3,16 @@ import numpy as np
 from PIL import Image 
 import os
 from Utility import Numpy2Image, Image2Numpy
+from GrayImage import IsGray
 
 def ReadImage(img_path):
     return cv2.imread(img_path)
 
 def ShowImage(img,title='image'):
     img=Image2Numpy(img)
+    if IsGray(img)==False:
+        # https://www.geeksforgeeks.org/convert-bgr-and-rgb-with-python-opencv/
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     cv2.imshow(title, img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -28,6 +32,8 @@ def DescribeImage(img_path,detail=None):
 
 def SaveImage(img,img_title,folder='Image',fileformat='.jpg'):
     # https://stackoverflow.com/questions/902761/saving-a-numpy-array-as-an-image
+    if not os.path.exists(folder):
+        os.makedirs(folder)
     img_path = os.path.join(folder,img_title+fileformat)
     img = Numpy2Image(img)
     img.save(img_path)

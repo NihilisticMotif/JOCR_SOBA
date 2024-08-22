@@ -1,3 +1,657 @@
+def PrintText():
+    pass
+ 
+t
+ 
+01
+ 
+
+ls=[1,2,3,4]
+kernel_area=len(ls)*2+1
+kernel = ls[0]*np.ones((kernel_area,kernel_area))
+one = np.ones((kernel_area,kernel_area))
+center_rows = kernel_area
+center_cols = kernel_area
+index=kernel_area
+ls.pop()
+for i in ls:
+
+    mask = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (index,index))
+    mask = np.where(mask < 1,mask,i)
+    print(mask)
+    
+    kernel[center_rows-index:center_rows+index, 
+         center_cols-index:center_cols+index] = mask.T
+    index-=2
+
+print(kernel)
+ 
+    kernel[center_rows-updated_rows:center_rows+updated_rows, 
+         center_cols-updated_cols:center_cols+updated_cols] *= mask
+ 
+len(
+ 
+    updated_rows = index
+    updated_cols = index
+ 
+s
+ 
+sigma_kernel = np.zeros((kernel_area,kernel_area))
+ 
+    print('kernel.shape',kernel.shape)
+    print('index',index)
+ 
+print(mask)
+ 
+    ls=[]
+ 
+ls=[]
+ 
+'''
+center_rows =10
+center_cols =7
+updated_rows=5
+updated_cols=6
+kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (updated_rows*2, updated_cols*2))
+mask = np.zeros((center_rows*2+1,center_cols*2+1), dtype=np.uint8)
+mask[center_rows-updated_rows:center_rows+updated_rows, 
+    center_cols-updated_cols:center_cols+updated_cols] = kernel.T
+mask = np.where(mask < 1,1,0)
+print(mask)
+ 
+mask = np.where(mask < 1,1,0)
+ 
+(dft,updated_rows,updated_cols,function_name)
+ 
+(img,threshold_px,is_binary_inv=False,dilate_img=None,kernel = np.ones((2,30)),is_show=False)
+ 
+
+
+
+ 
+(255,0,0)
+ 
+(255,0,0)
+ 
+print('rgb',rgb)
+ 
+def SaveContours(img,contour,rgb=(255,0,0)):
+    SaveImage(img,img_title=)
+
+def SaveDilateContours()
+
+def SaveDefaultContours()
+ 
+    contour = GetContours(dilate_img)
+    img = DrawContours(img,rgb,contour)
+    return img 
+ 
+dilate_
+ 
+    # Apply default dilate image processing algorithms.
+ 
+ DrawDefaultContours
+ 
+def SaveImageContours
+ 
+rgb
+ 
+'''
+
+def GetSkewAngle(img,threshold_px,is_binary_inv=False,dilate_img=None,kernel = np.ones((2,30)),is_show=False):
+    # https://github.com/wjbmattingly/ocr_python_textbook/blob/main/02_02_working%20with%20opencv.ipynb
+    # https://becominghuman.ai/how-to-automatically-deskew-straighten-a-text-image-using-opencv-a0c30aed83df
+    new_img = img.copy()
+    if not isinstance(dilate_img,np.ndarray):
+        dilate_img = DefaultDilateImage(
+            new_img,
+            threshold_px=threshold_px,
+            is_binary_inv=is_binary_inv,
+            kernel = kernel)
+    largestContour = ReturnLargestContour(dilate_img)
+    contour = ReturnContours(dilate_img)
+    # https://theailearner.com/tag/cv2-minarearect/
+    minAreaRect = cv2.minAreaRect(largestContour)
+    angle = minAreaRect[-1]
+    if angle < -45:
+        angle = 90 + angle
+    if angle > 45:
+        angle = angle - 90
+    # https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html
+    if is_show==True:
+        show_img = DrawContours(img,(255,0,0),contour)
+        ShowImage(show_img,'Show Contour 01')
+        show_img = DrawContours(dilate_img,(255,0,0),contour)
+        ShowImage(show_img,'Show Contour 02')    
+    return angle
+
+ 
+    #####################################################################################################################
+    
+    # 1.st Step
+    # Convert image to gray image and blur the image to rease noise in the image.
+
+    # 2.nd Step
+    # Then find the area with text 
+    # With a larger kernel on X axis to get rid of all spaces between words, 
+    # and a smaller kernel on Y axis to blend in lines of one block between each other,
+    # but keep larger spaces between text blocks intact. (in the original state or similar to that state)
+    # text becomes white (255,255,255), and background is black (0,0,0)
+
+ 
+
+    #####################################################################################################################
+
+    # 3.rd Find text blocks (contour detect white area)
+
+    # 4.th There can be various approaches to determine skew angle, 
+    # but we’ll stick to the simple one — take the largest text block and use its angle.
+ 
+
+    #####################################################################################################################
+
+    # 5.th calculating angle.
+    # The angle value always lies between [-90,0).
+ 
+
+    #####################################################################################################################
+    
+    # This is for showing the contours detection.
+ 
+    #####################################################################################################################
+
+ 
+####def GetSkewAngle(img,threshold_px,is_binary_inv=False,dilate_img=None):
+####    # https://github.com/wjbmattingly/ocr_python_textbook/blob/main/02_02_working%20with%20opencv.ipynb
+####    # https://becominghuman.ai/how-to-automatically-deskew-straighten-a-text-image-using-opencv-a0c30aed83df
+####
+####    #####################################################################################################################
+####    
+####    # 1.st Step
+####    # Convert image to gray image and blur the image to rease noise in the image.
+####
+####    # 2.nd Step
+####    # Then find the area with text 
+####    # With a larger kernel on X axis to get rid of all spaces between words, 
+####    # and a smaller kernel on Y axis to blend in lines of one block between each other,
+####    # but keep larger spaces between text blocks intact. (in the original state or similar to that state)
+####    # text becomes white (255,255,255), and background is black (0,0,0)
+####
+####    new_img = img.copy()
+####    if not isinstance(dilate_img,np.ndarray):
+####        dilate_img = GrayImage(new_img)
+####        dilate_img = GaussBlur(dilate_img,9)
+####        if isinstance(threshold_px, (int,float)):
+####            dilate_img = BinaryPx(dilate_img,threshold_px,isinverse=is_binary_inv)   
+####        dilate_img = OtsuBinaryPx(dilate_img,isinverse=True)   
+####        # https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html
+####        # kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (30, 5))
+####        kernel = np.ones((2,30))
+####        dilate_img = cv2.dilate(dilate_img, kernel, iterations=2)
+####
+####    #####################################################################################################################
+####
+####    # 3.rd Find text blocks (contour detect white area)
+####
+####    # 4.th There can be various approaches to determine skew angle, 
+####    # but we’ll stick to the simple one — take the largest text block and use its angle.
+####
+####    contours, hierarchy = cv2.findContours(dilate_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+####    contours = sorted(contours, key = cv2.contourArea, reverse = True)
+####    largestContour = contours[0]
+####
+####    #####################################################################################################################
+####
+####    # 5.th calculating angle.
+####    # The angle value always lies between [-90,0).
+####    # https://theailearner.com/tag/cv2-minarearect/
+####
+####    minAreaRect = cv2.minAreaRect(largestContour)
+####    angle = minAreaRect[-1]
+####    if angle < -45:
+####        angle = 90 + angle
+####    if angle > 45:
+####        angle = angle - 90
+####    
+####    #'''    
+####    #####################################################################################################################
+####    
+####    # This is for showing the contours detection.
+####    # https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html
+####    print('type(new_img)',type(new_img))
+####    original_angle = minAreaRect[-1]
+####    Folder = 'TestColor'
+####    print('angle______________ =',angle)
+####    print('original_angle_____ =',original_angle)
+####    print('len(contours)______ = ',len(contours))
+####    print('len(largestContour) = ',len(largestContour))
+####    print('type(dilate_img)',type(dilate_img))
+####    ShowImage(dilate_img,'dilate')
+####    SaveImage(dilate_img,'dilate_img',Folder)
+####    
+####    show_img = draw.DrawContours(img,contour=contours,rgb=(255,0,0))
+####    ShowImage(show_img,'show_img')
+####    SaveImage(show_img,'show_img',Folder)
+####    '''cnew_img = ColorImage(new_img)
+####    cnew_img0 = cv2.drawContours(cnew_img, largestContour, -1, (0,0,255), 3)
+####    ShowImage(cnew_img0,'image largestContour')
+####    cnew_img = cv2.drawContours(cnew_img, contours, -1, (0,0,255), 3)
+####    ShowImage(cnew_img, 'image Contours')
+####    SaveImage(cnew_img, 'image Contours',Folder)'''
+####
+####    '''
+####    cdilate_img = ColorImage(dilate_img)
+####    cdilate_img0 = cv2.drawContours(cdilate_img, largestContour, -1, (0,0,255), 3)
+####    ShowImage(cdilate_img0,'dilate largestContour')
+####    cdilate_img = cv2.drawContours(cdilate_img, contours, -1, (0,0,255), 3)
+####    ShowImage(cdilate_img,'dilate Contours')
+####    SaveImage(cdilate_img,'cdilate_img',Folder)'''
+####    
+####    #####################################################################################################################
+####    #'''
+####
+####    return angle
+
+ 
+    
+    #'''    
+ 
+Largest
+ 
+def ReturnContours(dilate_img):
+    contours, hierarchy = cv2.findContours(dilate_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    contours = sorted(contours, key = cv2.contourArea, reverse = True)
+    return contours
+
+def ReturnLargestContour(dilate_img):
+    return ReturnContours(dilate_img)[0]
+ 
+DrawContours,
+ 
+    #'''
+ 
+,is_show=False
+ 
+    contours, hierarchy = cv2.findContours(dilate_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    contours = sorted(contours, key = cv2.contourArea, reverse = True)
+ 
+ilate_img = DefaultDilateImage(img,threshold_px=threshold_px)
+ 
+=None
+ 
+,contour=None
+ 
+if isinstance(contour,list):
+        return DrawContours(img,rgb,contour)
+    if isinstance(contour,np.ndarray):
+        contour = ReturnContours(contour)
+        return DrawContours(img,rgb,contour)
+    return img 
+ 
+'''
+ 
+ImageProcessing.
+ 
+def DrawContours(img,rgb,contour=None,dilate_img=None,threshold_px=None):
+    img = ColorImage(img)
+    if isinstance(contour,list):
+        img = cv2.drawContours(img, contour, -1, rgb, 3)
+        return img
+    if isinstance(dilate_img,np.ndarray):
+        contours, hierarchy = cv2.findContours(dilate_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+        contours = sorted(contours, key = cv2.contourArea, reverse = True)
+
+
+
+def DrawContours(img,rgb,dilate_img,contour=None,threshold_px=None,is_binary_inv=False):
+    if contour==None:
+        contour, hierarchy = cv2.findContours(dilate_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+        contour = sorted(contour, key = cv2.contourArea, reverse = True)
+    img = ColorImage(img)
+    img = cv2.drawContours(img, contour, -1, rgb, 3)
+    return img 
+ 
+def DrawContours(img,rgb,contour):
+    img = ColorImage(img)
+    img = cv2.drawContours(img, contour, -1, rgb, 3)
+    return img 
+ 
+    return img 
+
+ 
+    else:
+ 
+contour
+ 
+kernel = np.ones((2,30))
+ 
+def DrawContours(img,rgb,contour=None,dilate_img=None,threshold_px=None,is_binary_inv=False):
+
+    #####################################################################################################################
+    
+    # 1.st Step
+    # Convert image to gray image and blur the image to rease noise in the image.
+
+    # 2.nd Step
+    # Then find the area with text 
+    # With a larger kernel on X axis to get rid of all spaces between words, 
+    # and a smaller kernel on Y axis to blend in lines of one block between each other,
+    # but keep larger spaces between text blocks intact. (in the original state or similar to that state)
+    # text becomes white (255,255,255), and background is black (0,0,0)
+
+    if contour==None:
+        new_img = img.copy()
+        if not isinstance(dilate_img,np.ndarray):
+            dilate_img = GrayImage(new_img)
+            dilate_img = GaussBlur(dilate_img,9)
+            if isinstance(threshold_px, (int,float)):
+                dilate_img = BinaryPx(dilate_img,threshold_px,isinverse=is_binary_inv)   
+            dilate_img = OtsuBinaryPx(dilate_img,isinverse=True)   
+            # https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html
+            # kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (30, 5))
+            kernel = np.ones((2,30))
+            dilate_img = cv2.dilate(dilate_img, kernel, iterations=2)
+    
+    #####################################################################################################################
+
+        # 3.rd Find text blocks (contour detect white area)
+
+        contour, hierarchy = cv2.findContours(dilate_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+        contour = sorted(contour, key = cv2.contourArea, reverse = True)
+
+    #####################################################################################################################
+
+    # 4.th draw the contour on the image.
+
+    img = ColorImage(img)
+    img = cv2.drawContours(img, contour, -1, rgb, 3)
+    return img 
+ 
+def ContoursFromDilate(img,)
+ 
+dilate_img=None
+ 
+        new_img = img.copy()
+ 
+if not isinstance(dilate_img,np.ndarray):
+ 
+
+    #####################################################################################################################
+
+    # 4.th draw the contour on the image.
+
+ 
+    
+    #####################################################################################################################
+
+        # 3.rd Find text blocks (contour detect white area)
+
+ 
+    
+    #####################################################################################################################
+    
+    # 1.st Step
+    # Convert image to gray image and blur the image to rease noise in the image.
+
+    # 2.nd Step
+    # Then find the area with text 
+    # With a larger kernel on X axis to get rid of all spaces between words, 
+    # and a smaller kernel on Y axis to blend in lines of one block between each other,
+    # but keep larger spaces between text blocks intact. (in the original state or similar to that state)
+    # text becomes white (255,255,255), and background is black (0,0,0)
+
+ 
+or isinstance(dilate_img,np.ndarray)
+ 
+    else:
+ 
+contour,
+ 
+def SaveMarkedImage():
+    # https://youtu.be/KrlHXJdiRGE?si=VW6DLUI_hc_b0zHD
+    pass
+ 
+img = GrayImage(img)
+ 
+ 90 +
+ 
+#img=Zoom(img,zoom=1.23)
+'''
+show.ShowImage(img)
+img=GrayImage(img)
+img=RemoveBorders(img)
+img=Rotate(img,threshold_px=200)'''
+#show.ShowImage(img)
+img = GrayImage(img)
+#img = fft.ReturnFFT(img,True)
+#img = fft.ReturnIFFT(img,True)
+fft.SaveFFT(img,'JojoFourier02')
+ 
+    ShowImage(dft)
+ 
+show.SaveImage(img,"JojoFourier04",folder='FFT')
+ 
+    #dft = ((dft*255)**4).astype(np.uint8) 
+ 
+**4)
+ 
+'''
+(.venv) imac@iMacs-iMac exPyDH01_Page % python3 Preprocess.py 
+Traceback (most recent call last):
+  File "/Users/imac/Desktop/JOCR_SOBA/.venv/lib/python3.12/site-packages/PIL/JpegImagePlugin.py", line 639, in _save
+    rawmode = RAWMODE[im.mode]
+              ~~~~~~~^^^^^^^^^
+KeyError: 'F'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Preprocess.py", line 35, in <module>
+    fft.SaveFFT(img,'JojoFourier')
+  File "/Users/imac/Desktop/JOCR_SOBA/ImageProcessing/FFT.py", line 68, in SaveFFT
+    SaveImage(dft,img_title,folder=folder,fileformat=fileformat)
+  File "/Users/imac/Desktop/JOCR_SOBA/ImageProcessing/ShowImage.py", line 33, in SaveImage
+    img.save(img_path)
+  File "/Users/imac/Desktop/JOCR_SOBA/.venv/lib/python3.12/site-packages/PIL/Image.py", line 2568, in save
+    save_handler(self, fp, filename)
+  File "/Users/imac/Desktop/JOCR_SOBA/.venv/lib/python3.12/site-packages/PIL/JpegImagePlugin.py", line 642, in _save
+    raise OSError(msg) from e
+OSError: cannot write mode F as JPEG
+'''
+ 
+img_path = os.path.join(folder,img_title+fileformat)
+ 
+dft.save(img_path)
+    #
+ 
+'''
+(.venv) imac@iMacs-iMac exPyDH01_Page % python3 Preprocess.py 
+Traceback (most recent call last):
+  File "/Users/imac/Desktop/JOCR_SOBA/.venv/lib/python3.12/site-packages/PIL/JpegImagePlugin.py", line 639, in _save
+    rawmode = RAWMODE[im.mode]
+              ~~~~~~~^^^^^^^^^
+KeyError: 'F'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Preprocess.py", line 35, in <module>
+    fft.SaveFFT(img,'JojoFourier')
+  File "/Users/imac/Desktop/JOCR_SOBA/ImageProcessing/FFT.py", line 68, in SaveFFT
+    SaveImage(dft,img_title,folder=folder,fileformat=fileformat)
+  File "/Users/imac/Desktop/JOCR_SOBA/ImageProcessing/ShowImage.py", line 33, in SaveImage
+    img.save(img_path)
+  File "/Users/imac/Desktop/JOCR_SOBA/.venv/lib/python3.12/site-packages/PIL/Image.py", line 2568, in save
+    save_handler(self, fp, filename)
+  File "/Users/imac/Desktop/JOCR_SOBA/.venv/lib/python3.12/site-packages/PIL/JpegImagePlugin.py", line 642, in _save
+    raise OSError(msg) from e
+OSError: cannot write mode F as JPEG
+'''
+ 
+#img = fft.ReturnIFFT(img,True)
+ 
+#img=Zoom(img,zoom=1.23)
+'''
+show.ShowImage(img)
+img=GrayImage(img)
+img=RemoveBorders(img)
+img=Rotate(img,threshold_px=200)'''
+ 
+    #dft = np.abs(dft)
+ 
+    #dft *= 255
+    '''print('min_px',dft.min())
+    print('max_px',dft.max())
+    dft = Numpy2Image(dft)
+    if dft.mode != 'RGB':
+        dft = dft.convert('RGB')'''
+ 
+    #dft = AdjustFFTForDisplay(dft)
+ 
+NoAdjectment
+ 
+def DisplayFFT()
+ 
+,is_save=False
+ 
+,is_save=False
+ 
+    #dft = dft/dft.max()
+ 
+        #dft = dft/dft.max()
+ 
+
+def SaveFFT(dft,is_show):
+    # https://stackoverflow.com/questions/65369482/issue-with-displaying-dft-output-with-opencvs-imshow
+    if is_show==True:
+        dft = np.abs(dft)
+        #dft = dft/dft.max()
+        dft = dft/(255.0**2)
+        dft = dft ** (1/4)
+        ShowImage(dft)
+ 
+show.ShowImage(img)
+
+#
+ 
+img = fft.FFTSharpen03(img,150,300,is_show=True)
+ 
+def Show
+ 
+print(kernel.shape)
+ 
+
+    mask = np.where(mask < 1,0,1)
+ 
+    mask = np.zeros((28,29))
+    rows = mask.shape[0]
+    cols = mask.shape[1]
+    center_rows = math.floor(rows/2)
+    center_cols = math.floor(cols/2)
+ 
+img = fft.FFTRSharpen(img,1,1)
+ 
+#img = fft.FFTBlur01(img,192,320,is_show=True)
+ 
+# https://numpy.org/doc/stable/reference/generated/numpy.where.html
+    # https://stackoverflow.com/questions/56594598/change-1s-to-0-and-0s-to-1-in-numpy-array-without-looping
+    
+ 
+():
+    pass
+
+def FFTSharpen02
+ 
+    mask = np.ones((rows,cols), dtype=np.uint8)
+    mask[center_rows-updated_rows:center_rows+updated_rows, 
+        center_cols-updated_cols:center_cols+updated_cols] *= new_frequency
+    dft *= mask
+ 
+'''
+ 
+def FFTSharpen02():
+    pass
+ 
+print('kernel')
+print(kernel)
+ 
+dft = np.fft.fft2(kernel)#,(20,20))  
+print(dft)
+dft = np.fft.fft2(kernel,(20,20))  
+print(dft)
+#dft = np.fft.ifft2(dft)
+#img = np.real(dft)
+#print(img)
+ 
+dft = np.real(dft).astype(np.int32)
+print('dft')
+print(dft)
+print()
+print(np.linalg.det(dft))
+print(np.linalg.det(kernel))
+ 
+def FFTExtraHandsWarning(dft,updated_rows,updated_cols,function_name):
+    center_rows = math.floor(dft.shape[0]/2)
+    center_cols = math.floor(dft.shape[1]/2)
+    # https://youtu.be/mI9FIugGIZQ?si=KnaCetRmaAbosYeT
+    print('Extra Hands/Legs (Polymelia) : 1 in 1700')
+    print('WARNING: updated_rows and/or updated_cols is invalid.')
+    print('dft.shape',dft.shape)
+    print('center_rows',center_rows)
+    print('updated_rows',updated_rows)
+    print('center_cols',center_cols)
+    print('updated_cols',updated_cols)
+    print('Reported by ImageProcessing / FFT.py / def '+function_name)
+    print('Reported by ImageProcessing / FFT.py / def FFTExtraHandsWarning(dft,updated_rows,updated_cols,function_name)')
+ 
+warning='FFTRectangleSharpen(dft,updated_rows,updated_cols,new_frequency=0)'
+ 
+    if is_show==True:
+ 
+def ShowFFT01(spectrum):
+    # https://stackoverflow.com/questions/65369482/issue-with-displaying-dft-output-with-opencvs-imshow
+    mag = np.abs(spectrum)
+    #mag = mag/mag.max()
+    mag = mag/(255.0**2)
+    mag = mag ** (1/4)
+    return mag
+ 
+def ShowFFT01(spectrum):
+    # https://stackoverflow.com/questions/65369482/issue-with-displaying-dft-output-with-opencvs-imshow
+    mag = np.abs(spectrum)
+    #mag = mag/mag.max()
+    mag = mag/(255.0**2)
+    mag = mag ** (1/4)
+    return mag
+ 
+    print('mag.max()',mag.max())
+ 
+print('mag.max()',mag.max())
+ 
+        ShowImage(dft)
+ 
+        print('IFFT')
+ 
+*new_frequency
+ 
+    print('Activatied')
+ 
+    #img = 255 * img
+ 
+PrepareSpectrum(dft)
+ 
+max_px=None
+ 
+=None
+ 
+    mag /= mag.max()
+ 
+,scale=0.01
+ 
+/= 100
+ 
+,max_px=None
+ 
 ircle
  
 

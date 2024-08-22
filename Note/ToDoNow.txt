@@ -1,13 +1,7 @@
 
-1. Fix this error: OSError: cannot write mode F as JPEG ()
-* SaveImage is not working after using FFT.py editing image 
-2. FFTRBlur is not working as expected. 
-3. ReturnIFFT return image with nothing at all.
-* Tip: Just undo ReturnFFT and see if ReturnIFFT working correctly.
-* img -- ReturnFFT --> dft -- ReturnIFFT --> img
-4. Check if FFTRSharpen working correctly, by FFTRSharpen(img,updated_rows,updated_cols,is_show=True)
-5. Implementing other function in FFT.py 
-* FFTCircleSharpen()
-* FFTCSharpen()
-* FFTCircleBlur()
-* FFTCBlur()
+1. Watch this video 
+* https://youtu.be/4uWp6dS6_G4?si=zSLnW_Qd6ZP4RJO9
+2. Get text from image in exPyDH01_Page folder.
+3. Create PytesseractCommand folder.
+4. Get text from another images in this tutorial.
+* https://www.youtube.com/watch?v=DXYPXZH2eGE&list=PL2VXyKi-KpYuTAZz__9KVl1jQz74bDG7i&index=6

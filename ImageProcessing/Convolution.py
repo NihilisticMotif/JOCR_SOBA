@@ -72,7 +72,9 @@ def NormalDistribution(x,std=1,mean=0):
     power = -1*( (x-mean)**2 )/( 2*std2 )
     return coefficient*np.exp(power)
 
-def ChessGaussBlur(img,std=0.1,mean=0.3,kernel_area=3,center_px='None'):
+def ChessGaussBlur(img,std=1,mean=None,kernel_area=3,center_px='None'):
+    if not isinstance(mean,(int, float)):
+        mean=kernel_area
     ls=[]
     for i in range(kernel_area):
         ls.append(NormalDistribution(i,std,mean))
@@ -81,3 +83,36 @@ def ChessGaussBlur(img,std=0.1,mean=0.3,kernel_area=3,center_px='None'):
     elif not isinstance(center_px, (int, float)):
         center_px = NormalDistribution(len(ls),std,mean)
     return Sharpen(img,ls,center_px=center_px)
+
+'''
+def GaussBlur02(img,std=1,mean=None,kernel_area=3,center_px=None):
+    if not isinstance(mean,(int, float)):
+        mean=kernel_area
+    ls=[]
+    for i in range(kernel_area):
+        ls.append(NormalDistribution(i,std,mean))
+    if not isinstance(center_px, (int, float)):
+        center_px = NormalDistribution(len(ls),std,mean)
+    #
+
+# ls=[1,2,3,4]
+# kernel_area=len(ls)*2+1
+# kernel = ls[0]*np.ones((kernel_area,kernel_area))
+# one = np.ones((kernel_area,kernel_area))
+# center_rows = kernel_area
+# center_cols = kernel_area
+# index=kernel_area
+# ls.pop()
+# for i in ls:
+# 
+#     mask = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (index,index))
+#     mask = np.where(mask < 1,mask,i)
+#     print(mask)
+#     
+#     kernel[center_rows-index:center_rows+index, 
+#          center_cols-index:center_cols+index] = mask.T
+#     index-=2
+# 
+# print(kernel)
+        
+'''

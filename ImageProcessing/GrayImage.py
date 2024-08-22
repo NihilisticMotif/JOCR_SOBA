@@ -21,14 +21,14 @@ def GrayImage(img):
     if IsGray(img):
         return img
     else:
-        return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
 def InvertedImage(img):
     return cv2.bitwise_not(img)
 
 def ColorImage(img):
     if IsGray(img):
-        return cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        return cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
     else:
         return img
 
