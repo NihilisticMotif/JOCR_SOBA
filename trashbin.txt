@@ -1,3 +1,629 @@
+
+    print('kernel',kernel.shape)
+ 
+    show.ShowImage(dilate_img,'Contour.py')
+ 
+    show.ShowImage(dilate_img,'Contour.py')
+ 
+    show.ShowImage(dilate_img,'Contour.py')
+ 
+        show.ShowImage(dilate_img,'Otsu')
+ 
+        show.ShowImage(dilate_img,'Otsu')
+ 
+    print('kernel_area',OddKernelArea(kernel_area))
+ 
+,is_otsu=False
+ 
+dilate_img = cv2.dilate(dilate_img, kernel, iterations=2)
+ 
+    print('threshold_px   ',threshold_px   )
+    print('kernel         ',kernel         )
+    print('kernel_area    ',kernel_area    )
+    print('is_binary_inv  ',is_binary_inv  )
+    print('is_otsu        ',is_otsu        )
+ 
+    show.ShowImage(dilate_img,'Contour.py')
+ 
+# The best image are ThickFont.jpg and Sharpen.jpg
+ 
+show.SaveText(img_paths[3],'Sharpen')
+show.SaveText(img_paths[4],'FFT')
+show.SaveText(img_paths[5],'Adaptive')
+ 
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/Sharpen.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/FFTSharpen.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/Adaptive.jpg'
+ 
+from Contour import DefaultDi
+ 
+
+'''
+sharp_img = con.Sharpen(thick_img,[-0.5,-0.7])
+show.SaveImage(sharp_img,'Sharpen')
+
+fft_img = fft.FFTSharpen03(img,20,20)
+show.SaveImage(fft_img,'FFTSharpen')
+
+adapt_img = thresh.AdaptiveBinaryPx02(fft_img)
+show.SaveImage(adapt_img,'Adaptive')
+'''
+
+# The best image are ThickFont.jpg and Sharpen.jpg
+ 
+                            folder=save_image_folder_and_name[1],
+                            fileformat=save_image_folder_and_name[2],
+ 
+                            fileformat=save_image_folder_and_name[2],
+ 
+Dilate
+ 
+Dilate
+ 
+Dilate
+ 
+Dilate
+ 
+Dilate
+ 
+#####################################################################################################################
+
+
+def SortDefaultContours_Left2Right(img,is_reverse=False,threshold_px=None,is_binary_inv=True,kernel = np.ones((2,30)),kernel_area=9,is_otsu=True):
+    dilate_img = DefaultDilateImage(
+            img,
+            threshold_px    =   threshold_px,
+            kernel          =   kernel,
+            kernel_area     =   kernel_area,
+            is_binary_inv   =   is_binary_inv,
+            is_otsu         =   is_otsu,
+            )
+    contours = GetContours(dilate_img)
+    contours = sorted(contours, key=lambda x: cv2.boundingRect(x)[0], reverse = is_reverse)
+    return contours
+
+def SortDefaultContours_Top2Bottom(img,is_reverse=False,threshold_px=None,is_binary_inv=True,kernel = np.ones((2,30)),kernel_area=9,is_otsu=True):
+    dilate_img = DefaultDilateImage(
+            img,
+            threshold_px    =   threshold_px,
+            kernel          =   kernel,
+            kernel_area     =   kernel_area,
+            is_binary_inv   =   is_binary_inv,
+            is_otsu         =   is_otsu,
+            )
+    contours = GetContours(dilate_img)
+    contours = sorted(contours, key=lambda x: cv2.boundingRect(x)[1], reverse = is_reverse)
+    return contours
+
+def SortDefaultContours_Width(img,is_reverse=False,threshold_px=None,is_binary_inv=True,kernel = np.ones((2,30)),kernel_area=9,is_otsu=True):
+    dilate_img = DefaultDilateImage(
+            img,
+            threshold_px    =   threshold_px,
+            kernel          =   kernel,
+            kernel_area     =   kernel_area,
+            is_binary_inv   =   is_binary_inv,
+            is_otsu         =   is_otsu,
+            )
+    contours = GetContours(dilate_img)
+    contours = sorted(contours, key=lambda x: cv2.boundingRect(x)[2], reverse = is_reverse)
+    return contours
+
+def SortDefaultContours_Height(img,is_reverse=False,threshold_px=None,is_binary_inv=True,kernel = np.ones((2,30)),kernel_area=9,is_otsu=True):
+    dilate_img = DefaultDilateImage(
+            img,
+            threshold_px    =   threshold_px,
+            kernel          =   kernel,
+            kernel_area     =   kernel_area,
+            is_binary_inv   =   is_binary_inv,
+            is_otsu         =   is_otsu,
+            )
+    contours = GetContours(dilate_img)
+    contours = sorted(contours, key=lambda x: cv2.boundingRect(x)[3], reverse = is_reverse)
+    return contours
+
+def SortDefaultContours_Area(img,is_reverse=False,threshold_px=None,is_binary_inv=True,kernel = np.ones((2,30)),kernel_area=9,is_otsu=True):
+    dilate_img = DefaultDilateImage(
+            img,
+            threshold_px    =   threshold_px,
+            kernel          =   kernel,
+            kernel_area     =   kernel_area,
+            is_binary_inv   =   is_binary_inv,
+            is_otsu         =   is_otsu,
+            )
+    contours = GetContours(dilate_img)
+    contours = sorted(contours, key = cv2.contourArea, reverse = is_reverse)
+    return contours
+ 
+    # https://docs.opencv.org/4.x/dd/d49/tutorial_py_contour_features.html
+    # https://www.w3schools.com/python/ref_list_sort.asp
+ 
+    # https://docs.opencv.org/4.x/dd/d49/tutorial_py_contour_features.html
+    # https://www.w3schools.com/python/ref_list_sort.asp
+ 
+dilate_
+ 
+dilate_
+ 
+dilate_
+ 
+dilate_
+ 
+dilate_
+ 
+dilate_
+ 
+def GetContours_Left2Right(dilate_img,is_reverse=False):
+    # https://docs.opencv.org/4.x/dd/d49/tutorial_py_contour_features.html
+    # https://www.w3schools.com/python/ref_list_sort.asp
+    contours = GetContours(dilate_img)
+    contours = sorted(contours, key=lambda x: cv2.boundingRect(x)[0], reverse = is_reverse)
+    return contours
+
+def GetContours_Top2Bottom(dilate_img,is_reverse=False):
+    contours = GetContours(dilate_img)
+    contours = sorted(contours, key=lambda x: cv2.boundingRect(x)[1], reverse = is_reverse)
+    return contours
+
+def GetContours_Width(dilate_img,is_reverse=False):
+    contours = GetContours(dilate_img)
+    contours = sorted(contours, key=lambda x: cv2.boundingRect(x)[2], reverse = is_reverse)
+    return contours
+
+def GetContours_Height(dilate_img,is_reverse=False):
+    contours = GetContours(dilate_img)
+    contours = sorted(contours, key=lambda x: cv2.boundingRect(x)[3], reverse = is_reverse)
+    return contours
+
+def GetContours_Area(dilate_img,is_reverse=False):
+    contours = GetContours(dilate_img)
+    contours = sorted(contours, key = cv2.contourArea, reverse = is_reverse)
+    return contours
+
+ 
+    # https://docs.opencv.org/4.x/dd/d49/tutorial_py_contour_features.html
+    # https://www.w3schools.com/python/ref_list_sort.asp
+ 
+
+img = tour.DefaultDilateImage(img,kernel = np.ones((13,3)))
+ 
+'''
+contours = tour.GetDefaultContours(img,kernel = np.ones((13,3)),save_image_folder_and_name='ImageWithColumn')#,is_otsu=True,is_binary_inv=True)
+ii=0
+print('*** contours ***')
+for i in contours:
+    print('No',ii,'=',i)
+    ii+=1
+print()
+ii=0
+print('*** contours ***')
+for i in contours:
+    print('No',ii,'=',cv2.boundingRect(i))
+    ii+=1'''
+
+# show.ShowImage(img)
+
+'''dilate_img = GrayImage(img)
+
+dilate_img = tour.DefaultDilateImage(dilate_img,kernel = np.ones((13,3)))
+#show.SaveImage(dilate_img,'DefaultDilateImage13x3')
+contour = tour.GetContours(dilate_img)
+cnts = cnts[0] if len(cnts) == 2 else cents[1]
+# The best Image is the original image.'''
+ 
+#,is_otsu=False)
+ 
+save_image_folder_and_name='ImageWithColumn'
+ 
+            if len(save_image_folder_and_name)==3:
+                show.SaveImage(show_img,save_image_folder_and_name[0],f
+ 
+column_
+ 
+show_img = cv2.rectangle(img, (x, y), (x+w, y+h), display_color[count_columns%len(display_color)], 2)
+ 
+    number_of_all_columns=0
+ 
+    ii=0
+ 
+is_otsu=True
+ 
+#####################################################################################################################
+
+def DefaultDilateImage(img,threshold_px=None,kernel = np.ones((2,30)),kernel_area=9,is_otsu=True,is_binary_inv=True):
+    dilate_img = GrayImage(img)
+    dilate_img = GaussBlur(dilate_img,OddKernelArea(kernel_area))
+    if isinstance(threshold_px, (int,float)):
+        dilate_img = BinaryPx(dilate_img,threshold_px,isinverse=is_binary_inv)   
+    if is_otsu==True:
+        dilate_img = OtsuBinaryPx(dilate_img,isinverse=is_binary_inv)   
+    # https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html
+    # kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (30, 5))
+    dilate_img = cv2.dilate(dilate_img, kernel, iterations=2)
+    return dilate_img
+ 
+        is_show=False,
+ 
+is_binary_inv=True
+ 
+is_binary_inv=is_binary_inv
+ 
+        is_binary_inv=True,
+ 
+else:
+        
+ 
+display_color=[
+        (255,0,0),
+        (0,255,0),
+        (0,0,255),
+    ]
+ 
+(len(ls)+ii)//len(ls)
+ 
+show_img = 
+ 
+#text_result = GetTextFromColumn(img_paths,20,200)
+ 
+def ReadImage(img_path):
+    return cv2.imread(img_path)
+ 
+from Utility import Numpy2Image, Image2Numpy,Something
+ 
+    text=GetText(img)
+ 
+FromImage
+ 
+def ReadImage(img_path):
+    return cv2.imread(img_path)
+ 
+height
+ 
+200
+ 
+[
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH02_Index/OriginalImage/img.jpeg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH02_Index/Image/AdaptiveBinary.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH02_Index/Image/OtsuBinaryPx.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH02_Index/Image/Sharpen.jpg'
+]
+ 
+read.SaveText(img_paths[0],'Original')
+read.SaveText(img_paths[1],'AdaptiveBinary')
+read.SaveText(img_paths[2],'OtsuBinaryPxt')
+read.SaveText(img_paths[3],'Sharpen')
+ 
+Default
+ 
+    else:
+        
+ 
+def GetTextFromDefaultColumn(img,height,width,is_a_column=True,is_show=False):
+    contours = tour.GetDefaultContours(img)
+    text_result = []
+    for contour in contours:
+        x, y, w, h = cv2.boundingRect(contour)
+        if w>width and h>height:
+            sub_img = img[y:y+h, x:x+h]
+            output = show.GetText(sub_img)
+            output = output.split('\n')
+            if is_a_column==True:
+                text_result.extend(output)
+            else:
+                text_result.append(output)
+    return text_result
+ 
+Default
+ 
+oi
+ 
+,dilate_img
+ 
+        if is_show==True:
+            show.ShowImage(output_img,'DrawDilateContours (Original Image)')
+ 
+        if is_show==True:
+            show.ShowImage(output_img,'DrawDilateContours (Dilated Image)')
+ 
+
+def ShowContour(img)
+ 
+eturn 
+ 
+        if is_show == True:
+            show.ShowImage(output_img,'DrawDefaultContours (Dilated Image)')
+ 
+        if is_show==True:
+            show.ShowImage(output_img,'DrawDefaultContours (Original Image)')
+ 
+output_img = DrawDilateContours(dilate_img=dilate_img,img=img,rgb=rgb)
+ 
+dilate_img = DefaultDilateImage(img,threshold_px=None,is_binary_inv=True,kernel = np.ones((2,30)),kernel_area=9,is_otsu=True)
+ 
+tour.Confession()
+ 
+def Confession():
+    print('I used to like Emma.')
+ 
+dilate_
+ 
+dilate_
+ 
+dilate_
+ 
+dilate_
+ 
+def SortContours_Bottom2Top():
+ 
+def SortContours_Right2Left():
+ 
+,is_original_img=False
+ 
+,is_original_img=False
+ 
+,is_original_img=False
+ 
+,is_otsu=is_otsu
+ 
+img = RemoveBorders(img)
+ 
+img = RemoveBorders(img)
+ 
+def GetContours(dilate_img):
+    contours, hierarchy = cv2.findContours(dilate_img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    contours = sorted(contours, key = cv2.contourArea, reverse = True)
+    return contours
+
+def GetLargestContour(dilate_img):
+    return GetContours(dilate_img)[0]
+
+
+
+ 
+contours = sorted(contours, key = cv2.contourArea, reverse = True)
+ 
+img = GrayImage(img)
+ 
+show.SaveText(img_paths[4],'FFT')
+show.SaveText(img_paths[5],'Sharp')
+ 
+/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/OriginalImage/img.jpg' ,
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/OtsuBinaryPx.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/ThickFont.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/Sharpen.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/FFTSharpen.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/Adaptive.jpg'
+ 
+ost_img = thresh.BinaryPx(img)
+show.SaveImage(ost_img,'BinaryPx')
+ 
+Otsu
+ 
+
+thick_img = ThickFont(ost_img)
+show.SaveImage(thick_img,'ThickFont')
+ 
+img = Zoom(img_o,1.23)
+img = Rotate(img)
+ 
+import sys
+ImageProcessingPath = '/Users/imac/Desktop/JOCR_SOBA/ImageProcessing'
+sys.path.insert(1, ImageProcessingPath)
+# https://stackoverflow.com/questions/4383571/importing-files-from-different-folder
+
+import ShowImage as show
+import Threshold as thresh
+import RemoveNoise
+from FontSize import ThickFont
+import Convolution as con
+from Rotation import Rotate
+from GrayImage import GrayImage
+import FFT as fft
+from PIL import Image
+from Zoom import RemoveBorders,Zoom
+import cv2
+
+
+img_path = [
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/OriginalImage/img_o.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/OriginalImage/img_r.jpeg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/OriginalJojoSoba.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/BinaryPx_210.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/jojomeme.jpg'
+]
+img_o = show.ReadImage(img_path[0])
+img = Zoom(img_o,1.23)
+img = Rotate(img)
+img = GrayImage(img)
+#show.ShowImage(img)
+
+ost_img = thresh.OtsuSet0Px(img)
+ost_img = thresh.BinaryPx(img,200)
+#show.SaveImage(ost_img,'ost_img')
+
+#fft_img = fft.FFTSharpen01(img,10,10)
+#show.SaveImage(fft_img,'fft_img')
+
+thick_img = ThickFont(ost_img)
+thick_img = ThickFont(thick_img)
+show.ShowImage(thick_img)
+
+#fft_img = fft.FFTBlur03(ost_img,10,10)
+#show.ShowImage(fft_img)
+
+#erode_img = con.Sharpen(img)
+#erode_img = ThickFont(erode_img)
+#show.ShowImage(erode_img)
+
+'''
+python3 Preprocess.py 
+'''
+ 
+thick_img = ThickFont(thick_img)
+ 
+
+sharp_img = con.Sharpen(adapt_img)
+show.SaveImage(sharp_img,'Sharpen')
+ 
+'''
+thick_img = ThickFont(ost_img)
+thick_img = ThickFont(thick_img)
+show.ShowImage(thick_img)
+'''
+
+
+
+#fft_img = fft.FFTBlur03(ost_img,10,10)
+#show.ShowImage(fft_img)
+
+#erode_img = con.Sharpen(img)
+#erode_img = ThickFont(erode_img)
+#show.ShowImage(erode_img)
+
+ 
+sharp_img = con.Sharpen(thick_img,[-0.5,-0.7])
+show.SaveImage(sharp_img,'Sharpen')
+
+fft_img = fft.FFTSharpen03(img,20,20)
+show.SaveImage(fft_img,'FFTSharpen')
+
+adapt_img = thresh.AdaptiveBinaryPx02(fft_img)
+show.SaveImage(adapt_img,'Adaptive')
+
+sharp_img = con.Sharpen(adapt_img)
+show.SaveImage(sharp_img,'Sharpen')
+
+'''
+thick_img = ThickFont(ost_img)
+thick_img = ThickFont(thick_img)
+show.ShowImage(thick_img)
+'''
+
+
+
+#fft_img = fft.FFTBlur03(ost_img,10,10)
+#show.ShowImage(fft_img)
+
+#erode_img = con.Sharpen(img)
+#erode_img = ThickFont(erode_img)
+#show.ShowImage(erode_img)
+ 
+#sharp_img = con.Sharpen(fft_img)
+#show.SaveImage(sharp_img,'Sharpen')
+ 
+FFT
+ 
+
+#ost_img = thresh.BinaryPx(img,200)
+#show.SaveImage(ost_img,'ost_img')
+
+fft_img = fft.FFTSharpen01(img,10,10)
+show.SaveImage(fft_img,'FFTSharpen01')
+ 
+thick_img = ThickFont(thick_img)
+ 
+#show.ShowImage(img)
+
+ost_img = thresh.OtsuSet0Px(img)
+show.SaveImage(ost_img,'OtsuSet0Px')
+ 
+#show.ShowImage(img)
+
+ost_img = thresh.OtsuSet0Px(img)
+show.SaveImage(ost_img,'OtsuSet0Px')
+ 
+#show.ShowImage(img)
+
+ost_img = thresh.OtsuSet0Px(img)
+show.SaveImage(ost_img,'OtsuSet0Px')
+ 
+/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/OriginalImage/img.jpg
+ 
+    
+ 
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/OriginalImage/img_r.jpeg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/OriginalJojoSoba.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/BinaryPx_210.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/jojomeme.jpg'
+]
+ 
+1
+ 
+
+    
+ 
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/OriginalImage/img_r.jpeg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/OriginalJojoSoba.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/BinaryPx_210.jpg',
+    '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/RandomImage/jojomeme.jpg'
+]
+ 
+fft_img = ColorImage(fft_img)
+ 
+from PIL import Image
+from Zoom import RemoveBorders,Zoom
+ 
+import Threshold as thresh
+import RemoveNoise
+from FontSize import ThickFont
+import Convolution as con
+from Rotation import Rotate
+from GrayImage import GrayImage
+ 
+original_img = show.ReadImage(img_path[0])
+ 
+    if fileformat[0]=='.':
+        fileformat = fileformat[1:]
+ 
+original_img = show.ReadImage(img_path[0])
+ 
+ost_img = thresh.AdaptiveBinaryPx02(thick_img)
+show.ShowImage(ost_img)
+ 
+    print(kernel)
+ 
+    print(kernel)
+ 
+#img = con.Sharpen(img)
+ 
+from Contour import DrawDefaultContours
+ 
+img = fft.FFTBlur01(img,180,100)
+fft.SaveFFT(img,'JojoBlur100',is_editfft=True)
+
+##img = Zoom(img,1.23)
+##img = GrayImage(img)##
+
+##img = Rotate(img,is_show=True)
+##show.SaveImage(img,'TestColor02','TestColor')
+##print('DrawDefaultContours Activated')
+##img = DrawDefaultContours(img,is_original_img=False)
+##show.SaveImage(img,'DrawDefaultContours02','TestColor')
+ 
+    text = GetText(img)
+ 
+f not os.path.exists(path):
+        #
+    else:
+        
+ 
+    # 
+ 
+# https://stackoverflow.com/questions/35807605/create-a-file-if-it-doesnt-exist
+ 
+
+# https://stackoverflow.com/qu
+ 
+if not os.path.exists('/tmp/test'):
+    with open('/tmp/test', 'w'): pass
+    
+
+ 
+harpe
+ 
+Rectangle
+ 
+img = fft.ReturnFFT(img)
+ 
 # get grayscale img
 def get_grayscale(img):
     return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)

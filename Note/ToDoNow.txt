@@ -5,3 +5,8 @@
 3. Create PytesseractCommand folder.
 4. Get text from another images in this tutorial.
 * https://www.youtube.com/watch?v=DXYPXZH2eGE&list=PL2VXyKi-KpYuTAZz__9KVl1jQz74bDG7i&index=6
+
+Issue !
+1. Fix 
+* ImageProcessing / Rotation.py / def GetSkewAngle
+* ImageProcessing / Contour.py / def DefaultDilateImage

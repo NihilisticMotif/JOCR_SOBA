@@ -1,6 +1,9 @@
 import numpy as np
 from PIL import Image 
 
+def Something():
+    print('ChatGPT is stupid.')
+
 def Numpy2Image(img):
     # https://stackoverflow.com/questions/10965417/how-to-convert-a-numpy-array-to-pil-image-applying-matplotlib-colormap
     if type(img)==np.ndarray:

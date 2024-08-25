@@ -3,7 +3,7 @@ from GrayImage import GrayImage
 import cv2
 import numpy as np
 import math
-from Utility import Numpy2Image
+from ImageUtility import Numpy2Image
 import os
 
 ########################################################################################################################################################
@@ -55,7 +55,7 @@ def ShowFFT(dft,is_show):
         dft = AdjustFFTForDisplay(dft)
         ShowImage(dft)
 
-def SaveFFT(img,img_title,folder='FFT',fileformat='.jpg',is_editfft=False):
+def SaveFFT(img,img_title,folder='FFT',fileformat='jpg',is_editfft=False):
     if is_editfft==False:
         img = GetFFT(img)
     img = AdjustFFTForDisplay(img)
@@ -127,12 +127,13 @@ def FFTRectangleSharpen(dft,updated_rows,updated_cols,new_frequency=0):
     return dft
 
 def FFTSharpen01(img,updated_rows,updated_cols,new_frequency=0,is_show=False):
+    # https://stackoverflow.com/questions/16720682/pil-cannot-write-mode-f-to-jpeg
     if is_show==True:
         print('FFTSharpen01 is based on FFTRectangleSharpen.')
     dft = GetFFT(img,is_show=is_show)
     dft = FFTRectangleSharpen(dft,updated_rows,updated_cols,new_frequency)
     img = GetIFFT(dft,is_show=is_show)
-    img = 255 * img
+    img = ( 255 * img ).astype(np.uint8) 
     return img
 
 ########################################################################################################################################################
@@ -182,7 +183,7 @@ def FFTBlur01(img,updated_rows,updated_cols,new_frequency=0,is_show=False):
     dft = GetFFT(img,is_show=is_show)
     dft = FFTRectangleBlur(dft,updated_rows,updated_cols,new_frequency)
     img = GetIFFT(dft,is_show=is_show)
-    img = 255 * img
+    img = ( 255 * img ).astype(np.uint8) 
     return img
 
 ########################################################################################################################################################
@@ -236,7 +237,7 @@ def FFTSharpen02(img,updated_rows,updated_cols,new_frequency=0,is_show=False):
     dft = GetFFT(img,is_show=is_show)
     dft = FFTCircleSharpen(dft,updated_rows,updated_cols,new_frequency)
     img = GetIFFT(dft,is_show=is_show)
-    img = 255 * img
+    img = ( 255 * img ).astype(np.uint8) 
     return img
 
 ########################################################################################################################################################
@@ -288,7 +289,7 @@ def FFTBlur02(img,updated_rows,updated_cols,new_frequency=0,is_show=False):
     dft = GetFFT(img,is_show=is_show)
     dft = FFTCircleBlur(dft,updated_rows,updated_cols,new_frequency)
     img = GetIFFT(dft,is_show=is_show)
-    img = 255 * img
+    img = ( 255 * img ).astype(np.uint8) 
     return img
 
 ########################################################################################################################################################
@@ -340,7 +341,7 @@ def FFTSharpen03(img,updated_rows,updated_cols,new_frequency=0,is_show=False):
     dft = GetFFT(img,is_show=is_show)
     dft = FFTCrossSharpen(dft,updated_rows,updated_cols,new_frequency)
     img = GetIFFT(dft,is_show=is_show)
-    img = 255 * img
+    img = ( 255 * img ).astype(np.uint8) 
     return img
 
 ########################################################################################################################################################
@@ -379,7 +380,6 @@ def FFTCrossBlur(dft,updated_rows,updated_cols,new_frequency=0):
         return dft
     mask = np.zeros(dft.shape)
     kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (updated_rows*2, updated_cols*2))
-    print(kernel)
     mask[center_rows-updated_rows:center_rows+updated_rows, 
     center_cols-updated_cols:center_cols+updated_cols] = kernel.T
     mask = np.where(mask < 1,new_frequency,1)
@@ -392,7 +392,7 @@ def FFTBlur03(img,updated_rows,updated_cols,new_frequency=0,is_show=False):
     dft = GetFFT(img,is_show=is_show)
     dft = FFTCrossBlur(dft,updated_rows,updated_cols,new_frequency)
     img = GetIFFT(dft,is_show=is_show)
-    img = 255 * img
+    img = ( 255 * img ).astype(np.uint8) 
     return img
 
 ########################################################################################################################################################

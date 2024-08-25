@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from PIL import Image 
 import os
-from Utility import Numpy2Image, Image2Numpy
+from ImageUtility import Numpy2Image, Image2Numpy
 from GrayImage import IsGray
 
 def ReadImage(img_path):
@@ -30,11 +30,13 @@ def DescribeImage(img_path,detail=None):
     else:
         return Image.open(img_path)
 
-def SaveImage(img,img_title,folder='Image',fileformat='.jpg'):
+def SaveImage(img,img_title,folder='Image',fileformat='jpg'):
     # https://stackoverflow.com/questions/902761/saving-a-numpy-array-as-an-image
     if not os.path.exists(folder):
         os.makedirs(folder)
-    img_path = os.path.join(folder,img_title+fileformat)
+    if fileformat[0]=='.':
+        fileformat = fileformat[1:]
+    img_path = os.path.join(folder,img_title+'.'+fileformat)
     img = Numpy2Image(img)
     img.save(img_path)
 

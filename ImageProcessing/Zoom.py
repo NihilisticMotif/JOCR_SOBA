@@ -19,10 +19,10 @@ def Zoom(img, zoom=1, angle=0, coord=None):
     result = cv2.warpAffine(img, rotation_matrix, img.shape[1::-1], flags=cv2.INTER_LINEAR)    
     return result
 
-def CreateBorders(img,size=50,color = [255, 255, 255],IsGray=True):
+def CreateBorders(img,size=50,color = [255, 255, 255],is_gray=True):
     top, bottom, left, right = [size]*4
     img = cv2.copyMakeBorder(img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color)
-    if IsGray==True:
+    if is_gray==True:
         img = GrayImage(img)
         return img 
     else:

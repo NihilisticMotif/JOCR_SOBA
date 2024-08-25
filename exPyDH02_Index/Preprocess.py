@@ -14,20 +14,22 @@ import FFT as fft
 from PIL import Image
 from Zoom import RemoveBorders,Zoom
 import cv2
+import Contour as tour
+import numpy as np
 
+img_path = '/Users/imac/Desktop/JOCR_SOBA/exPyDH02_Index/OriginalImage/img.jpeg'
+img = show.ReadImage(img_path)
+img = Zoom(img,1)
 
-img_path = '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/OriginalImage/img.jpg'
-img_o = show.ReadImage(img_path)
-img = Zoom(img_o,1.23)
-img = Rotate(img,is_show=True)
-img = GrayImage(img)
+show.ShowImage(img)
 
-ost_img = thresh.OtsuBinaryPx(img)
-show.SaveImage(ost_img,'OtsuBinaryPx')
+img = tour.DefaultDilateImage(img,kernel = np.ones((13,3)))
+show.ShowImage(img)
+show.SaveImage(img,'DefaultDilateImage13x3')
 
-thick_img = ThickFont(ost_img)
-show.SaveImage(thick_img,'ThickFont')
+color_img = tour.DrawDilateContours(dilate_img=img,is_show=True)
+show.SaveImage(color_img,'ColorDefaultDilateImage13x3')
 
 '''
-python3 Preprocess.py 
+python3 Preprocess.py
 '''

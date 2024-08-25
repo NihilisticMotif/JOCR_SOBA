@@ -1,14 +1,21 @@
 from PIL import Image 
-from Utility import Numpy2Image, Image2Numpy
+from ImageUtility import Numpy2Image, Image2Numpy
 from GrayImage import GrayImage, ColorImage
 from Convolution import GaussBlur
 from Threshold import OtsuBinaryPx,BinaryPx
-from ShowImage import ShowImage, SaveImage
+import ShowImage as show
 import numpy as np 
 import cv2
-from Contour import DefaultDilateImage, GetLargestContour, GetContours, DrawContours
+import Contour as tour
 
-def GetSkewAngle(img,threshold_px,is_binary_inv=False,dilate_img=None,kernel = np.ones((2,30)),is_show=False):
+def GetSkewAngle(
+        img,
+        threshold_px=None,
+        is_binary_inv=False,
+        dilate_img=None,
+        kernel = np.ones((5,30)),
+        is_show=False,
+        is_otsu=True):
     # https://github.com/wjbmattingly/ocr_python_textbook/blob/main/02_02_working%20with%20opencv.ipynb
     # https://becominghuman.ai/how-to-automatically-deskew-straighten-a-text-image-using-opencv-a0c30aed83df
 
@@ -26,11 +33,14 @@ def GetSkewAngle(img,threshold_px,is_binary_inv=False,dilate_img=None,kernel = n
 
     new_img = img.copy()
     if not isinstance(dilate_img,np.ndarray):
-        dilate_img = DefaultDilateImage(
+        dilate_img = tour.DefaultDilateImage(
             img=new_img,
             threshold_px=threshold_px,
             is_binary_inv=is_binary_inv,
-            kernel = kernel)
+            kernel = kernel,
+            is_otsu=is_otsu)
+        if is_show==True:
+            show.ShowImage(dilate_img,'DefaultDilateImage')
 
     #####################################################################################################################
 
@@ -38,8 +48,8 @@ def GetSkewAngle(img,threshold_px,is_binary_inv=False,dilate_img=None,kernel = n
 
     # 4.th There can be various approaches to determine skew angle, 
     # but we’ll stick to the simple one — take the largest text block and use its angle.
-    largestContour = GetLargestContour(dilate_img)
-    contour = GetContours(dilate_img)
+    largest_contour = tour.GetLargestContour(dilate_img)
+    contour = tour.GetContours(dilate_img)
 
     #####################################################################################################################
 
@@ -47,7 +57,7 @@ def GetSkewAngle(img,threshold_px,is_binary_inv=False,dilate_img=None,kernel = n
     # The angle value always lies between [-90,0).
     # https://theailearner.com/tag/cv2-minarearect/
 
-    minAreaRect = cv2.minAreaRect(largestContour)
+    minAreaRect = cv2.minAreaRect(largest_contour)
     angle = minAreaRect[-1]
     if angle < -45:
         angle = 90 + angle
@@ -59,10 +69,10 @@ def GetSkewAngle(img,threshold_px,is_binary_inv=False,dilate_img=None,kernel = n
     # This is for showing the contours detection.
     # https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html
     if is_show==True:
-        show_img = DrawContours(img,contour)
-        ShowImage(show_img,'Show Contour 01')
-        show_img = DrawContours(dilate_img,contour)
-        ShowImage(show_img,'Show Contour 02')   
+        show_img = tour.DrawContours(img,contour)
+        show.ShowImage(show_img,'Show Contour 01')
+        show_img = tour.DrawContours(dilate_img,contour)
+        show.ShowImage(show_img,'Show Contour 02')   
         print()
         print('original_angle:',minAreaRect[-1])
         print('output_angle__:',angle)

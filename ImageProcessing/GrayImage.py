@@ -1,6 +1,5 @@
 from PIL import Image, ImageStat
-from Utility import Numpy2Image, Image2Numpy
-import numpy as np 
+import numpy as np
 import cv2
 
 def IsGray(img):

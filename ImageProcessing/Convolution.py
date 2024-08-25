@@ -1,6 +1,6 @@
 import cv2 
 import numpy as np 
-from Utility import OddKernelArea
+from ImageUtility import OddKernelArea
 
 ########################################################################################################################################################
 
