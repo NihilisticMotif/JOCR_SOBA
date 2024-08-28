@@ -1,3 +1,983 @@
+python
+Copy code
+ 
+python
+Copy code
+ 
+'''
+ 
+aveMultiStringArray
+ 
+def GetMultiStringTable(
+        img,
+        width,
+        height,
+        max_width       =   None,
+        max_height      =   None,
+        dilate_img      =   None,
+        threshold_px    =   None,
+        kernel          =   np.ones((13,3)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False,
+        separators      =   '\n'
+        ):
+    img = Path2Image(img)
+    sub_imgs = ColumnSegmentation(
+        img             =   img             ,
+        width           =   width           ,
+        height          =   height          ,
+        max_width       =   max_width       ,
+        max_height      =   max_height      ,
+        dilate_img      =   dilate_img      ,
+        threshold_px    =   threshold_px    ,
+        kernel          =   kernel          ,
+        kernel_area     =   kernel_area     ,
+        is_binary_inv   =   is_binary_inv   ,
+        is_otsu         =   is_otsu         ,
+        is_show         =   is_show         ,
+        is_return_img_ls=   True,
+    )
+    ls=[]
+    for sub_img in sub_imgs:
+        output = read.GetImgText(sub_img)
+        if isinstance(separators,list):
+            output = MultiSplit(separators,output)
+        else:
+            output = output.split(separators)
+        ls.append(output)
+    return ls
+ 
+
+
+
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+########################################################################################################################################################
+'''
+
+def GetMultipleTables()
+
+
+def GetTable(
+        img,
+        width,
+        height,
+        dilate_img      =   None,
+        threshold_px    =   None,
+        kernel          =   np.ones((13,3)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False,
+        separators      =   '\n',
+        ):
+    img = Path2Image(img)
+    sub_imgs = ColumnSegmentation(
+        img             =   img             ,
+        width           =   width           ,
+        height          =   height          ,
+        dilate_img      =   dilate_img      ,
+        threshold_px    =   threshold_px   ,
+        kernel          =   kernel         ,
+        kernel_area     =   kernel_area    ,
+        is_binary_inv   =   is_binary_inv  ,
+        is_otsu         =   is_otsu        ,
+        is_show         =   is_show        ,
+        is_return_img_ls=   True,
+    )
+    ls=[]
+    for sub_img in sub_imgs:
+        output = read.GetImgText(sub_img)
+        if isinstance(separators,list):
+            for separator in separators:
+                output = output.replace(str(separator),str(separators[0]))
+            output=output.split(str(separators[0]))
+        else:
+            output=output.split(str(separators))
+        ls.append(output)
+    return ls
+
+########################################################################################################################################################
+
+def GetMultiStringArrays(
+        img,
+        width_and_height,
+        dilate_img      =   None,
+        threshold_px    =   None,
+        kernel          =   np.ones((13,3)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False,
+        separators      =   '\n',
+        ):
+    img = Path2Image(img)
+    ls=[]
+    activate_weight_and_height_warning=True
+    if len(width_and_height)>2:
+        if isinstance(width_and_height[0],list):
+            if isinstance(width_and_height[0][0],(int,float)) and isinstance(width_and_height[0][1],(int,float)):
+                for i in width_and_height:
+                    sub_text = GetStringArray(
+                        img,
+                        i[0],
+                        i[1],
+                        dilate_img      =   dilate_img      ,
+                        threshold_px    =   threshold_px    ,
+                        kernel          =   kernel          ,
+                        kernel_area     =   kernel_area     ,
+                        is_binary_inv   =   is_binary_inv   ,
+                        is_otsu         =   is_otsu         ,
+                        is_show         =   is_show         ,      
+                        column_format   =   None
+                        )
+                    ls.extend(sub_text)
+                activate_weight_and_height_warning=False
+    elif len(width_and_height)==2:
+        if isinstance(width_and_height[0],(int,float)) and isinstance(width_and_height[1],(int,float)):
+            output_text = GetStringArray(
+                        img,
+                        width_and_height[0],
+                        width_and_height[1],
+                        dilate_img      =   dilate_img      ,
+                        threshold_px    =   threshold_px    ,
+                        kernel          =   kernel          ,
+                        kernel_area     =   kernel_area     ,
+                        is_binary_inv   =   is_binary_inv   ,
+                        is_otsu         =   is_otsu         ,
+                        is_show         =   is_show         ,      
+                        column_format   =   None
+                        )
+            activate_weight_and_height_warning=False
+    else:
+        activate_weight_and_height_warning=True
+    Width_and_Height_Warning(width_and_height,activate_weight_and_height_warning,'GetMultiColumnText')
+    return output_text
+
+
+def GetStringArray(
+        img,
+        width,
+        height,
+        dilate_img      =   None,
+        threshold_px    =   None,
+        kernel          =   np.ones((13,3)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False,
+        separators      =   '\n',
+        ):
+    img = Path2Image(img)
+    sub_imgs = ColumnSegmentation(
+        img             =   img             ,
+        width           =   width           ,
+        height          =   height          ,
+        dilate_img      =   dilate_img      ,
+        threshold_px    =   threshold_px   ,
+        kernel          =   kernel         ,
+        kernel_area     =   kernel_area    ,
+        is_binary_inv   =   is_binary_inv  ,
+        is_otsu         =   is_otsu        ,
+        is_show         =   is_show        ,
+        is_return_img_ls=   True,
+    )
+    ls=[]
+    for sub_img in sub_imgs:
+        output = read.GetImgText(sub_img)
+        if isinstance(separators,list):
+            for separator in separators:
+                output = output.replace(str(separator),str(separators[0]))
+            output=output.split(str(separators[0]))
+        else:
+            output=output.split(str(separators))
+        ls.extend(output)
+    return ls
+'''
+
+'''
+python3 Column.py
+'''
+ 
+        meta_column_format  =   '\n',
+ 
+                output_text+=meta_column_format
+ 
+        meta_column_format='\n'
+ 
+,output_text
+ 
+        print('Output Text')
+        print(output_text)
+ 
+    print('shape_of_ls',shape_of_ls)
+ 
+    if type(column_format)==str:
+        output_text = column_format.join(ls)
+    elif isinstance(column_format,(int,float)):
+        output_text = str(column_format).join(ls)
+    else:
+        output_text=ls
+ 
+ls.extend(output)
+ 
+def MultiSplit(ls,text):
+    # https://stackoverflow.com/questions/4998629/split-string-with-multiple-delimiters-in-python
+    for i in ls:
+        text=text.replace(str(i),ls[0])
+    text=text.split(ls[0])
+    return text
+ 
+        column_format   =   '\n'
+ 
+def GetMultiColumnText(
+        img,
+        width_and_height,
+        dilate_img      =   None,
+        threshold_px    =   None,
+        kernel          =   np.ones((13,3)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False,
+        column_format   =   '\n',
+        meta_column_format='\n'
+        ):
+    img = Path2Image(img)
+    output_text=''
+    shape_of_ls = ShapeOfWidthHeightList(width_and_height)
+    print('shape_of_ls',shape_of_ls)
+    width_and_height=shape_of_ls[0]
+    mode = shape_of_ls[1]
+    is_input_valid = shape_of_ls[2]
+    if is_input_valid==False:
+        Width_and_Height_Warning(width_and_height,'GetMultiColumnText')
+        return output_text
+    else:
+        if mode==0:
+            output_text = GetColumnText(
+                img,
+                width_and_height[0],
+                width_and_height[1],
+                max_width       =width_and_height[2],                    
+                max_height      =width_and_height[3],    
+                dilate_img      =   dilate_img      ,
+                threshold_px    =   threshold_px    ,
+                kernel          =   kernel          ,
+                kernel_area     =   kernel_area     ,
+                is_binary_inv   =   is_binary_inv   ,
+                is_otsu         =   is_otsu         ,
+                is_show         =   is_show         ,      
+                column_format   =   column_format   
+                )
+        if mode==1:
+            for wh in width_and_height:
+                sub_text = GetColumnText(
+                img,
+                wh[0],
+                wh[1],
+                max_width       =   wh[2]           ,                    
+                max_height      =   wh[3]           ,    
+                dilate_img      =   dilate_img      ,
+                threshold_px    =   threshold_px    ,
+                kernel          =   kernel          ,
+                kernel_area     =   kernel_area     ,
+                is_binary_inv   =   is_binary_inv   ,
+                is_otsu         =   is_otsu         ,
+                is_show         =   is_show         ,      
+                column_format   =   column_format   
+                )
+                output_text+=sub_text
+                output_text+=meta_column_format
+        return output_text
+ 
+def ShapeOfWidthHeightList(ls):
+    # https://stackoverflow.com/questions/37357798/how-to-check-if-all-items-in-list-are-string
+    if isinstance(ls,list):
+        if all(isinstance(item, (int,float)) for item in ls):
+            if len(ls)==2:
+                ls.extend([None,None])
+                return (ls,0,True)
+            elif len(ls)==3:
+                ls.append(None)
+                return (ls,0,True)
+            elif len(ls)>=4:
+                return (ls,0,True)
+            else:
+                return (ls,0,False)
+        else:
+            absolate_truth=all(isinstance(item, list) for item in ls)
+            if absolate_truth==True:
+                for i in ls:
+                    if len(i)==3:
+                        i.append(None)
+                    if len(i)==2:
+                        i.extend([None,None])
+                    if len(i)<2:
+                        return (ls,0,False)
+                    if not isinstance(i[0],(int,float)) and not isinstance(i[1],(int,float)):
+                        return (ls,0,False)
+                return (ls,1,True)
+            else:
+                return (ls,0,False)
+    else:
+        return (ls,0,False)
+ 
+def SaveColumnText(
+        img,
+        width,
+        height,
+        max_width     =   None,
+        max_height    =   None,
+        dilate_img      =   None,
+        threshold_px    =   None,
+        kernel          =   np.ones((13,3)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False,
+        column_format   =   '\n',
+        title           =   'TextResult',
+        folder          =   'TextResult',
+        fileformat      =   'txt',
+        ):
+    img = Path2Image(img)
+    output_text = GetColumnText(
+        img,
+        width,
+        height,
+        max_width     =   max_width  ,
+        max_height    =   max_height ,
+        dilate_img      =   dilate_img   ,
+        threshold_px    =   threshold_px ,
+        kernel          =   kernel       ,
+        kernel_area     =   kernel_area  ,
+        is_binary_inv   =   is_binary_inv,
+        is_otsu         =   is_otsu      ,
+        is_show         =   is_show      ,
+        column_format   =   column_format,
+        )
+    PrintTextOutput(is_show,output_text,'SaveColumnText')
+    read.SaveText(
+        text=output_text,
+        title=title,
+        folder=folder,
+        fileformat=fileformat
+        )
+ 
+                print('ls',ls)
+ 
+                print('CategoryTheory')
+ 
+not all(isinstance(item, list) for item in i) or 
+ 
+            print(absolate_truth)
+ 
+all(isinstance(item, list) for item in ls)
+ 
+                print('oi',i)
+ 
++[None]
+ 
++[None,None]
+ 
+or len(i)>4
+ 
+def GetMultiColumnText(
+        img,
+        width_and_height,
+        dilate_img      =   None,
+        threshold_px    =   None,
+        kernel          =   np.ones((13,3)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False,
+        column_format   =   '\n',
+        meta_column_format='\n'
+        ):
+    img = Path2Image(img)
+    output_text=''
+    activate_weight_and_height_warning=True
+    if len(width_and_height)>=2:
+        if isinstance(width_and_height[0],list):
+            if isinstance(width_and_height[0][0],(int,float)) and isinstance(width_and_height[0][1],(int,float)):
+                for i in width_and_height:
+                    sub_text = GetColumnText(
+                        img,
+                        i[0],
+                        i[1],
+                        dilate_img      =   dilate_img      ,
+                        threshold_px    =   threshold_px    ,
+                        kernel          =   kernel          ,
+                        kernel_area     =   kernel_area     ,
+                        is_binary_inv   =   is_binary_inv   ,
+                        is_otsu         =   is_otsu         ,
+                        is_show         =   is_show         ,      
+                        column_format   =   column_format   
+                        )
+                    output_text += sub_text
+                    output_text += meta_column_format
+                activate_weight_and_height_warning=False
+        elif isinstance(width_and_height[0],(int,float)) and isinstance(width_and_height[1],(int,float)):
+            output_text = GetColumnText(
+                        img,
+                        width_and_height[0],
+                        width_and_height[1],
+                        dilate_img      =   dilate_img      ,
+                        threshold_px    =   threshold_px    ,
+                        kernel          =   kernel          ,
+                        kernel_area     =   kernel_area     ,
+                        is_binary_inv   =   is_binary_inv   ,
+                        is_otsu         =   is_otsu         ,
+                        is_show         =   is_show         ,      
+                        column_format   =   column_format   
+                        )
+            activate_weight_and_height_warning=False
+    else:
+        activate_weight_and_height_warning=True
+    Width_and_Height_Warning(width_and_height,activate_weight_and_height_warning,'GetMultiColumnText')
+    return output_text
+
+ 
++[None]
+ 
+,activate_weight_and_height_warning
+ 
+    if activate_weight_and_height_warning==True:
+ 
+    is_input_valid=True
+ 
+==None
+ 
+def ReturnLimitHeight(limit_height,img):
+    if limit_height==None:
+        return img.shape[1]
+    return limit_height
+ 
+AndHeight
+ 
+    if type(column_format)==str:
+        output_text = column_format.join(ls)
+    elif isinstance(column_format,(int,float)):
+        output_text = str(column_format).join(ls)
+ 
+            print('80000Hour Podcast')
+            print('SCP 80000')
+ 
+    elif len(width_and_height)==2:
+ 
+SaveColumnTex
+ 
+if is_show==True:
+        print()
+        print('OCR Output')
+        print(output_text)
+        print('Reported by PytesseractCommand
+ 
+def SaveColumnText(
+        img,
+        width,
+        height,
+        dilate_img      =   None,
+        threshold_px    =   None,
+        kernel          =   np.ones((13,3)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False,
+        column_format   =   '\n',
+        title           =   'TextResult',
+        folder          =   'TextResult',
+        fileformat      =   'txt',
+        ):
+    img = Path2Image(img)
+    output_text = GetColumnText(
+        img,
+        width,
+        height,
+        dilate_img      =   dilate_img   ,
+        threshold_px    =   threshold_px ,
+        kernel          =   kernel       ,
+        kernel_area     =   kernel_area  ,
+        is_binary_inv   =   is_binary_inv,
+        is_otsu         =   is_otsu      ,
+        is_show         =   is_show      ,
+        column_format   =   column_format,
+        )
+    read.SaveText(
+        text=output_text,
+        title=title,
+        folder=folder,
+        fileformat=fileformat
+        )
+
+def GetColumnText(
+        img,
+        width,
+        height,
+        dilate_img      =   None,
+        threshold_px    =   None,
+        kernel          =   np.ones((13,3)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False,
+        column_format   =   '\n'
+        ):
+    img = Path2Image(img)
+    sub_imgs = ColumnSegmentation(
+        img             =   img             ,
+        width           =   width           ,
+        height          =   height          ,
+        dilate_img      =   dilate_img      ,
+        threshold_px    =   threshold_px   ,
+        kernel          =   kernel         ,
+        kernel_area     =   kernel_area    ,
+        is_binary_inv   =   is_binary_inv  ,
+        is_otsu         =   is_otsu        ,
+        is_show         =   is_show        ,
+        is_return_img_ls=   True,
+    )
+    ls=[]
+    for sub_img in sub_imgs:
+        output = read.GetImgText(sub_img)
+        ls.append(output)
+    if type(column_format)==str:
+        output_text = column_format.join(ls)
+    elif isinstance(column_format,(int,float)):
+        output_text = str(column_format).join(ls)
+    return output_text
+ 
+def SaveColumnText(
+        img,
+        width,
+        height,
+        dilate_img      =   None,
+        threshold_px    =   None,
+        kernel          =   np.ones((13,3)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False,
+        column_format   =   '\n',
+        title           =   'TextResult',
+        folder          =   'TextResult',
+        fileformat      =   'txt',
+        ):
+    img = Path2Image(img)
+    output_text = GetColumnText(
+        img,
+        width,
+        height,
+        dilate_img      =   dilate_img   ,
+        threshold_px    =   threshold_px ,
+        kernel          =   kernel       ,
+        kernel_area     =   kernel_area  ,
+        is_binary_inv   =   is_binary_inv,
+        is_otsu         =   is_otsu      ,
+        is_show         =   is_show      ,
+        column_format   =   column_format,
+        )
+    read.SaveText(
+        text=output_text,
+        title=title,
+        folder=folder,
+        fileformat=fileformat
+        )
+ 
+def GetMultiColumnText(
+        img,
+        width_and_height,
+        dilate_img      =   None,
+        threshold_px    =   None,
+        kernel          =   np.ones((13,3)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False,
+        column_format   =   '\n',
+        meta_column_format='\n'
+        ):
+    img = Path2Image(img)
+    output_text=''
+    activate_weight_and_height_warning=True
+    if len(width_and_height)>2:
+        if isinstance(width_and_height[0],list):
+            if isinstance(width_and_height[0][0],(int,float)) and isinstance(width_and_height[0][1],(int,float)):
+                for i in width_and_height:
+                    sub_text = GetColumnText(
+                        img,
+                        i[0],
+                        i[1],
+                        dilate_img      =   dilate_img      ,
+                        threshold_px    =   threshold_px    ,
+                        kernel          =   kernel          ,
+                        kernel_area     =   kernel_area     ,
+                        is_binary_inv   =   is_binary_inv   ,
+                        is_otsu         =   is_otsu         ,
+                        is_show         =   is_show         ,      
+                        column_format   =   column_format   
+                        )
+                    output_text += sub_text
+                    output_text += meta_column_format
+                activate_weight_and_height_warning=False
+    elif len(width_and_height)==2:
+        if isinstance(width_and_height[0],(int,float)) and isinstance(width_and_height[1],(int,float)):
+            output_text = GetColumnText(
+                        img,
+                        width_and_height[0],
+                        width_and_height[1],
+                        dilate_img      =   dilate_img      ,
+                        threshold_px    =   threshold_px    ,
+                        kernel          =   kernel          ,
+                        kernel_area     =   kernel_area     ,
+                        is_binary_inv   =   is_binary_inv   ,
+                        is_otsu         =   is_otsu         ,
+                        is_show         =   is_show         ,      
+                        column_format   =   column_format   
+                        )
+            activate_weight_and_height_warning=False
+    else:
+        activate_weight_and_height_warning=True
+    Width_and_Height_Warning(width_and_height,activate_weight_and_height_warning,'GetMultiColumnText')
+    return output_text
+ 
+                    output_text += meta_column_format
+ 
+function_name
+ 
+'GetGeneralColumnText'
+ 
+print('width_and_height:',width_and_height)
+ 
+print('width_and_height',width_and_height)
+ 
+        print('Reported by PytesseractCommand / ReadColumn.py / def',Width_and_Height_Warning)
+ 
+Table
+ 
+        if separators!=None:
+            output=output.split(str(separators))
+ 
+        column_format   =   '\n',
+ 
+        column_format   =   '\n',
+ 
+    output_text = column_format.join(ls)
+ 
+    output_text = column_format.join(ls)
+ 
+    is_save_multiple_imgs=True
+ 
+    save_image_folder_and_name='ImageWithColumn',
+ 
+    is_a_column=False,
+ 
+
+'''
+Name 
+1. ColumnSegmentation
+2. Column
+3. ImageSegmentation
+'''
+ 
+        title           =   'TextResult',
+        folder          =   'TextResult',
+        fileformat      =   'txt',
+ 
+TextFrom
+ 
+        output_text=''
+ 
+        else:
+            output_text=''
+ 
+        else:
+            output_text=''
+            activate_weight_and_height_warning=True
+ 
+else:
+                output_text=''
+                
+ 
+if len(width_and_height)==2:
+ 
+        img_title       =   img_title       ,
+        folder          =   folder          ,
+        fileformat      =   fileformat      ,
+        is_multiple_imgs=   is_multiple_imgs,
+ 
+        display_color   =   display_color   ,
+ 
+        img_title       =   img_title      ,
+        folder          =   folder         ,
+        fileformat      =   fileformat     ,
+        is_multiple_imgs=   is_multiple_imgs,
+ 
+        display_color   =   display_color   ,
+ 
+        display_color   =   [
+            (255,0,0),
+            (0,255,0),
+            (0,0,255),
+        ],
+ 
+        is_multiple_imgs=   False,
+ 
+        img_title       =   None,
+        folder          =   'ColumnSegment',
+        fileformat      =   'jpg',
+ 
+        folder          =   ''
+ 
+[
+            (255,0,0),
+            (0,255,0),
+            (0,0,255),
+        ],
+ 
+        is_return_ls    =   False,
+ 
+        output_mode     =   'flatstring'
+ 
+    if is_show==True:
+        print()
+        print('Text Output Mode (output_mode)')
+        print('* flatstring   : For text displayed as a single long string without separators.')
+        print('* linestring   : For text displayed with each segment on a new line (\\n).')
+        print('* columnstring : For text aligned by columns as seen in tables or images.')
+        print('* gridstring   : For text displayed in a column and row format, separated by new lines and aligned like a grid.')
+        print('Note is written by ChatGPT.')
+        print('Reported by PytesseractCommand / ReadColumn.py / def GetTextFromColumn')
+ 
+    if is_show==True:
+        print()
+        print('Text Output Mode (output_mode)')
+        print('* flatstring   : For text displayed as a single long string without separators.')
+        print('* linestring   : For text displayed with each segment on a new line (\\n).')
+        print('* columnstring : For text aligned by columns as seen in tables or images.')
+        print('* gridstring   : For text displayed in a column and row format, separated by new lines and aligned like a grid.')
+        print('Note is written by ChatGPT.')
+        print('Reported by PytesseractCommand / ReadColumn.py / def GetTextFromColumn')
+ 
+    long_text=''
+ 
+        output = output.split('\n')
+ 
+ls=[]
+ 
+text = long text with no segmentation
+ 
+page = long text with no segmentation
+ 
+text = long 1D text
+ 
+ with no segmentation
+ 
+utput = 
+ 
+        is_return_img_ls=   False,
+ 
+img = gray.ColorImage(img)
+ 
++'_'+str(no)
+ 
++'_0'+str(no)
+ 
+img = gray.ColorImage(img)
+ 
+            output = output.split('\n')
+ 
+            output = read.GetText(sub_img)
+ 
+def ColumnSegmentation(
+        img,
+        width,
+        height,
+        dilate_img      =   None,
+        display_color   =   [
+            (255,0,0),
+            (0,255,0),
+            (0,0,255),
+        ],
+        threshold_px    =   None,
+        kernel          =   np.ones((13,3)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False,
+        img_title       =   None,
+        is_multiple_imgs=   False,
+        folder          =   'ColumnSegment',
+        fileformat      =   'jpg'
+    ):
+
+    #####################################################################################################################
+
+    if not isinstance(dilate_img,np.ndarray):
+        dilate_img = tour.DefaultDilateImage(
+            img,
+            threshold_px    =   threshold_px,
+            kernel          =   kernel,
+            kernel_area     =   kernel_area,
+            is_binary_inv   =   is_binary_inv,
+            is_otsu         =   is_otsu,
+            is_show         =   is_show
+            )
+    contours = tour.GetContours_Left2Right(dilate_img,False)
+
+    #####################################################################################################################
+
+    count_segment = 0
+    sub_imgs = []
+    for contour in contours:
+        x, y, w, h = cv2.boundingRect(contour)
+        if w>width and h>height:
+            sub_img=img[y:y+h, x:x+w]
+            output = read.GetText(sub_img)
+            output = output.split('\n')
+            show_img = cv2.rectangle(img, (x, y), (x+w, y+h), display_color[count_segment%len(display_color)], 2)
+            if is_show==True:
+                img = ColorImage(img)
+                show.ShowImage(show_img,'Full Image with Columns. '+str(img_title))
+                show.ShowImage(sub_img,'Image with just 1 Column. '+str(img_title))
+                count_segment+=1
+            sub_imgs.append(img[y:y+h, x:x+w])
+
+    #####################################################################################################################
+
+    if is_show==True:
+        print('Number of all Segments:',count_segment)
+    if isinstance(img_title,str):
+        show.SaveImage(img,img_title,folder=folder,fileformat=fileformat)
+        if is_multiple_imgs==True:
+            no=0
+            for sub_img in sub_imgs:
+                if no<10:
+                    show.SaveImage(img+'_0'+str(no),img_title,folder=folder,fileformat=fileformat)
+                else:
+                    show.SaveImage(img+'_'+str(no),img_title,folder=folder,fileformat=fileformat)
+                no+=1
+ 
+        if not isinstance(folder,str):
+            folder='Image'
+        if not isinstance(fileformat,str):
+            fileformat='jpg'
+ 
+    text_result = []
+ 
+    return text_result
+ 
+            sub_imgs.append(img[y:y+h, x:x+w])
+ 
+        if isinstance(folder,str):
+            show.SaveImage(img,img_title,folder=folder,fileformat=fileformat)
+ 
+isinstance(folder,str) and 
+ 
+ and isinstance()
+ 
+        show.SaveImage(show_img,save_image_folder_and_name)
+        if is_save_multiple_imgs==True:
+            ii=0
+            for sub_img in sub_imgs:
+                show.SaveImage(sub_img,save_image_folder_and_name+'No'+str(ii))
+                ii+=1
+    if isinstance(save_image_folder_and_name,list):
+        print('type(save_image_folder_and_name)',save_image_folder_and_name)
+        if all(isinstance(item, str) for item in save_image_folder_and_name):
+            # https://stackoverflow.com/questions/37357798/how-to-check-if-all-items-in-list-are-string
+            if len(save_image_folder_and_name)==1:
+                show.SaveImage(show_img,save_image_folder_and_name[0])
+                if is_save_multiple_imgs==True:
+                    ii=0
+                    for sub_img in sub_imgs:
+                        show.SaveImage(
+                            sub_img,                    
+                            save_image_folder_and_name[0]+'No'+str(ii),
+                        )
+                        ii+=1
+            if len(save_image_folder_and_name)==2:
+                show.SaveImage(
+                    show_img,
+                    save_image_folder_and_name[0],
+                    folder=save_image_folder_and_name[1]
+                    )
+                if is_save_multiple_imgs==True:
+                    ii=0
+                    for sub_img in sub_imgs:
+                        show.SaveImage(
+                            sub_img,                    
+                            save_image_folder_and_name[0]+'No'+str(ii),
+                            folder=save_image_folder_and_name[1],
+                        )
+                        ii+=1
+            if len(save_image_folder_and_name)>2:
+                show.SaveImage(
+                    show_img,
+                    save_image_folder_and_name[0],
+                    folder=save_image_folder_and_name[1],
+                    fileformat=save_image_folder_and_name[2],
+                    )
+                if is_save_multiple_imgs==True:
+                    ii=0
+                    for sub_img in sub_imgs:
+                        show.SaveImage(
+                            sub_img,                    
+                            save_image_folder_and_name[0]+'No'+str(ii),
+                            folder=save_image_folder_and_name[1],
+                            fileformat=save_image_folder_and_name[2],
+                        )
+                        ii+=1
+ 
+
+'''
+ 
+    img = Path2Image(img)
+ 
+            if is_a_column==True:
+                text_result.extend(output)
+            else:
+                text_result.append(output)
+ 
+        is_a_column     =   True,
+ 
+            if is_save_multiple_imgs==True:
+ 
+        save_image_folder_and_name =   None,
+        is_save_multiple_imgs      =   False
+ 
 
 '''
  
