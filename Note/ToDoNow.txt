@@ -6,7 +6,7 @@
 4. Get text from another images in this tutorial.
 * https://www.youtube.com/watch?v=DXYPXZH2eGE&list=PL2VXyKi-KpYuTAZz__9KVl1jQz74bDG7i&index=6
 
-Issue !
+ToDoNow
 1. Write clean code and test it 
 * PytesseractCommand / ReadColumn.py 
-
+2. How to write clean code ?
