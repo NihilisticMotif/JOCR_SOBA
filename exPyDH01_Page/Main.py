@@ -10,9 +10,9 @@ img_paths=[
     '/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/Image/ThickFont.jpg',
 ]
 
-read.SaveText(img_paths[0],'Original')
-read.SaveText(img_paths[1],'OtsuBinaryPx')
-read.SaveText(img_paths[2],'ThickFont')
+read.SaveTextFromImage(img_paths[0],'Original')
+read.SaveTextFromImage(img_paths[1],'OtsuBinaryPx')
+read.SaveTextFromImage(img_paths[2],'ThickFont')
 
 '''
 python3 Main.py

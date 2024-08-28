@@ -63,10 +63,10 @@ def SaveFFT(img,img_title,folder='FFT',fileformat='jpg',is_editfft=False):
     img = (img*255).astype(np.uint8) 
     SaveImage(img,img_title,folder=folder,fileformat=fileformat)
 
-def GetFFT(img,is_show=False,fft_size=None):
+def GetFFT(img,is_show=False,fft_size=None,scale=255):
     # https://docs.opencv.org/4.x/de/dbc/tutorial_py_fourier_transform.html
     img = GrayImage(img)
-    img = img / np.float32(255)
+    img = img / np.float32(scale)
     # dft is the array that contains complex numbers.
     dft = np.fft.fft2(img,fft_size)          
     # zero frequency component of dft will be at top left corner. 

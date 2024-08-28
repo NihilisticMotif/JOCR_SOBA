@@ -16,7 +16,8 @@ def DefaultDilateImage(
         kernel_area     =   9,
         is_binary_inv   =   True,
         is_otsu         =   True,
-        is_show         =   False):
+        is_show         =   False
+        ):
     dilate_img = GrayImage(img)    
     dilate_img = GaussBlur(dilate_img,OddKernelArea(kernel_area))
     if isinstance(threshold_px, (int,float)):
@@ -27,7 +28,7 @@ def DefaultDilateImage(
     # kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (30, 5))
     dilate_img = cv2.dilate(dilate_img, kernel, iterations=2)
     if is_show==True:
-        show.ShowImage(dilate_img,'Contour.py')
+        show.ShowImage(dilate_img,'DefaultDilateImage')
     return dilate_img
 
 #####################################################################################################################

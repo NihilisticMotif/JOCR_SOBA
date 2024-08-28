@@ -1,4 +1,23 @@
 
+'''
+ 
+show.ShowImage(img,'Before')
+ 
+show.ShowImage(img,'After')
+ 
+show.ShowImage(img)
+ 
+img = tour.DefaultDilateImage(img,threshold_px=None,is_show=True)
+ 
+        if not isinstance(dilate_img,np.ndarray):
+            angle = GetSkewAngle(
+                img,
+                threshold_px=threshold_px,
+                is_binary_inv=is_binary_inv,
+                is_show=is_show)
+        else:
+ 
+
     print('kernel',kernel.shape)
  
     show.ShowImage(dilate_img,'Contour.py')
