@@ -1,12 +1,4 @@
 
-1. Watch this video 
-* https://youtu.be/4uWp6dS6_G4?si=zSLnW_Qd6ZP4RJO9
-2. Get text from image in exPyDH01_Page folder.
-3. Create PytesseractCommand folder.
-4. Get text from another images in this tutorial.
-* https://www.youtube.com/watch?v=DXYPXZH2eGE&list=PL2VXyKi-KpYuTAZz__9KVl1jQz74bDG7i&index=6
-
-ToDoNow
-1. Write clean code and test it 
-* PytesseractCommand / ReadColumn.py 
-2. How to write clean code ?
+1. Do FFT2D , MarkImg and OCR_Command classes.
+2. Creating DilateImg and Rotate Function
+3. 

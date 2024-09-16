@@ -1,3 +1,160 @@
+    def Help():
+        message = '''
+Kernel2D is used for 
+ * edge detection
+ * blur image
+ * convolution 
+ * FFT convolution
+
+type Mode
+1. cv2.MORPH_RECT
+
+[[1 1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1 1]]
+
+2. cv2.MORPH_ELLIPSE
+
+[[0 0 0 1 1 1 1 1 0 0 0]
+ [0 1 1 1 1 1 1 1 1 1 0]
+ [1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1]
+ [0 1 1 1 1 1 1 1 1 1 0]]
+
+3. cv2.MORPH_CROSS
+
+[[0 0 0 0 0 0 1 0 0 0 0 0]
+ [0 0 0 0 0 0 1 0 0 0 0 0]
+ [0 0 0 0 0 0 1 0 0 0 0 0]
+ [0 0 0 0 0 0 1 0 0 0 0 0]
+ [0 0 0 0 0 0 1 0 0 0 0 0]
+ [1 1 1 1 1 1 1 1 1 1 1 1]
+ [0 0 0 0 0 0 1 0 0 0 0 0]
+ [0 0 0 0 0 0 1 0 0 0 0 0]
+ [0 0 0 0 0 0 1 0 0 0 0 0]
+ [0 0 0 0 0 0 1 0 0 0 0 0]]
+
+Reference
+* https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html
+''' 
+        print(message)
+ 
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ 
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+ 
+self.
+ 
+self.
+ 
+pass
+ 
+        # https://youtu.be/KuXjwB4LzSA?si=mt-leKGKjpMnJGfg
+        # https://www.geeksforgeeks.org/python-opencv-filter2d-function/
+ 
+img,
+ 
+, name='Image', folder = 'Image', fileformat = 'jpg'
+ 
+    def __init__(            self, 
+            img:np.ndarray | str, 
+            name:str        =   'Image', 
+            folder:str      =   'Image', 
+            fileformat:str  =   'jpg'):
+        super().__init__(self, img, name='Image', folder = 'Image', fileformat = 'jpg')
+ 
+int, int, int
+ 
+num
+ 
+ *   
+ 
+List of 
+ 
+        if num == 0:
+ 
+import Threshold
+ 
+        self.is_inverse = is_inverse 
+ 
+,is_inverse=False
+ 
+pass
+ 
+kernel = np.ones((2,2),np.uint8)
+ 
+kernel = np.ones((2,2),np.uint8)
+ 
+.img
+ 
+OddKernelArea
+ 
+kernel = np.ones((1, 1), np.uint8)
+ 
+(img)
+ 
+    img = GrayImage(img)
+ 
+Image
+ 
+    def Copy(self):
+        output_image = GrayImage(
+            self.img,
+            self.name,
+            self.folder,
+            self.fileformat)
+        return output_image 
+ 
+self.
+ 
+    def Gray(self):
+        self = GrayImage(
+            img = cv2.cvtColor(self.img, cv2.COLOR_RGB2GRAY)
+            name = self.name,
+            folder = self.folder,
+            fileformat = self.fileformat
+            )
+ 
+,is_gray=True
+ 
+img,
+ 
+        if is_gray==True:
+            img = GrayImage(img)
+            return img 
+        else:
+            return img 
+ 
+return (crop)
+ 
+        return result
+ 
+        else:
+            fileformat
+ 
+_path
+ 
 Operation
  
 python
