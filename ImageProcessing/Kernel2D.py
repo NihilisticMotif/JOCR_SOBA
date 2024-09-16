@@ -68,9 +68,12 @@ type Mode
 
 Reference
 * https://opencv24-python-tutorials.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html
+
+By: ImageProcessing / FFT2D.py
 ''' 
         print(message)
-
+    def GetKernel(self):
+        return self._kernel
     @property
     def UpdateKernel(self):
         # https://www.pythonmorsels.com/making-read-only-attribute/

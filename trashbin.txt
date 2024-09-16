@@ -1,3 +1,226 @@
+            # (parameter) self: Self@MarkImg
+            # (variable) img: Image
+ 
+i
+ 
+            img.name = name+'_'+str(index)
+ 
+common_
+ 
+[Image]
+ 
+img
+ 
+self.__CreateContour()
+ 
+    def CreateBorders(
+            self,
+            size  : int =50,
+            color : int = 0):
+        top, bottom, left, right = [size]*4
+        self.img = cv2.copyMakeBorder(self.img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color)
+ 
+retur
+ 
+],reverse=is_descending)
+ 
+.lower()
+ 
+.lower()
+ 
+.lower()
+ 
+'r','e','w','x'
+ 
+is_ascending:bool
+ 
+ in ['l2r','left to right','left2right']
+ 
+        self.mark_img = mark_img
+ 
+            mark_img:Image
+ 
+np.ndarray|
+ 
+pass
+ 
+,
+            self.name,
+            self.folder,
+            self.fileformat
+ 
+ = 10
+ 
+ = 10
+ 
+ = 10
+ 
+ = 10
+ 
+:bool|None=True
+ 
+ = cv2.MORPH_RECT
+ 
+:float = 0
+ 
+:None|int = 10
+ 
+:int = 10
+ 
+Other Learning Resource
+1. The Discrete Fourier Transform: Most Important Algorithm Ever?
+* https://youtu.be/yYEMxqreA10?si=-MZ6QTnQq0DmxV06
+2. he Remarkable Story Behind The Most Important Algorithm Of All Time
+* https://youtu.be/nmgFG7PUHfo?si=WYsNGYudyPnMzE4c
+3. The Fourier Series and Fourier Transform Demystified
+* https://youtu.be/mgXSevZmjPc?si=X-V8HRe0QYVm8QUL
+ 
+        self.dft = img
+        
+ 
+ = 'jpg'
+ 
+ = 'Image'
+ 
+='Image'
+ 
+,is_show=False
+ 
+        ShowFFT(dft,is_show=is_show)
+ 
+def GetFFT(img):
+    # https://docs.opencv.org/4.x/de/dbc/tutorial_py_fourier_transform.html
+    img = img / np.float32(255)
+    # dft is the array that contains complex numbers.
+    dft = np.fft.fft2(img)          
+    # zero frequency component of dft will be at top left corner. 
+    # If you want to bring it to center, you need to shift the result n/2 in both dorection 
+    # using np.fft.fftshift(). 
+    dft = np.fft.fftshift(dft)  
+    # By default, the transform is computed over the last two axes of the input array
+    # Implies that in default case, the shape of dft is the same as shape of img.
+    return dft
+ 
+
+    def Edit(self,
+            kernel:np.ndarray,
+            is_sharp:bool,
+            new_frequency:float):
+        row = math.floor(self.dft.shape[0]/2)
+        col = math.floor(self.dft.shape[1]/2)
+        if self.__CheckValidShape(kernel.shape[0],kernel.shape[1]):
+            update_row = kernel.shape[0]
+            update_col = kernel.shape[0]
+            mask[   row-update_row:row+update_row, 
+                    col-update_col:col+update_col   ] = kernel.T
+            if is_sharp == True:
+                mask = np.where(mask < 1,1,new_frequency)
+            else:
+                mask = np.where(mask < 1,new_frequency,1)
+            self.dft *= mask
+ 
+WithKernel
+ 
+
+    def Blur(self,
+            update_row:int,
+            update_col:None|int,
+            new_frequency:float = 0,
+            type = cv2.MORPH_RECT):
+        row = math.floor(self.dft.shape[0]/2)
+        col = math.floor(self.dft.shape[1]/2)
+        if self.__CheckValidShape(update_row,update_col):
+            kernel = Kernel2D(
+                width=update_row,
+                height=update_col,
+                type=type)
+            kernel = kernel.GetKernel()
+            mask = np.zeros(self.dft.shape)
+            mask[row-update_row:row+update_row, 
+            col-update_col:col+update_col] = kernel.T
+            mask = np.where(mask < 1,new_frequency,1)
+            self.dft *= mask  
+ 
+new_frequency
+ 
+FFT
+ 
+FFT
+ 
+.df
+ 
+.dft
+ 
+            scalar:float = 1,
+ 
+                scalar=scalar,
+ 
+center_
+ 
+center_
+ 
+center_
+ 
+center_
+ 
+        rows = self.dft.shape[0]
+        cols = self.dft.shape[1]    
+        center_rows = math.floor(rows/2)
+        center_cols = math.floor(cols/2)
+        updated_rows = kernel.shape[0]
+        updated_cols = kernel.shape[0]
+        mask = np.zeros(self.dft.shape)
+        mask[center_rows-updated_rows:center_rows+updated_rows, 
+        center_cols-updated_cols:center_cols+updated_cols] = kernel.T
+ 
+                row:int,
+                col:int,
+ 
+    def __ShapeWarning(self):
+        pass
+ 
+            updated_rows:int,
+            updated_cols:int,
+ 
+def GetFFT(img):
+    # https://docs.opencv.org/4.x/de/dbc/tutorial_py_fourier_transform.html
+    img = img / np.float32(255)
+    # dft is the array that contains complex numbers.
+    dft = np.fft.fft2(img)          
+    # zero frequency component of dft will be at top left corner. 
+    # If you want to bring it to center, you need to shift the result n/2 in both dorection 
+    # using np.fft.fftshift(). 
+    dft = np.fft.fftshift(dft)  
+    # By default, the transform is computed over the last two axes of the input array
+    # Implies that in default case, the shape of dft is the same as shape of img.
+    return dft
+ 
+return dft
+ 
+,scale=255
+ 
+,fft_size=None
+ 
+,fft_size
+ 
+import cv2
+ 
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+ 
+    img = GrayImage(img)
+ 
+,is_show=False
+ 
+    ShowFFT(dft,is_show=is_show)
+ 
+,is_show=False
+ 
+    # By default, the transform is computed over the last two axes of the input array
+    # Implies that in default case, the shape of dft is the same as shape of img.
+    ShowFFT(dft,is_show=is_show)
+ 
+pass
+ 
     def Help():
         message = '''
 Kernel2D is used for 

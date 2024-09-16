@@ -3,13 +3,14 @@ import numpy as np
 import cv2
 from ImageFunction import OddKernelArea
 import Threshold
+import FFT2D
 class GrayImage(Image):
     def __init__(self, 
             img:np.ndarray | str, 
             name:str        =   'Image', 
             folder:str      =   'Image', 
             fileformat:str  =   'jpg'):
-        super().__init__(self, img, name='Image', folder = 'Image', fileformat = 'jpg')
+        super().__init__(self, img, name, folder, fileformat)
         if type(img) == str:
             self.img = cv2.cvtColor(cv2.imread(img), cv2.COLOR_RGB2GRAY)
         elif len(img.shape)==3:
@@ -25,8 +26,15 @@ class GrayImage(Image):
             self.fileformat)
         return output_image 
 
+    def CreateBorders(
+            self,
+            size  : int =50,
+            color : int = 0):
+        top, bottom, left, right = [size]*4
+        self.img = cv2.copyMakeBorder(self.img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color)
+    
     def Color(self):
-        self = Image(self.img,self.name,self.folder,self.fileformat)
+        return Image(self.img,self.name,self.folder,self.fileformat)
 
     def Inverted(self):
         self.img = cv2.bitwise_not(self.img)
@@ -121,4 +129,43 @@ class GrayImage(Image):
         kernel_area=OddKernelArea(kernel_area)
         self.img = cv2.bilateralFilter(self.img, kernel_area, effect, effect)
 
+    def GetFFT(self):
+        return FFT2D(
+            self.img,
+            self.name+'_FFT',
+            self.folder,
+            self.fileformat)
+    
+    def ShowFFT(self):
+        dft = self.GetFFT()
+        dft.Show()
 
+    def SaveFFT(self):
+        dft = self.GetFFT()
+        dft.Save()
+    
+    def EditFFT(self,
+            update_row:int,
+            update_col:None|int,
+            new_frequency:float = 0,
+            type = cv2.MORPH_RECT,
+            is_sharp:bool|None=True):
+        dft = self.GetFFT()
+        dft.Edit(
+            update_row    = update_row    ,
+            update_col    = update_col    ,
+            new_frequency = new_frequency ,
+            type          = type          ,
+            is_sharp      = is_sharp      )
+        self.img = dft.GetIFFT()
+
+    def KernelEditFFT(self,
+            kernel:np.ndarray,
+            is_sharp:bool|None=None,
+            new_frequency:float=0):
+        dft = self.GetFFT()
+        dft.KernelEdit(
+            kernel          =   kernel,
+            is_sharp        =   is_sharp,
+            new_frequency   = new_frequency)
+        self.img = dft.GetIFFT()

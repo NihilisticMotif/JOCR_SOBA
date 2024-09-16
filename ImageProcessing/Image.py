@@ -7,7 +7,7 @@ class Image:
     def __init__(
             self, 
             img:np.ndarray | str, 
-            name:str        =   'Image', 
+            name:str        =   'Image_FFT', 
             folder:str      =   'Image', 
             fileformat:str  =   'jpg'
             ):
@@ -18,15 +18,15 @@ class Image:
         elif len(img.shape)==2:
             self.img = cv2.cvtColor(img,cv2.COLOR_GRAY2RGB)
         self.name = name
-        self.folder = folder            # str or list
-        self.fileformat = fileformat    # jpg, png etc.
+        self.folder = folder           
+        self.fileformat = fileformat   
 
     def Show(self):
         cv2.imshow(self.name,self.img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
     
-    def SaveImage(self):
+    def Save(self):
         if not os.path.exists(self.folder):
             os.makedirs(self.folder)
         if self.fileformat[0]=='.':
@@ -76,11 +76,9 @@ class Image:
         pass 
 
     def Gray(self):
-        self = GrayImage(
+        return GrayImage(
             img = cv2.cvtColor(self.img, cv2.COLOR_RGB2GRAY),
             name = self.name,
             folder = self.folder,
             fileformat = self.fileformat
             )
-
-

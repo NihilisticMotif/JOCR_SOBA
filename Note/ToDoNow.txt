@@ -1,4 +1,6 @@
 
-1. Do FFT2D , MarkImg and OCR_Command classes.
+1. What does @property do ?
 2. Creating DilateImg and Rotate Function
-3. 
+3. Create OCR_Command class 
+4. Test if the software work.
+5. Note the coding smell.
