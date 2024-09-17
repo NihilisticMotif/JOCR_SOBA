@@ -1,6 +1,7 @@
 
-1. What does @property do ?
-2. Creating DilateImg and Rotate Function
-3. Create OCR_Command class 
-4. Test if the software work.
-5. Note the coding smell.
+1. Learn how to encasulating my code.
+2. What does @property do ?
+3. Creating DilateImg and Rotate Function
+4. Create OCR_Command class 
+5. Test if the software work.
+6. Note the coding smell.

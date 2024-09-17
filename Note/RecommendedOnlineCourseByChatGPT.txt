@@ -1,0 +1,80 @@
+ME 
+
+I think the biggest problem is I have no idea on how to code using Open/Close principle and encapsulation. Once I can do it, I will know 
+1. How to code in Single responsibility manner 
+2. Why other design pattern and OOP exists 
+3. When to use OOP vs Procedure 
+4. What method should or should not be include in a class
+5. Is the class too large (God Object) or too small (Lazy Class)
+6. Is the code A too depending on code B
+7. Following Interface Segregation Principle. Make the interface becomes user friendly and have single responsibility.
+because I know how to abstract unnecessary detail to make it user friendly and separating logic, such that I can separating the code into smaller reusable components.
+
+Another problem I face is that I do not know how to following Dependency Inversion Principle, but I believe with more understanding of encapsulation I can do it better.
+
+I think it is common that people spend a day being frustrate and try to detect their knowledge and experience gap.
+
+Do you have recommended online course for me ?
+
+CHATGPT 
+
+Based on your focus and challenges, I recommend the following online courses that can help you improve your understanding of Object-Oriented Programming (OOP), SOLID principles, and design patterns, as well as code refactoring:
+
+1. Object-Oriented Programming and Design Principles
+Course: Object-Oriented Design (OOP) for Software Engineers
+
+Platform: Coursera
+Description: This course focuses on the fundamentals of OOP and software design, helping you understand how to structure classes and apply OOP principles in practice.
+Why Recommended: It covers SOLID principles and real-world application of OOP design patterns.
+Course: Object-Oriented Programming in Python
+
+Platform: Udemy
+Description: This course is Python-focused and introduces OOP concepts from scratch. It builds up to more advanced topics such as encapsulation, inheritance, and polymorphism.
+Why Recommended: Since you are coding in Python, this course will give you practical knowledge of OOP applied directly to your programming environment.
+2. SOLID Principles and Code Refactoring
+Course: SOLID Principles of Object-Oriented Design
+
+Platform: Pluralsight
+Description: A focused course on SOLID principles, helping you understand how to write flexible and maintainable code.
+Why Recommended: It’s directly aligned with your goal to understand and apply SOLID principles to improve your current project.
+Course: Refactoring to Design Patterns
+
+Platform: Pluralsight
+Description: This course teaches how to refactor code in a way that leads to using design patterns, focusing on improving code quality incrementally.
+Why Recommended: Refactoring is one of your key concerns, and this course bridges refactoring with applying design patterns.
+3. Design Patterns
+Course: Design Patterns in Python
+
+Platform: Udemy
+Description: Focuses on understanding and applying design patterns using Python, covering patterns like Factory, Strategy, Observer, and more.
+Why Recommended: You’ll see how design patterns can solve common problems and learn to apply them in Python, which aligns with your need to better structure your code.
+Course: Design Patterns
+
+Platform: Refactoring.Guru (self-paced)
+Description: This course walks through all major design patterns, with visual examples and code snippets.
+Why Recommended: It’s an in-depth exploration of design patterns and how they help in improving code structure, giving you the tools to break down complex problems.
+4. Software Architecture
+Course: Software Architecture & Design
+Platform: Udacity
+Description: This course focuses on high-level design and architecture, teaching you to think about how larger systems are structured.
+Why Recommended: As you move to medium or large projects, it’s important to understand architectural concepts and how OOP fits into the bigger picture.
+5. Python-Specific Refactoring
+Course: Refactoring in Python
+Platform: Udemy
+Description: This course focuses on Python-specific refactoring techniques, helping you write more efficient and maintainable code.
+Why Recommended: Since you’re using Python, it’s practical to learn how to refactor Python code in ways that are language-idiomatic and efficient.
+6. Free Resources
+SOLID Principles for Python Developers (Real Python):
+
+Read Article
+Description: A free article that explains SOLID principles in Python with concrete examples.
+Why Recommended: Real Python is a great free resource for practical, Python-specific applications of design principles.
+Refactoring Guru: Refactoring Techniques:
+
+Refactoring.Guru
+Description: This resource walks through common refactoring techniques and bad code smells, which is something you’re concerned about.
+Why Recommended: It’s great for identifying code smells and learning practical ways to refactor.
+Next Steps:
+Start with Object-Oriented Design or SOLID Principles to get a clear understanding of how to apply these principles in practice.
+As you get comfortable, dive into Refactoring and Design Patterns to deepen your understanding of how to improve your code structure.
+Use Python-specific courses to see how these concepts translate to your language of choice.
