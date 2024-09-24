@@ -1,5 +1,4 @@
 import cv2 
-from GrayImage import GrayImage
 # https://github.com/wjbmattingly/ocr_python_textbook/blob/main/02_02_working%20with%20opencv.ipynb
 
 def RemoveBorders(img):
@@ -19,11 +18,20 @@ def Zoom(img, zoom=1, angle=0, coord=None):
     result = cv2.warpAffine(img, rotation_matrix, img.shape[1::-1], flags=cv2.INTER_LINEAR)    
     return result
 
-def CreateBorders(img,size=50,color = [255, 255, 255],is_gray=True):
+def CreateBorders(img,size=50): #, color = [255, 255, 255], is_gray=True):
     top, bottom, left, right = [size]*4
-    img = cv2.copyMakeBorder(img, top, bottom, left, right, cv2.BORDER_CONSTANT, value=color)
-    if is_gray==True:
-        img = GrayImage(img)
-        return img 
+    img = cv2.copyMakeBorder(img, top, bottom, left, right, cv2.BORDER_CONSTANT) # , value=color)
+    return img
+
+def Crop(img, x, y, width, height):
+    if img.shape[1] < x + width or img.shape[0] < y + height:
+        crop = img[y:y+height, x:x+width]
+        return crop 
     else:
-        return img 
+        print('Input is in valid')
+        print('x',x)
+        print('y',y)
+        print('width',width)
+        print('height',height)
+        print('img',img.shape)
+        return img

@@ -1,3 +1,917 @@
+if IsGray(img):
+        return img
+    else:
+        
+ 
+    dft = GetFFT(img,is_show=is_show)
+ 
+    img = GetIFFT(dft,is_show=is_show)
+    img = ( 255 * img ).astype(np.uint8) 
+    return img
+ 
+    if is_show==True:
+        print('FFTBlur01 is based on FFTCrossBlur.')
+ 
+is_show=False, 
+ 
+def PrivateFFTBlur(dft,updated_rows,updated_cols,new_frequency=0, mode = cv2.MORPH_RECT):
+    rows = dft.shape[0]
+    cols = dft.shape[1]    
+    center_rows = math.floor(rows/2)
+    center_cols = math.floor(cols/2)
+    if updated_rows>=center_rows or updated_cols>=center_cols:
+        warning='FFTCrossBlur(dft,updated_rows,updated_cols,new_frequency=0)'
+        FFTExtraHandsWarning(dft,updated_rows,updated_cols,warning)
+        return dft
+    mask = np.zeros(dft.shape)
+    kernel = Kernel2D(updated_rows*2,updated_cols*2,mode = mode)
+    mask[center_rows-updated_rows:center_rows+updated_rows, 
+    center_cols-updated_cols:center_cols+updated_cols] = kernel.T
+    mask = np.where(mask < 1,new_frequency,1)
+    dft *= mask
+    return dft 
+
+ 
+def FFTCrossSharpen(dft,updated_rows,updated_cols,new_frequency=0):
+    rows = dft.shape[0]
+    cols = dft.shape[1]    
+    center_rows = math.floor(rows/2)
+    center_cols = math.floor(cols/2)
+    if updated_rows>=center_rows or updated_cols>=center_cols:
+        warning='FFTCrossSharpen(dft,updated_rows,updated_cols,new_frequency=0)'
+        FFTExtraHandsWarning(dft,updated_rows,updated_cols,warning)
+        return dft
+    mask = np.zeros(dft.shape)
+    kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (updated_rows*2, updated_cols*2))
+    mask[center_rows-updated_rows:center_rows+updated_rows, 
+    center_cols-updated_cols:center_cols+updated_cols] = kernel.T
+    mask = np.where(mask < 1,1,new_frequency)
+    dft *= mask
+    return dft 
+ 
+def FFTCircleBlur(dft,updated_rows,updated_cols,new_frequency=0):
+    rows = dft.shape[0]
+    cols = dft.shape[1]    
+    center_rows = math.floor(rows/2)
+    center_cols = math.floor(cols/2)
+    if updated_rows>=center_rows or updated_cols>=center_cols:
+        warning='FFTCircleBlur(dft,updated_rows,updated_cols,new_frequency=0)'
+        FFTExtraHandsWarning(dft,updated_rows,updated_cols,warning)
+        return dft
+    mask = np.zeros(dft.shape)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (updated_rows*2, updated_cols*2))
+    mask[center_rows-updated_rows:center_rows+updated_rows, 
+    center_cols-updated_cols:center_cols+updated_cols] = kernel.T
+    mask = np.where(mask < 1,new_frequency,1)
+    dft *= mask
+    return dft 
+ 
+def PrivateFFTBlur(dft,updated_rows,updated_cols,new_frequency=0, mode = cv2.MORPH_RECT):
+    rows = dft.shape[0]
+    cols = dft.shape[1]    
+    center_rows = math.floor(rows/2)
+    center_cols = math.floor(cols/2)
+    if updated_rows>=center_rows or updated_cols>=center_cols:
+        warning='FFTCrossBlur(dft,updated_rows,updated_cols,new_frequency=0)'
+        FFTExtraHandsWarning(dft,updated_rows,updated_cols,warning)
+        return dft
+    mask = np.zeros(dft.shape)
+    kernel = Kernel2D(updated_rows*2,updated_cols*2,mode = mode)
+    mask[center_rows-updated_rows:center_rows+updated_rows, 
+    center_cols-updated_cols:center_cols+updated_cols] = kernel.T
+    mask = np.where(mask < 1,new_frequency,1)
+    dft *= mask
+    return dft 
+ 
+'''
+ 
+'''
+ 
+# kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (updated_rows*2, updated_cols*2))
+
+ 
+OddKernelArea(
+ 
+OddKernelArea(
+ 
+,is_show=False
+ 
+    if is_show==True:
+        print('FFTBlur01 is based on FFTCircleSharpen.')
+ 
+Circle
+ 
+def GetFFT(img,fft_size=None,scale=255):
+    # https://docs.opencv.org/4.x/de/dbc/tutorial_py_fourier_transform.html
+    img = img / np.float32(scale)
+    # dft is the array that contains complex numbers.
+    dft = np.fft.fft2(img,fft_size)          
+    # zero frequency component of dft will be at top left corner. 
+    # If you want to bring it to center, you need to shift the result n/2 in both dorection 
+    # using np.fft.fftshift(). 
+    dft = np.fft.fftshift(dft)  
+    # By default, the transform is computed over the last two axes of the input array
+    # Implies that in default case, the shape of dft is the same as shape of img.
+    return dft
+
+def FFTExtraHandsWarning(dft,updated_rows,updated_cols,function_name):
+    center_rows = math.floor(dft.shape[0]/2)
+    center_cols = math.floor(dft.shape[1]/2)
+    # https://youtu.be/mI9FIugGIZQ?si=KnaCetRmaAbosYeT
+    print()
+    print('Extra Hands/Legs (Polymelia) : 1 in 1700')
+    print('WARNING: updated_rows and/or updated_cols is invalid.')
+    print('dft.shape____:',dft.shape)
+    print('center_rows__:',center_rows)
+    print('updated_rows_:',updated_rows)
+    print('center_cols__:',center_cols)
+    print('updated_cols_:',updated_cols)
+    print('Reported by ImageProcessing / FFT.py / def '+function_name)
+    print('Reported by ImageProcessing / FFT.py / def FFTExtraHandsWarning')
+    print()
+
+def GetIFFT(dft):
+    dft = np.fft.ifftshift(dft)
+    img = np.fft.ifft2(dft)
+    img = np.real(img)
+    return img
+
+def FFTRectangleSharpen(dft,updated_rows,updated_cols,new_frequency=0):
+    rows = dft.shape[0]
+    cols = dft.shape[1]    
+    center_rows = math.floor(rows/2)
+    center_cols = math.floor(cols/2)
+    if updated_rows>=center_rows or updated_cols>=center_cols:
+        warning='FFTRectangleSharpen(dft,updated_rows,updated_cols,new_frequency=0)'
+        FFTExtraHandsWarning(dft,updated_rows,updated_cols,warning)
+        return dft
+    mask = np.ones((rows,cols), dtype=np.uint8)
+    mask[center_rows-updated_rows:center_rows+updated_rows, 
+        center_cols-updated_cols:center_cols+updated_cols] *= new_frequency
+    dft *= mask
+    return dft
+ 
+,is_show=False
+ 
+    ShowFFT(dft,is_show=is_show)
+ 
+import Image
+ 
+(Image)
+ 
+is_show=False,
+ 
+    img = GrayImage(img)
+ 
+    ShowFFT(dft,is_show=is_show)
+ 
+pass
+ 
+    def Dilate(self):
+        self.img = Dilate(self.img)
+
+    def Erode(self):
+        self.img = Erode(self.img)
+
+    def Opening(self):
+        self.img = Opening(self.img)
+
+    def Canny(self):
+        self.img = Canny(self.img)
+ 
+if kernel==None:
+        
+ 
+from CommonTechnique import RemoveNoice
+ 
+   cv2.MORPH_DILATE
+ 
+def Dilate(img):
+    kernel = np.ones((5,5),np.uint8)
+    return cv2.dilate(img, kernel, iterations = 1)
+    
+def Erode(img):
+    kernel = np.ones((5,5),np.uint8)
+    return cv2.erode(img, kernel, iterations = 1)
+
+def Opening(img,kernel=None):
+    if kernel==None:
+        kernel = np.ones((5,5),np.uint8)
+    return cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
+
+def Canny(img):
+    return cv2.Canny(img, 100, 200)
+
+# https://nanonets.com/blog/ocr-with-tesseract/
+ 
+def Thresholding(img):
+    return cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+ 
+def Deskew(img):
+    coords = np.column_stack(np.where(img > 0))
+    angle = cv2.minAreaRect(coords)[-1]
+    if angle < -45:
+        angle = -(90 + angle)
+    else:
+        angle = -angle
+    (h, w) = img.shape[:2]
+    center = (w // 2, h // 2)
+    M = cv2.getRotationMatrix2D(center, angle, 1.0)
+    rotated = cv2.warpAffine(img, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+    return rotated
+
+def MatchTemplate(img, template):
+    return cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED) 
+
+def WhiteBackGround(img):
+    RangeMax=100
+    A1=1
+    Step=1
+    Start=0
+    for i in range(RangeMax):
+      mark=np.logical_and(img>Start+(i*Step)/A1,img<Start+((i+1)*Step)/A1)
+      img[mark]=Start+(i*Step)/A1
+    img[img>=Start+((RangeMax)*Step)/A1]=255
+    return img
+
+def ImportTest():
+    print("This is an 80000Hours Podcast.")
+ 
+
+#template matching
+ 
+
+#skew correction
+ 
+
+#canny edge detection
+ 
+#opening - erosion followed by dilation
+ 
+#erosion
+ 
+#dilation
+ 
+
+#thresholding
+ 
+
+# noise removal
+ 
+    # def BlurFilter2D(self, width, height=None, scalar = 1, mode = cv2.MORPH_RECT):
+    #     kernel2d = Kernel2D(width, height, scalar, mode)
+    #     self.img = cv2.filter2D(self.img, -1, kernel2d)
+ 
+cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+ 
+    def Help():
+        print(long_message)
+
+ 
+    def Help():
+        print(long_message)
+ 
+Blur
+ 
+Blur
+ 
+Blur
+ 
+message1='''
+Basic Parameter
+1. max_px = 255
+2. method = cv2.THRESH_BINARY
+* cv2.THRESH_BINARY         
+* cv2.THRESH_BINARY_INV
+* cv2.THRESH_TRUNC
+* cv2.THRESH_TOZERO
+* cv2.THRESH_TOZERO_INV
+
+Threshold
+1. threshold_px
+* if type(threshold_px) == int : activating customized threshold
+* if type(threshold_px) != int : activating Otsu threshold
+
+AdaptiveThreshold
+1. kernel_area = 11
+2. constant = 2
+3. additional_method = cv2.ADAPTIVE_THRESH_MEAN_C
+* cv2.ADAPTIVE_THRESH_MEAN_C
+* cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+
+Reference
+* https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576ac7e89a5e95490116e7d2082b3096b2b8
+'''
+ 
+# Default
+ 
+def DescribeThreshold():
+    print(long_message)
+ 
+is_detail=True
+ 
++'Activate img.DescribeThreshold() to'
+ 
+
+    def Help01():
+        DescribeThreshold()
+ 
+, cv2.THRESH_BINARY
+ 
+,default_input
+ 
+if method not in method_option:
+            DescribeThreshold()
+            self.method = cv2.THRESH_BINARY
+        else:
+            
+ 
+        print(message1)
+        print(new_line)
+ 
++message1+new_line+'\n'+source
+ 
+        print(new_line)
+        print(message2)
+        print(new_line)
+        print(message1)
+        print(new_line)
+ 
+long_message='''
+cv2.THRESH_BINARY
+# if px > threshold_px then px = max_px else px = 0
+
+cv2.THRESH_BINARY_INV
+# if px < threshold_px then px = max_px else px = 0
+
+cv2.THRESH_TRUNC
+# if px > threshold_px then px = threshold_px else px = px
+
+cv2.THRESH_TOZERO
+# if px > threshold_px then px = px else px = 0
+
+cv2.THRESH_TOZERO_INV
+# if px < threshold_px then px = px else px = 0
+
+cv2.ADAPTIVE_THRESH_MEAN_C
+# Calculating the mean value of the surround pixels within the square kernel_area (width=kernel_area) and use that mean value as the threshold_px
+
+cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+# Calculating the "Gaussian" value of the surround pixels within the square kernel_area (width=kernel_area) and use that mean value as the threshold_px
+
+cv2.THRESH_OTSU
+# Consider an image with only two distinct image values (bimodal image), 
+# where the histogram would only consist of two peaks. 
+# A good threshold would be in the middle of those two values. 
+# Similarly, Otsu's method determines an optimal global threshold value from the image histogram.
+# Limitation of Otsu Method
+# 1. If object kernel_area is much smaller compared to background kernel_area
+# 2. Image is very noisy
+# 3. Image contains kernel_area with different discrete intensities
+# https://youtu.be/jUUkMaNuHP8?si=QnxBvTdVhQW3VTqR
+
+Reference
+* https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576ac7e89a5e95490116e7d2082b3096b2b8
+'''
+    short_message='''
+Basic Parameter
+1. max_px = 255
+2. method 
+* cv2.THRESH_BINARY
+* cv2.THRESH_BINARY_INV
+* cv2.THRESH_TRUNC
+* cv2.THRESH_TOZERO
+* cv2.THRESH_TOZERO_INV
+
+Threshold
+1. threshold_px
+* if type(threshold_px) == int : activating customized threshold
+* if type(threshold_px) != int : activating Otsu threshold
+
+AdaptiveThreshold
+1. kernel_area = 11
+2. constant = 2
+3. additional_method
+* cv2.ADAPTIVE_THRESH_MEAN_C
+* cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+
+Reference
+* https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576ac7e89a5e95490116e7d2082b3096b2b8
+'''
+    new_line = '########################################################################################################################################################'
+ 
+[cv2.THRESH_BINARY, cv2.THRESH_BINARY_INV, cv2.THRESH_TRUNC, cv2.THRESH_TOZERO, cv2.THRESH_TOZERO_INV]
+ 
+def Sharpen(ls=[-0.1,-5],center_px=None):
+    # https://youtu.be/KuXjwB4LzSA?si=mt-leKGKjpMnJGfg
+    # https://www.geeksforgeeks.org/python-opencv-filter2d-function/
+    # Edge Detection
+    # Time : O(n^2)
+    # Space: O(n^2)
+    kernel_area=len(ls)*2+1
+    kernel = np.ones((kernel_area,kernel_area))
+    for i in range(len(ls)):
+      j = kernel_area-i-1
+      kernel[i] = ls[i]*kernel[i]
+      kernel[j] = ls[i]*kernel[j]
+
+      for q in range(i):
+        p = kernel_area-q-1
+        kernel[i][q] = ls[q]
+        kernel[i][p] = ls[q]
+        kernel[j][q] = ls[q]
+        kernel[j][p] = ls[q]
+
+    for i in range(len(ls)):
+      j = kernel_area-i-1
+      kernel[len(ls)][i] = ls[i]
+      kernel[len(ls)][j] = ls[i]
+    
+    if not isinstance(center_px, (int, float)):
+        center_coef = 1
+        center_px = 0
+        for i in range(len(ls)):
+          j = len(ls) - i -1
+          center_coef += 2
+          center_px += (center_coef * 2 + (center_coef-2) * 2) * ls[j]
+        center_px *= (-1)
+        center_px += 1
+    kernel[len(ls)][len(ls)]=center_px
+    return kernel 
+ 
+
+'''
+class Kernel2D:
+    def __init__(self, width, height=None, scalar = 1, mode = cv2.MORPH_RECT):
+        width = OddKernelArea(width)
+        if type(height) == int:
+            height = OddKernelArea(height)
+        else:
+            height = width
+        scalar = scalar
+        mode = mode 
+        kernel = scalar * cv2.getStructuringElement(
+	        mode, 
+	        (self.width, height)
+        )
+        return kernel'''
+ 
+
+class Kernel2D:
+    def __init__(self, width, height=None, scalar = 1, mode = cv2.MORPH_RECT):
+        self.width = OddKernelArea(width)
+        if type(height) == int:
+            self.height = OddKernelArea(height)
+        else:
+            self.height = self.width
+        scalar = scalar
+        mode = mode 
+        kernel = scalar * cv2.getStructuringElement(
+	        mode, 
+	        (self.width, height)
+        )
+        return kernel
+ 
+self.
+ 
+pass
+ 
+def DescribeThreshold():
+        pass 
+ 
+Describe
+ 
+def DescribeThreshold(is_detail=True):
+    long_message='''
+cv2.THRESH_BINARY
+# if px > threshold_px then px = max_px else px = 0
+
+cv2.THRESH_BINARY_INV
+# if px < threshold_px then px = max_px else px = 0
+
+cv2.THRESH_TRUNC
+# if px > threshold_px then px = threshold_px else px = px
+
+cv2.THRESH_TOZERO
+# if px > threshold_px then px = px else px = 0
+
+cv2.THRESH_TOZERO_INV
+# if px < threshold_px then px = px else px = 0
+
+cv2.ADAPTIVE_THRESH_MEAN_C
+# Calculating the mean value of the surround pixels within the square kernel_area (width=kernel_area) and use that mean value as the threshold_px
+
+cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+# Calculating the "Gaussian" value of the surround pixels within the square kernel_area (width=kernel_area) and use that mean value as the threshold_px
+
+cv2.THRESH_OTSU
+# Consider an image with only two distinct image values (bimodal image), 
+# where the histogram would only consist of two peaks. 
+# A good threshold would be in the middle of those two values. 
+# Similarly, Otsu's method determines an optimal global threshold value from the image histogram.
+# Limitation of Otsu Method
+# 1. If object kernel_area is much smaller compared to background kernel_area
+# 2. Image is very noisy
+# 3. Image contains kernel_area with different discrete intensities
+# https://youtu.be/jUUkMaNuHP8?si=QnxBvTdVhQW3VTqR
+
+Reference
+* https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576ac7e89a5e95490116e7d2082b3096b2b8
+'''
+    short_message='''
+Basic Parameter
+1. max_px = 255
+2. method 
+* cv2.THRESH_BINARY
+* cv2.THRESH_BINARY_INV
+* cv2.THRESH_TRUNC
+* cv2.THRESH_TOZERO
+* cv2.THRESH_TOZERO_INV
+
+Threshold
+1. threshold_px
+* if type(threshold_px) == int : activating customized threshold
+* if type(threshold_px) != int : activating Otsu threshold
+
+AdaptiveThreshold
+1. kernel_area = 11
+2. constant = 2
+3. additional_method
+* cv2.ADAPTIVE_THRESH_MEAN_C
+* cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+
+Reference
+* https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576ac7e89a5e95490116e7d2082b3096b2b8
+'''
+    new_line = '########################################################################################################################################################'
+    if is_detail == True:
+        print(new_line)
+        print(long_message)
+        print(new_line)
+        print(short_message)
+        print(new_line)
+    else:
+        print(new_line)
+        print(short_message)
+        print(new_line)
+ 
+########################################################################################################################################################
+ 
+
+########################################################################################################################################################
+
+Basic Parameter
+1. max_px = 255
+2. method 
+* cv2.THRESH_BINARY
+* cv2.THRESH_BINARY_INV
+* cv2.THRESH_TRUNC
+* cv2.THRESH_TOZERO
+* cv2.THRESH_TOZERO_INV
+
+Threshold
+1. threshold_px
+* if type(threshold_px) == int : activating customized threshold
+* if type(threshold_px) != int : activating Otsu threshold
+
+AdaptiveThreshold
+1. kernel_area = 15
+2. constant = 2
+3. additional_method
+* cv2.ADAPTIVE_THRESH_MEAN_C
+* cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+
+Reference
+* https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576ac7e89a5e95490116e7d2082b3096b2b8
+
+########################################################################################################################################################
+ 
+
+########################################################################################################################################################
+ 
+########################################################################################################################################################
+ 
+
+    def Help(is_detail=True):
+        DescribeThreshold(is_detail)
+ 
+
+    def Help(is_detail=True):
+        DescribeThreshold(is_detail)
+ 
+    def Help(is_detail=True):
+        DescribeThreshold(is_detail)
+ 
+'''
+Basic Parameter
+1. max_px = 255
+2. method 
+* cv2.THRESH_BINARY
+* cv2.THRESH_BINARY_INV
+* cv2.THRESH_TRUNC
+* cv2.THRESH_TOZERO
+* cv2.THRESH_TOZERO_INV
+
+Threshold
+1. threshold_px
+* if type(threshold_px) == int : activating customized threshold
+* if threshold_px == None : activating Otsu threshold
+
+AdaptiveThreshold
+1. kernel_area = 15
+2. constant = 2
+3. additional_method
+* cv2.ADAPTIVE_THRESH_MEAN_C
+* cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+
+'''
+ 
+########################################################################################################################################################
+
+cv2.THRESH_BINARY
+# if px > threshold_px then px = max_px else px = 0
+
+cv2.THRESH_BINARY_INV
+# if px < threshold_px then px = max_px else px = 0
+
+cv2.THRESH_TRUNC
+# if px > threshold_px then px = threshold_px else px = px
+
+cv2.THRESH_TOZERO
+# if px > threshold_px then px = px else px = 0
+
+cv2.THRESH_TOZERO_INV
+# if px < threshold_px then px = px else px = 0
+
+cv2.ADAPTIVE_THRESH_MEAN_C
+# Calculating the mean value of the surround pixels within the square kernel_area (width=kernel_area) and use that mean value as the threshold_px
+
+cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+# Calculating the "Gaussian" value of the surround pixels within the square kernel_area (width=kernel_area) and use that mean value as the threshold_px
+
+cv2.THRESH_OTSU
+# Consider an image with only two distinct image values (bimodal image), 
+# where the histogram would only consist of two peaks. 
+# A good threshold would be in the middle of those two values. 
+# Similarly, Otsu's method determines an optimal global threshold value from the image histogram.
+# Limitation of Otsu Method
+# 1. If object kernel_area is much smaller compared to background kernel_area
+# 2. Image is very noisy
+# 3. Image contains kernel_area with different discrete intensities
+# https://youtu.be/jUUkMaNuHP8?si=QnxBvTdVhQW3VTqR
+
+Reference
+* https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576ac7e89a5e95490116e7d2082b3096b2b8
+
+ 
+long_message='''
+########################################################################################################################################################
+
+cv2.THRESH_BINARY
+# if px > threshold_px then px = max_px else px = 0
+
+cv2.THRESH_BINARY_INV
+# if px < threshold_px then px = max_px else px = 0
+
+cv2.THRESH_TRUNC
+# if px > threshold_px then px = threshold_px else px = px
+
+cv2.THRESH_TOZERO
+# if px > threshold_px then px = px else px = 0
+
+cv2.THRESH_TOZERO_INV
+# if px < threshold_px then px = px else px = 0
+
+cv2.ADAPTIVE_THRESH_MEAN_C
+# Calculating the mean value of the surround pixels within the square kernel_area (width=kernel_area) and use that mean value as the threshold_px
+
+cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+# Calculating the "Gaussian" value of the surround pixels within the square kernel_area (width=kernel_area) and use that mean value as the threshold_px
+
+cv2.THRESH_OTSU
+# Consider an image with only two distinct image values (bimodal image), 
+# where the histogram would only consist of two peaks. 
+# A good threshold would be in the middle of those two values. 
+# Similarly, Otsu's method determines an optimal global threshold value from the image histogram.
+# Limitation of Otsu Method
+# 1. If object kernel_area is much smaller compared to background kernel_area
+# 2. Image is very noisy
+# 3. Image contains kernel_area with different discrete intensities
+# https://youtu.be/jUUkMaNuHP8?si=QnxBvTdVhQW3VTqR
+
+Reference
+* https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576ac7e89a5e95490116e7d2082b3096b2b8
+
+########################################################################################################################################################
+
+Basic Parameter
+1. max_px = 255
+2. method 
+* cv2.THRESH_BINARY
+* cv2.THRESH_BINARY_INV
+* cv2.THRESH_TRUNC
+* cv2.THRESH_TOZERO
+* cv2.THRESH_TOZERO_INV
+
+Threshold
+1. threshold_px
+* if type(threshold_px) == int : activating customized threshold
+* if type(threshold_px) != int : activating Otsu threshold
+
+AdaptiveThreshold
+1. kernel_area = 15
+2. constant = 2
+3. additional_method
+* cv2.ADAPTIVE_THRESH_MEAN_C
+* cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+
+Reference
+* https://docs.opencv.org/4.x/d7/d1b/group__imgproc__misc.html#ggaa9e58d2860d4afa658ef70a9b1115576ac7e89a5e95490116e7d2082b3096b2b8
+
+########################################################################################################################################################
+'''
+ 
+OtsuThreshold
+-
+ 
+pass
+ 
+self
+ 
+method
+ 
+3. Mode
+ 
+pass
+ 
+    img = GrayImage(img)
+ 
+from GrayImage import GrayImage
+ 
+=None
+ 
+img,
+ 
+im
+ 
+, filename=None
+ 
+ileInfo
+ 
+    def ReturnGrayImg(self):
+        
+
+ 
+='jpg'
+ 
+='Image'
+ 
+='image'
+ 
+Image
+ 
+Image
+ 
+Image
+ 
+import numpy as np
+from PIL import Image 
+ 
+
+def Numpy2Image(img):
+    # https://stackoverflow.com/questions/10965417/how-to-convert-a-numpy-array-to-pil-image-applying-matplotlib-colormap
+    if type(img)==np.ndarray:
+        img=Image.fromarray(img)
+    return img
+
+def Image2Numpy(img):
+    return np.array(img)
+ 
+    img = Numpy2Image(img)
+ 
+from ImageUtility import Numpy2Image
+ 
+, Image2Numpy
+ 
+    img=Image2Numpy(img)
+ 
+
+def ReadImage(img_path):
+    return cv2.imread(img_path)
+
+ 
+            name:str        =   'Image_FFT', 
+            folder:str      =   'Image', 
+            fileformat:str  =   'jpg'
+ 
+
+def ReadImage(img_path):
+    return cv2.imread(img_path)
+ 
+def DescribeImage(img_path,detail=None):
+    if type(detail)==str:
+        if detail.lower() == 'size':
+            return Image.open(img_path).size
+        elif detail.lower() == 'mode':
+            return Image.open(img_path).mode
+        elif detail.lower() == 'type':
+            return type(Image.open(img_path))
+        else:
+            return Image.open(img_path)
+    else:
+        return Image.open(img_path)
+ 
+    if IsGray(img)==False:
+        # https://www.geeksforgeeks.org/convert-bgr-and-rgb-with-python-opencv/
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+ 
+def Something():
+    print('ChatGPT is stupid.')
+ 
+from GrayImage import IsGray
+ 
+mageProcessing_V04.Image as Image
+ 
+as View_Img
+ 
+ImageProcessing_V04.
+ 
+from GrayImage import GrayImage
+ 
+pass
+ 
+ -> None
+ 
+import GrayImage
+ 
+
+    def Gray(self):
+        return GrayImage(
+            img = cv2.cvtColor(self.img, cv2.COLOR_RGB2GRAY),
+            name = self.name,
+            folder = self.folder,
+            fileformat = self.fileformat
+            )
+ 
+        self.name = name
+        self.folder = folder           
+        self.fileformat = fileformat   
+
+ 
+            name:str        =   'Image_FFT', 
+            folder:str      =   'Image', 
+            fileformat:str  =   'jpg'
+ 
+    def Show(self):
+        cv2.imshow(self.name,self.img)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+    
+    def Save(self):
+        if not os.path.exists(self.folder):
+            os.makedirs(self.folder)
+        if self.fileformat[0]=='.':
+            self.fileformat = self.fileformat[1:]
+        img_path = os.path.join(
+            self.folder,self.name+'.'+self.fileformat)
+        self.img.save(img_path)
+
+    def Copy(self):
+        output_image = Image(
+            self.img,
+            self.name,
+            self.folder,
+            self.fileformat)
+        return output_image 
+ 
+self.
+ 
+self.
+ 
+            
+ 
+            self.name,
+            self.folder,
+            self.fileformat
+ 
+        self.name = name
+        self.folder = folder           
+        self.fileformat = fileformat  
+ 
+import GrayImage
+ 
+            name:str        =   'Image_FFT', 
+            folder:str      =   'Image', 
+            fileformat:str  =   'jpg'
+ 
+, angle=0
+ 
+,color = [255, 255, 255],is_gray=True
+ 
+, value=color
+ 
+from GrayImage import GrayImage
+ 
             # (parameter) self: Self@MarkImg
             # (variable) img: Image
  

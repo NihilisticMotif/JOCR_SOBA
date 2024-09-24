@@ -1,5 +1,5 @@
 import sys
-ImageProcessingPath = '/Users/imac/Desktop/JOCR_SOBA/ImageProcessing'
+ImageProcessingPath = '/Users/imac/Desktop/JOCR_SOBA/ImageProcessing_V01'
 sys.path.insert(1, ImageProcessingPath)
 # https://stackoverflow.com/questions/4383571/importing-files-from-different-folder
 
