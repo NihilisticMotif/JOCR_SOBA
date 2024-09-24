@@ -1,7 +1,9 @@
 
-1. Learn how to encasulating my code.
-2. What does @property do ?
-3. Creating DilateImg and Rotate Function
-4. Create OCR_Command class 
-5. Test if the software work.
-6. Note the coding smell.
+1. Use MVC Design Patterns and SOLID as Development Guide
+2. Add and plan the following feature
+ * Gray
+ * Rotation 
+ * Contour 
+ * MarkImage
+3. Reimplementing ex... folder
+4. Check if the code have import error
