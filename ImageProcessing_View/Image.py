@@ -7,6 +7,7 @@ from Zoom import RemoveBorders, Zoom, CreateBorders, Crop
 import cv2
 import numpy as np 
 import GrayImage
+from Rotate import Rotate
 
 class Image:
     def __init__(
@@ -18,39 +19,49 @@ class Image:
         elif len(img.shape)==3:
             self.img = np.copy(img)
         elif len(img.shape)==2:
-            self.img = cv2.cvtColor(img,cv2.COLOR_GRAY2RGB)
+            self.img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+        else:
+            print('Error: the input img is invalid.')
+            print('len(img.shape) in [2, 3] or type(img) == str should be true.')
+            print('Reported by ImageProcessing_Biew / GrayImage.py / class Image / def __init__(self, img)')
 
-    def Show(self,title='Image'):
-        Show(self.img,title)
+########################################################################################################################################################
+    # Get Data
 
-    def Save(self,img_title='Image',folder='Image',fileformat='jpg'):
-        Save(self.img,img_title,folder,fileformat)
+    def GetImg(self):
+        return self.img
 
-    def Help():
-        message='''
-        Help Menu
-        '''
-        print(message)
+    def GetGrayImg(self):
+        return GrayImage(self.img)
 
-    def Zoom(self,zoom=1):
-        self.img = Zoom(self.img,zoom)
+    def GetColorImg(self):
+        return Image(self.img)
+
+    def Show(self, title:str = 'Image'):
+        Show(self.img, title)
+
+    def Save(self, img_title:str = 'Image', folder:str = 'Image', fileformat:str = 'jpg'):
+        Save(self.img, img_title, folder, fileformat)
+
+    def shape(self):
+        return self.img.shape
+
+########################################################################################################################################################
+    # Edit Data
+
+    def Zoom(self, zoom:int = 1):
+        self.img = Zoom(self.img, zoom)
 
     def RemoveBorders(self):
         self.img = RemoveBorders(self.img)
 
-    def Crop(self, x, y, width, height):
+    def Crop(self, x:int|None = None, y:int|None = None, width:int|None = None, height:int|None = None):
         self.img = Crop(self.img, x, y, width, height)
 
-    def CreateBorders(self,size=50):
-        self.img = CreateBorders(self.img,size)
+    def CreateBorders(self, size:int = 50):
+        self.img = CreateBorders(self.img, size)
 
-    def Rotate():
-        pass 
-
-    def ReturnImg(self):
-        return self.img
-
-    def ReturnGrayImg(self):
-        return GrayImage(self.img)
+    def Rotate(self, angle:int|None = None):
+        self.img = Rotate(self.img, angle)
 
 

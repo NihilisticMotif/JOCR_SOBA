@@ -1,5 +1,6 @@
 import cv2 
-from ImageUtility import SetPx, ReturnValidInput, OddKernelArea
+from ImageUtility import SetPx, GetDefaultOption, OddKernelArea
+import numpy as np
 
 message1='''
 Basic Parameter
@@ -12,7 +13,7 @@ Basic Parameter
 * cv2.THRESH_TOZERO_INV
 
 Threshold
-1. threshold_px
+1. threshold_px = None
 * if type(threshold_px) == int : activating customized threshold
 * if type(threshold_px) != int : activating Otsu threshold
 
@@ -74,29 +75,29 @@ short_message = new_line+'\n'+message1+'\n'+new_line+'\n'
 method_options =  [cv2.THRESH_BINARY, cv2.THRESH_BINARY_INV, cv2.THRESH_TRUNC, cv2.THRESH_TOZERO, cv2.THRESH_TOZERO_INV]
 
 class Threshold:
-    def __init__(self, method = cv2.THRESH_BINARY, threshold_px=None, max_px=255):
-        self.method = ReturnValidInput(method, method_options, short_message)
+    def __init__(self, method:int = cv2.THRESH_BINARY, threshold_px:None|int = None, max_px:int = 255):
+        self.method = GetDefaultOption(method, method_options, short_message)
         if type(threshold_px) == int: 
             self.threshold_px = SetPx(threshold_px)
         else:
             self.threshold_px = None
         self.max_px = SetPx(max_px) 
 
-    def Edit(self,img):
+    def Edit(self, img:np.ndarray):
         if type(self.threshold_px) == int:
             return cv2.threshold(img, self.threshold_px, self.max_px, self.method)[1]
         else:
             return cv2.threshold(img, 0, self.max_px, self.method + cv2.THRESH_OTSU)[1]
 
 class AdaptiveThreshold:
-    def __init__(self, method = cv2.THRESH_BINARY, adaptive_method = cv2.ADAPTIVE_THRESH_MEAN_C, kernel_area=11, constant=2,max_px=255):
-        self.method = ReturnValidInput(method, method_options, short_message)
+    def __init__(self, method:int = cv2.THRESH_BINARY, adaptive_method:int = cv2.ADAPTIVE_THRESH_MEAN_C, kernel_area:int = 11, constant:int = 2, max_px:int = 255):
+        self.method = GetDefaultOption(method, method_options, short_message)
         self.kernel_area = OddKernelArea(kernel_area)
         self.constant = constant
         self.max_px = SetPx(max_px)
-        self.adaptive_method = ReturnValidInput(adaptive_method, [cv2.ADAPTIVE_THRESH_MEAN_C, cv2.ADAPTIVE_THRESH_GAUSSIAN_C], short_message)
+        self.adaptive_method = GetDefaultOption(adaptive_method, [cv2.ADAPTIVE_THRESH_MEAN_C, cv2.ADAPTIVE_THRESH_GAUSSIAN_C], short_message)
     
-    def Edit(self,img):
+    def Edit(self, img:np.ndarray):
         return cv2.adaptiveThreshold(img, self.max_px, self.adaptive_method, self.method, self.kernel_area, self.constant)
 
 

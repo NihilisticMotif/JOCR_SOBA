@@ -1,6 +1,10 @@
+import cv2
+import numpy as np
 
+def InvertedImage(img:np.ndarray):
+    return cv2.bitwise_not(img)
 
-def OddKernelArea(num):
+def OddKernelArea(num:int):
     num=int(num)
     if num<3:
         return 3 
@@ -10,7 +14,7 @@ def OddKernelArea(num):
         else:
             return num+1
 
-def SetPx(num):
+def SetPx(num:int):
     num=int(num)
     if num < 0:
         return 0 
@@ -19,12 +23,25 @@ def SetPx(num):
     else:
         return num
 
-def ReturnValidInput(input,input_options,message):
+def GetDefaultOption(input:any, input_options:list, message:str):
     if input not in input_options:
         print(message)
         return input_options[0]
     else:
         return input
+
+def GetSize(size:int|None, max_size:int|None = None, default_size:int = 0):
+    if type(size) == int:
+        if max_size == None:
+            max_size = size
+        if size < 0:
+            return 0
+        elif size > max_size:
+            return max_size
+        else:
+            return size
+    else:
+        return default_size
 
 '''
 Reference

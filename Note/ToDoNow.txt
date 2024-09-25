@@ -1,9 +1,15 @@
 
 1. Use MVC Design Patterns and SOLID as Development Guide
-2. Add and plan the following feature
- * Gray
- * Rotation 
- * Contour 
- * MarkImage
-3. Reimplementing ex... folder
-4. Check if the code have import error
+2. Implementing ImageProcessing_View / TableImage.py / class TableImage
+3. Reimplementing ex... folder and rename the folder.
+
+Future feature
+1. Tesseract OCR Command 
+ * Language 
+ * PSM 
+ * Word Box
+ * RegeX
+2. Get the distribution pixel data from the image 
+3. Deployment
+4. FrontEnd
+5. Spelling Language Model

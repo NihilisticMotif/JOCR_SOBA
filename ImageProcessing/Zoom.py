@@ -1,7 +1,9 @@
 import cv2 
+import numpy as np
+from ImageUtility import GetSize
 # https://github.com/wjbmattingly/ocr_python_textbook/blob/main/02_02_working%20with%20opencv.ipynb
 
-def RemoveBorders(img):
+def RemoveBorders(img:np.ndarray):
     contours, heiarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     cntsSorted = sorted(contours, key=lambda x:cv2.contourArea(x))
     cnt = cntsSorted[-1]
@@ -9,29 +11,28 @@ def RemoveBorders(img):
     crop = img[y:y+h, x:x+w]
     return (crop)
 
-def Zoom(img, zoom=1, angle=0, coord=None):
+def Zoom(img:np.ndarray, zoom:int = 1):
     # https://stackoverflow.com/questions/69050464/zoom-into-image-with-opencv
     # zoom < 1 implies Zoom out
     # zoom > 1 implies Zoom in
-    cy, cx = [ i/2 for i in img.shape[:-1] ] if coord is None else coord[::-1]
-    rotation_matrix = cv2.getRotationMatrix2D((cx,cy), angle, zoom)
-    result = cv2.warpAffine(img, rotation_matrix, img.shape[1::-1], flags=cv2.INTER_LINEAR)    
+    rot_mat = cv2.getRotationMatrix2D((img.shape[1]/2, img.shape[0]/2), 0, abs(zoom))
+    result = cv2.warpAffine(img, rot_mat, img.shape[1::-1], flags=cv2.INTER_LINEAR)
     return result
 
-def CreateBorders(img,size=50): #, color = [255, 255, 255], is_gray=True):
-    top, bottom, left, right = [size]*4
+def CreateBorders(img:np.ndarray, size:int = 50):
+    top, bottom, left, right = [abs(size)]*4
     img = cv2.copyMakeBorder(img, top, bottom, left, right, cv2.BORDER_CONSTANT) # , value=color)
     return img
 
-def Crop(img, x, y, width, height):
-    if img.shape[1] < x + width or img.shape[0] < y + height:
-        crop = img[y:y+height, x:x+width]
-        return crop 
+def Crop(img:np.ndarray, x:int|None = None, y:int|None = None, width:int|None = None, height:int|None = None):
+    x = GetSize(x, img.shape[1])
+    y = GetSize(y, img.shape[0])
+    if type(width) == int:
+        width = GetSize(x + width, img.shape[1], img.shape[1] - x)
     else:
-        print('Input is in valid')
-        print('x',x)
-        print('y',y)
-        print('width',width)
-        print('height',height)
-        print('img',img.shape)
-        return img
+        width = img.shape[1]
+    if type(height) == int:
+        height = GetSize(y + height, img.shape[0], img.shape[0] - y)
+    else:
+        height = img.shape[0]
+    return img[y:y+height, x:x+width]

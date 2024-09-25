@@ -1,3 +1,524 @@
+from ShowImage import Show
+ 
+    Show(img)
+ 
+    Show(img)
+ 
+threshold_px = None, 
+ 
+    Show(img)
+ 
+    Show(img)
+ 
+    Show(img)
+ 
+from ShowImage import Show
+ 
+Show(img)
+ 
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+ 
+if len(img.shape) == 3:
+        
+ 
+/Users/imac/Desktop/JOCR_SOBA/exPyDH01_Page/OriginalImage/img.jpg
+ 
+            self.img = cv2.imread(img)
+ 
+self.
+ 
+self.
+ 
+self.
+ 
+self.
+ 
+self.
+ 
+self.
+ 
+self.
+ 
+
+from GrayImage import GrayImage
+ 
+        img.Threshold(threshold_px = threshold_px)  
+ 
+        th = Threshold()
+ 
+from GrayImage import GrayImage
+ 
+def VeryDilateImage(
+        img:np.ndarray,
+        threshold_px:None|int = None,
+        kernel      :np.ndarray = np.ones((2,30)),
+        kernel_area :int = 9,
+        ):
+    img = GrayImage(img)    
+    img.GaussBlur(kernel_area)
+    if threshold_px != None:
+        img.Threshold(threshold_px = threshold_px)   
+    img.Threshold(threshold_px = None)   
+    # https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html
+    # kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (30, 5))
+    img.Dilate(kernel = kernel)
+    return img
+ 
+    img.VeryDilateImage()
+ 
+import sys
+ImageProcessingPath = '/Users/imac/Desktop/JOCR_SOBA/ImageProcessing_View'
+sys.path.insert(1, ImageProcessingPath)
+
+from GrayImage import GrayImage
+ 
+from Morphology import VeryDilateImage
+ 
+img
+ 
+        
+ 
+        
+ 
+    if is_show==True:
+        print('rotation_matrix\n',rotation_matrix)
+        print('Reported by ImageProcessing / Rotation.py / def Rotate')
+        show.ShowImage(img,'Rotated Image')
+ 
+        
+ 
+ 
+ 
+        dilate_img      =   None,
+        threshold_px    =   None,
+        kernel          =   np.ones((2,30)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False
+ 
+,
+            dilate_img      =   dilate_img      ,
+            threshold_px    =   threshold_px    ,
+            kernel          =   kernel          ,
+            kernel_area     =   kernel_area     ,
+            is_binary_inv   =   is_binary_inv   ,
+            is_otsu         =   is_otsu         ,
+            is_show         =   is_show         ,
+ 
+    img.VeryDilateImage()
+ 
+if not isinstance(img,(np.ndarray,GrayImage)):
+        
+ 
+        img,
+ 
+dilate_
+ 
+from ImageUtility import GetDefaultOption
+ 
+, is_show=False
+ 
+'''
+lefttoright
+left2right
+l2r
+ltor
+l-r
+lr
+left
+right
+'''
+
+sort_options = [
+    0,  # Left to Right
+    1,  # Top 2 Bottom 
+    2,
+    3
+]
+ 
+    if is_show==True:
+        DrawContours(dilate_img,contours,rgb=(255,0,0),is_show=is_show)
+ 
+    new_img = img.copy()
+ 
+:None|int = None,
+ 
+:np.ndarray
+ 
+    contour = tour.GetContours(dilate_img)
+ 
+        threshold_px    =   None,
+        kernel          =   np.ones((2,30)),
+        kernel_area     =   9,
+ 
+    #####################################################################################################################
+    
+    # This is for showing the contours detection.
+    # https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html
+    if is_show==True:
+        show_img = tour.DrawContours(img,contour)
+        show.ShowImage(show_img,'Show Contour 01')
+        show_img = tour.DrawContours(dilate_img,contour)
+        show.ShowImage(show_img,'Show Contour 02')   
+        print()
+        print('original_angle:',minAreaRect[-1])
+        print('output_angle__:',angle)
+        print('Reported by ImageProcessing / Rotation.py / def GetSkewAngle')
+        print()
+
+    #####################################################################################################################
+
+ 
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False
+ 
+from PIL import Image 
+ 
+
+def VeryDilateImage(
+        img:np.ndarray,
+        threshold_px:None|int = None,
+        kernel      :np.ndarray = np.ones((2,30)),
+        kernel_area :int = 9,
+        ):
+    img = GrayImage(img)    
+    img.GaussBlur(kernel_area)
+    if threshold_px != None:
+        img.Threshold(threshold_px = threshold_px)   
+    img.Threshold(threshold_px = None)   
+    # https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html
+    # kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (30, 5))
+    img.Dilate(kernel=kernel)
+    return img
+ 
+def InitImage(img:np.ndarray | str, is_gray:bool = False):
+    if is_gray == True:
+        if type(img) == str:
+            return cv2.cvtColor(cv2.imread(img), cv2.COLOR_BGR2GRAY)
+        elif len(img.shape)==3:
+            return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        elif len(img.shape)==2:
+            return np.copy(img)
+    else:
+        if type(img) == str:
+            return cv2.imread(img)
+        elif len(img.shape)==3:
+            return np.copy(img)
+        elif len(img.shape)==2:
+            return cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
+
+ 
+from ShowImage import InitImage
+ 
+        #super(Image).__init__()
+ 
+self.img = 
+ 
+if type(self.img) == str:
+            self.img = cv2.imread(self.img)
+            self.img = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
+        elif len(self.img.shape)==3:
+            self.img = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
+        elif len(self.img.shape)==2:
+            self.img = np.copy(self.img)
+ 
+            img = cv2.imread(img)
+ 
+    return img
+ 
+, img:np.ndarray, dilate:np.ndarray
+ 
+pass
+ 
+GrayImage|
+ 
+GrayImage(
+ 
+
+def AdjustFFTForDisplay(dft:np.ndarray):
+    dft = np.abs(dft)
+    dft = dft/(255.0**2)
+    dft = dft ** (1/4)
+    return dft
+ 
+    if size == None:
+        size = 
+ 
+#, color = [255, 255, 255], is_gray=True):
+ 
+    rows = dft.shape[0]
+    cols = dft.shape[1]    
+ 
+rows = dft.shape[0]
+    cols = dft.shape[1]    
+    center_rows = math.floor(rows/2)
+    center_cols = math.floor(cols/2)
+    if updated_rows>=center_rows or updated_cols>=center_cols:
+        print('WARNING: updated_rows and/or updated_cols is invalid.')
+        print('dft.shape____:',dft.shape)
+        print('center_rows__:',center_rows)
+        print('updated_rows_:',updated_rows)
+        print('center_cols__:',center_cols)
+        print('updated_cols_:',updated_cols)
+        print('Reported by ImageProcessing / FFT.py / def PrivateEditFFT')
+        return dft
+ 
+    print('x',x)
+    print('y',y)
+ 
+if max_size == None:
+        max_size = size
+ 
+print(img.img.shape)
+ 
+    #if img.shape[1] < x + width and img.shape[0] < y + height:
+    #    crop = img[y:y+height, x:x+width]
+    #    return crop 
+    #else:
+    #    print('Input is in valid')
+    #    print('x',x)
+    #    print('y',y)
+    #    print('width',width)
+    #    print('height',height)
+    #    print('img',img.shape)
+    #    return img
+ 
+ax_size
+ 
+'''
+ 
+'''
+ 
+max_size:int
+ 
+,is_x:bool
+ 
+    if is_x == True:
+        is_x = 1
+    else:
+        is_x = 0
+ 
+
+def RelU(num:int):
+    if num < 0:
+        return 0 
+    else:
+        return num
+
+ 
+|float
+ 
+def FFTExtraHandsWarning(dft:np.ndarray, updated_rows:int, updated_cols:int, function_name:str):
+    center_rows = math.floor(dft.shape[0]/2)
+    center_cols = math.floor(dft.shape[1]/2)
+    # https://youtu.be/mI9FIugGIZQ?si=KnaCetRmaAbosYeT
+    print()
+    print('Extra Hands/Legs (Polymelia) : 1 in 1700')
+    print('WARNING: updated_rows and/or updated_cols is invalid.')
+    print('dft.shape____:',dft.shape)
+    print('center_rows__:',center_rows)
+    print('updated_rows_:',updated_rows)
+    print('center_cols__:',center_cols)
+    print('updated_cols_:',updated_cols)
+    print('Reported by ImageProcessing / FFT.py / def '+function_name)
+    print('Reported by ImageProcessing / FFT.py / def FFTExtraHandsWarning')
+    print()
+ 
++function_name
+ 
+        ## warning='FFTCircleSharpen(dft,updated_rows,updated_cols,new_frequency=0)'
+        ## FFTExtraHandsWarning(dft,updated_rows,updated_cols,warning)
+ 
+
+def DefaultDilateImage(
+        img,
+        threshold_px    =   None,
+        kernel          =   np.ones((2,30)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        is_show         =   False
+        ):
+    dilate_img = GrayImage(img)    
+    dilate_img = GaussBlur(dilate_img,OddKernelArea(kernel_area))
+    if isinstance(threshold_px, (int,float)):
+        dilate_img = BinaryPx(dilate_img,threshold_px,isinverse=is_binary_inv)   
+    if is_otsu==True:
+        dilate_img = OtsuBinaryPx(dilate_img,isinverse=is_binary_inv)   
+    # https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html
+    # kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (30, 5))
+    dilate_img = cv2.dilate(dilate_img, kernel, iterations=2)
+    if is_show==True:
+        show.ShowImage(dilate_img,'DefaultDilateImage')
+    return dilate_img
+ 
+    kernel = np.ones((5,5),np.uint8)
+ 
+kernel = np.ones((5,5),np.uint8)
+ 
+kernel = np.ones((5,5),np.uint8)
+ 
+    img = OtsuBinaryPx(dilate_img,isinverse=is_binary_inv)   
+ 
+dilate_img,
+ 
+isinverse=is_binary_inv
+ 
+dilate_img,OddKernelArea(
+ 
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+ 
+if is_otsu==True:
+        
+ 
+if isinstance(threshold_px, (int,float)):
+        
+ 
+def DefaultDilateImage(
+        img,
+        threshold_px    =   None,
+        kernel          =   np.ones((2,30)),
+        kernel_area     =   9,
+        is_binary_inv   =   True,
+        is_otsu         =   True,
+        ):
+    dilate_img = GrayImage(img)    
+    dilate_img = GaussBlur(dilate_img,OddKernelArea(kernel_area))
+    if isinstance(threshold_px, (int,float)):
+        dilate_img = BinaryPx(dilate_img,threshold_px,isinverse=is_binary_inv)   
+    if is_otsu==True:
+        dilate_img = OtsuBinaryPx(dilate_img,isinverse=is_binary_inv)   
+    # https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html
+    # kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (30, 5))
+    dilate_img = cv2.dilate(dilate_img, kernel, iterations=2)
+    return dilate_img
+ 
+        is_show         =   False
+ 
+    if is_show==True:
+        show.ShowImage(dilate_img,'DefaultDilateImage')
+ 
+img.SharpFilter2D(ls=[1,2,3])
+ 
+99
+ 
+img.Show()
+ 
+img.InvertedImage()
+ 
+########################################################################################################################################################
+
+ 
+########################################################################################################################################################
+    # ImageUtility.py
+
+    def InvertedImage(self):
+        self.img = InvertedImage(self.img)
+ 
+def GrayImage(img):
+    return cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+ 
+ + 4j
+ 
+img.Zoom(0.8)
+ 
+    angle = 0
+ 
+, coord = None
+ 
+    cy, cx = [ i/2 for i in img.shape[:-1] ] if coord is None else coord[::-1]
+ 
+    angle=0
+ 
+coord = None
+ 
+    print(cx,'=',img.shape[0]/2)
+    print(cy,'=',img.shape[1]/2)
+ 
+
+    ls = [1,2,3,4]
+    print(ls[:2])
+ 
+    print('img',img.shape[:-1])
+ 
+    coord=None
+ 
+    cy, cx = [ i/2 for i in img.shape[:-1] ] if coord is None else coord[::-1]
+    print('cx',cx)
+    print('cy',cy)
+ 
+angle=0, coord=None
+ 
+img,
+ 
+Adaptive
+ 
+#.astype("uint8")
+ 
+def SetIFFT(dft):
+    img = GetIFFT(dft)
+    return img
+ 
+.astype("uint8")
+ 
+, SetIFFT
+ 
+dft = img.GetFFTImage()
+#print(img.Shape())
+ 
+dft = dft.GetFFTImage()
+ 
+dft = dft.GetFFTImage()
+ 
+    def SetIFFT(self):
+        self.img = SetIFFT(self.img)
+ 
+    fft_size=None
+ 
+fft_size=None
+ 
+scale=255
+ 
+########################################################################################################################################################
+    # Get Data
+
+    
+ 
+########################################################################################################################################################
+    # Get Data
+
+    def ReturnImg(self):
+        return Image(self.img)
+ 
+    def ReturnImg(self):
+        return self.img
+
+    def ReturnGrayImg(self):
+        return GrayImage(self.img)
+ 
+    def ReturnImg(self):
+        return Image(self.img)
+
+ 
+self, 
+ 
+, self
+ 
+Kernel2D,
+ 
+DescribeThreshold, 
+ 
+# Import "ImportTest" could not be resolvedPylancereportMissingImports
+
+#HelloWorld()
+ 
+Gray
+ 
+Gray
+ 
 if IsGray(img):
         return img
     else:
