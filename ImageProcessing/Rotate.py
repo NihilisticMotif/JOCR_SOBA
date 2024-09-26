@@ -1,5 +1,5 @@
 
-from Contour import GetContours, SortContours_Area, DetectContourImg
+from Contour import GetContours, SortContours, DetectContourImg
 import numpy as np
 import cv2
 
@@ -29,7 +29,7 @@ def GetSkewAngle(img:np.ndarray):
 
     # 4.th There can be various approaches to determine skew angle, 
     # but we’ll stick to the simple one — take the largest text block and use its angle.
-    largest_contour = SortContours_Area(GetContours(img))[-1]
+    largest_contour = SortContours(GetContours(img))[-1]
 
     #####################################################################################################################
 
