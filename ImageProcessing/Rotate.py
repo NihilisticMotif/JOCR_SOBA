@@ -1,6 +1,5 @@
 
-from Contour import GetContours, SortContours_Area
-from Morphology import VeryDilateImage
+from Contour import GetContours, SortContours_Area, DetectContourImg
 import numpy as np
 import cv2
 
@@ -22,7 +21,7 @@ def GetSkewAngle(img:np.ndarray):
 
     if len(img.shape) == 3:
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    img = VeryDilateImage(img)
+    img = DetectContourImg(img)
 
     #####################################################################################################################
 

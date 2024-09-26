@@ -48,19 +48,4 @@ def Canny(img:np.ndarray, c1:int = 100, c2:int = 200):
         c2 = tp    
     return cv2.Canny(img, SetPx(c1), SetPx(c2))
 
-def VeryDilateImage(
-        img:np.ndarray,
-        threshold_px:None|int = None,
-        kernel      :np.ndarray = np.ones((2,30)),
-        kernel_area :int = 9,
-        ):
-    img = GaussBlur(img, kernel_area)
-    if threshold_px != None:
-        img = Threshold(threshold_px = threshold_px).Edit(img) 
-    img = Threshold(method = cv2.THRESH_BINARY_INV).Edit(img) 
-    # https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html
-    # kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (30, 5))
-    img = Dilate(img, kernel = kernel)
-    return img
-
 # https://nanonets.com/blog/ocr-with-tesseract/

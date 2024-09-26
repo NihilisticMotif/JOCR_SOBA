@@ -6,7 +6,8 @@ from Image import Image
 import cv2 
 import numpy as np
 from Blur import MeanBlur, GaussBlur, BilateralBlur
-from Morphology import ThinFont, ThickFont, RemoveNoise, Dilate, Erode, Opening, Canny, VeryDilateImage
+from Morphology import ThinFont, ThickFont, RemoveNoise, Dilate, Erode, Opening, Canny
+from Contour import DetectContourImg
 from Threshold import Threshold, AdaptiveThreshold
 from Kernel2D import SharpKernel2D
 from FFT2D import FFTBlur, FFTSharp, GetFFT, GetFFTImage
@@ -51,12 +52,12 @@ class GrayImage(Image):
     def Canny(self, c1:int = 100, c2:int = 200):
         self.img = Canny(self.img, c1, c2)
 
-    def VeryDilateImage(
+    def DetectContourImg(
             self,
             threshold_px:None|int = None,
             kernel      :np.ndarray = np.ones((2,30)),
-            kernel_area :int = 9,):
-        self.img = VeryDilateImage(
+            kernel_area :int = 9):
+        self.img = DetectContourImg(
             self.img    ,
             threshold_px,
             kernel      ,
