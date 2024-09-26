@@ -1,3 +1,69 @@
+def SortContours(contour: list, is_reverse: bool = False, method: str | int = 4):
+    message = '''
+    method:str|int = 4
+    * 0, x, left, right
+    * 1, y, top, bottom, up, down
+    * 2, w, width
+    * 3, h, height
+    * 4, size, area, s, a
+    '''
+    
+    def sort_by_x(c):
+        return cv2.boundingRect(c)[0]
+    
+    def sort_by_y(c):
+        return cv2.boundingRect(c)[1]
+    
+    def sort_by_width(c):
+        return cv2.boundingRect(c)[2]
+    
+    def sort_by_height(c):
+        return cv2.boundingRect(c)[3]
+    
+    def sort_by_area(c):
+        return cv2.contourArea(c)
+
+    # Handling integer method options
+    if isinstance(method, int):
+        method = GetDefaultOption(method, [4, 0, 1, 2, 3], message)
+        method_map = {
+            0: sort_by_x,
+            1: sort_by_y,
+            2: sort_by_width,
+            3: sort_by_height,
+            4: sort_by_area
+        }
+        return sorted(contour, key=method_map[method], reverse=is_reverse)
+
+    # Handling string method options
+    if isinstance(method, str):
+        method = method.replace(" ", "").lower()
+        method_map_str = {
+            'x': sort_by_x, 'l': sort_by_x, 'r': sort_by_x, '0': sort_by_x,
+            'y': sort_by_y, 't': sort_by_y, 'b': sort_by_y, 'u': sort_by_y, 'd': sort_by_y, '1': sort_by_y,
+            'w': sort_by_width, '2': sort_by_width,
+            'h': sort_by_height, '3': sort_by_height,
+            's': sort_by_area, 'a': sort_by_area, '4': sort_by_area
+        }
+        sort_fn = method_map_str.get(method[0], sort_by_area)
+        return sorted(contour, key=sort_fn, reverse=is_reverse)
+ 
+ -> list
+ 
+    # Mapping method options to sorting functions
+ 
+    """
+    Sort contours based on the specified method.
+    
+    Parameters:
+    - contour: List of contours to be sorted.
+    - is_reverse: If True, sorts in reverse order.
+    - method: Sorting method. Can be an int or string. 
+    
+    Returns:
+    - Sorted list of contours.
+    """
+ 
 from ShowImage import Show
  
     Show(img)

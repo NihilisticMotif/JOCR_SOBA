@@ -56,6 +56,3 @@ method:str|int = 4
         else:
             print(message)
             return sorted(contour, key=lambda x:cv2.contourArea(x), reverse = is_reverse)
-
-
-
